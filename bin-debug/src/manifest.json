@@ -1,4 +1,11 @@
 [
+	"GameUtils/BassPanel.ts",
+	"GameUtils/Menu.ts",
+	"GameUtils/utils.ts",
+	"GameUtils/TipsPanel.ts",
 	"LoadingUI.ts",
+	"PlantGame/MainGameScene.ts",
+	"GameUtils/LoadingPanel.ts",
+	"PlantGame/StartGameScene.ts",
 	"Main.ts"
 ]
