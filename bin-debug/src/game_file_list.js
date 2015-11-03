@@ -1,11 +1,13 @@
 var game_file_list = [
 	"GameUtils/BassPanel.js",
-	"GameUtils/Menu.js",
 	"GameUtils/utils.js",
-	"GameUtils/TipsPanel.js",
+	"GameUtils/Menu.js",
 	"LoadingUI.js",
+	"PlantGame/GameDescribeScene.js",
+	"PlantGame/GameRankScene.js",
 	"PlantGame/MainGameScene.js",
 	"GameUtils/LoadingPanel.js",
 	"PlantGame/StartGameScene.js",
+	"GameUtils/ScrollView.js",
 	"Main.js"
 ];

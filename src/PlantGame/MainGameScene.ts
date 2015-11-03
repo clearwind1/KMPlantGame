@@ -18,8 +18,8 @@ module PlantGame
             this.addChild(bg);
 
 
-            var tip:GameUtil.TipsPanel = new GameUtil.TipsPanel("just just just just just test!!!");
-            this.addChild(tip);
+            //var tip:GameUtil.TipsPanel = new GameUtil.TipsPanel("just just just just just test!!!");
+            //this.addChild(tip);
             //tip.setTextwidth(40*5);
 
         }

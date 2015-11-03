@@ -14,9 +14,9 @@ var PlantGame;
             bg.x = this.mStageW / 2;
             bg.y = this.mStageH / 2;
             this.addChild(bg);
-            var tip = new GameUtil.TipsPanel("just just just just just test!!!");
-            this.addChild(tip);
-            tip.setTextwidth(40 * 5);
+            //var tip:GameUtil.TipsPanel = new GameUtil.TipsPanel("just just just just just test!!!");
+            //this.addChild(tip);
+            //tip.setTextwidth(40*5);
         };
         /**
          * 显示土地，种植种子

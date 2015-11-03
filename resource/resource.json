@@ -1,7 +1,7 @@
 {
 	"groups":[
 	{
-		"keys":"bgImage,egretIcon,beginBtn_png,endBG_png,loadingbar_png,acceptBtn_png,alertBg_png,cancelBtn_png",
+		"keys":"bgImage,egretIcon,beginBtn_png,endBG_png,loadingbar_png,acceptBtn_png,alertBg_png,cancelBtn_png,buttonImg_png,gameDescribe_json",
 		"name":"preload"
 	}],
 	"resources":[
@@ -49,5 +49,15 @@
 		"name":"cancelBtn_png",
 		"type":"image",
 		"url":"assets/cancelBtn.png"
+	},
+	{
+		"name":"buttonImg_png",
+		"type":"image",
+		"url":"assets/buttonImg.png"
+	},
+	{
+		"name":"gameDescribe_json",
+		"type":"json",
+		"url":"assets/gameDescribe.json"
 	}]
 }
