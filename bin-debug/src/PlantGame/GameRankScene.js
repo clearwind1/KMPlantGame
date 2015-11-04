@@ -22,7 +22,7 @@ var PlantGame;
             btn.y = 650;
             this.addChild(btn);
             this.showRank();
-            this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchmove, this);
+            //this.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.touchmove,this);
         };
         __egretProto__.touchmove = function (event) {
             console.log("scrolltop=======", this.mscrollview.getScorllTop());

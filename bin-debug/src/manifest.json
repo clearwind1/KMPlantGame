@@ -2,6 +2,9 @@
 	"GameUtils/BassPanel.ts",
 	"GameUtils/utils.ts",
 	"GameUtils/Menu.ts",
+	"GameUtils/TipsPanel.ts",
+	"PlantGame/GinsengBasketPanel.ts",
+	"PlantGame/RewardPanel.ts",
 	"LoadingUI.ts",
 	"PlantGame/GameDescribeScene.ts",
 	"PlantGame/GameRankScene.ts",
@@ -9,5 +12,6 @@
 	"GameUtils/LoadingPanel.ts",
 	"PlantGame/StartGameScene.ts",
 	"GameUtils/ScrollView.ts",
-	"Main.ts"
+	"Main.ts",
+	"PlantGame/LandPanel.ts"
 ]
