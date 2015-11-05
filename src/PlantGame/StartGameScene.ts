@@ -32,7 +32,7 @@ module PlantGame
             {
                 var btn:GameUtil.Menu = new GameUtil.Menu(this,"buttonImg_png","buttonImg_png",fun[i]);
                 btn.setScaleMode();
-                btn.setTextField(text[i]);
+                btn.addButtonText(text[i]);
                 btn.x = this.mStageW/2;
                 btn.y = 500+i*100;
                 this.addChild(btn);

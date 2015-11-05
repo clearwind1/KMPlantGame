@@ -9,7 +9,7 @@ var GameUtil;
         }
         var __egretProto__ = GameConfig.prototype;
         GameConfig.IP = "localhost:8080/"; //http连接地址
-        GameConfig.bRunFPS = true; //是否显示FPS
+        GameConfig.bRunFPS = false; //是否显示FPS
         //场景转换
         GameConfig.NullAction = 0; //无动画
         GameConfig.CrossLeft = 1; //从左往右

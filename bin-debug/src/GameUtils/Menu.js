@@ -39,9 +39,6 @@ var GameUtil;
             this.btnImg = new egret.Bitmap();
             this.btnImg.texture = this.menuNormalTexture;
             this.addChild(this.btnImg);
-            this.mTextField = GameUtil.createTextField(this.btnImg.texture.textureWidth / 2, this.btnImg.texture.textureHeight / 2, 20);
-            this.mTextField.text = "";
-            this.addChild(this.mTextField);
             this.touchEnabled = true;
             this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.TouchBegin, this);
             this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.TouchMove, this);
@@ -67,24 +64,23 @@ var GameUtil;
             this.menuSelectTexture = RES.getRes(select);
             this.btnImg.texture = this.menuNormalTexture;
         };
-        /**
-         * 设置按钮文字
-         * @param text {string} 文字
-         * @param size {number} 文字大小
-         * @param color {number} 文字颜色
-         * @param stroke {number} 文字描边大小
-         * @param strokeColor {number} 文字描边颜色
-         */
-        __egretProto__.setTextField = function (text, size, color, stroke, strokeColor) {
-            if (size === void 0) { size = 20; }
-            if (color === void 0) { color = 0x000000; }
-            if (stroke === void 0) { stroke = 0; }
-            if (strokeColor === void 0) { strokeColor = 0x000000; }
+        __egretProto__.addButtonImg = function (img, offx, offy) {
+            if (offx === void 0) { offx = 0; }
+            if (offy === void 0) { offy = 0; }
+            var btimg = GameUtil.createBitmapByName(img);
+            btimg.x = this.btnImg.texture.textureWidth / 2 + offx;
+            btimg.y = this.btnImg.texture.textureHeight / 2 + offy;
+            this.addChild(btimg);
+        };
+        __egretProto__.addButtonText = function (text, offx, offy) {
+            if (offx === void 0) { offx = 0; }
+            if (offy === void 0) { offy = 0; }
+            this.mTextField = GameUtil.createTextField(this.btnImg.texture.textureWidth / 2 + offx, this.btnImg.texture.textureHeight / 2 + offy, 20);
             this.mTextField.text = text;
-            this.mTextField.size = size;
-            this.mTextField.textColor = color;
-            this.mTextField.stroke = stroke;
-            this.mTextField.strokeColor = strokeColor;
+            this.addChild(this.mTextField);
+        };
+        __egretProto__.getBtnText = function () {
+            return this.mTextField;
         };
         __egretProto__.TouchBegin = function (event) {
             //console.log("touchbegin");

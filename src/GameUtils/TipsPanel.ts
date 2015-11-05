@@ -18,6 +18,13 @@ module GameUtil
         public mStageW = egret.MainContext.instance.stage.stageWidth;
         public mStageH = egret.MainContext.instance.stage.stageHeight;
 
+        /**
+         * 创建一个提示框
+         * @param tipimg 提示框图片名
+         * @param tipText 提示文字
+         * @param disp 是否自己消失
+         * @param sec 自己消失时间
+         */
         public constructor(tipimg:string,tipText:string,disp:boolean=false,sec:number=1200)
         {
             super();
@@ -54,21 +61,37 @@ module GameUtil
 
         }
 
+        /**
+         * 显示提示文字
+         */
         private showtip():void
         {
             this.text = createTextField(this.mStageW/2,this.mStageH/2,this.textsize);
             this.text.text = this.tipText;
             this.addChild(this.text);
         }
+
+        /**
+         * 提示文字的长度
+         * @param width 长度
+         */
         public setTextwidth(width:number):void
         {
             this.text.width = width;
         }
+
+        /**
+         * 提示文字字体大小
+         * @param size 尺寸
+         */
         public setTextSize(size:number):void
         {
             this.text.size = size;
         }
 
+        /**
+         * 显示确认按钮
+         */
         private showbutton():void
         {
             var surebtn:Menu = new Menu(this,"acceptBtn_png","acceptBtn_png",this.close);

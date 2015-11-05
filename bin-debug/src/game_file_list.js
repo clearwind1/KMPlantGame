@@ -2,6 +2,7 @@ var game_file_list = [
 	"GameUtils/BassPanel.js",
 	"GameUtils/utils.js",
 	"GameUtils/Menu.js",
+	"PlantGame/GameData.js",
 	"GameUtils/TipsPanel.js",
 	"PlantGame/GinsengBasketPanel.js",
 	"PlantGame/RewardPanel.js",

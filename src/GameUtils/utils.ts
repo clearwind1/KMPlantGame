@@ -8,7 +8,7 @@ module GameUtil
     export class GameConfig
     {
         public static IP:string = "localhost:8080/";        //http连接地址
-        public static bRunFPS:boolean = true;              //是否显示FPS
+        public static bRunFPS:boolean = false;              //是否显示FPS
 
         //场景转换
         public static NullAction:number = 0;            //无动画

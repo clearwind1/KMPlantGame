@@ -49,10 +49,6 @@ module GameUtil
             this.btnImg.texture = this.menuNormalTexture;
             this.addChild(this.btnImg);
 
-            this.mTextField = createTextField(this.btnImg.texture.textureWidth/2,this.btnImg.texture.textureHeight/2,20);
-            this.mTextField.text = "";
-            this.addChild(this.mTextField);
-
             this.touchEnabled = true;
             this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.TouchBegin,this);
             this.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.TouchMove,this);
@@ -82,21 +78,23 @@ module GameUtil
             this.btnImg.texture = this.menuNormalTexture;
         }
 
-        /**
-         * 设置按钮文字
-         * @param text {string} 文字
-         * @param size {number} 文字大小
-         * @param color {number} 文字颜色
-         * @param stroke {number} 文字描边大小
-         * @param strokeColor {number} 文字描边颜色
-         */
-        public setTextField(text:string,size:number = 20,color:number = 0x000000,stroke:number = 0,strokeColor:number = 0x000000):void
+        public addButtonImg(img:string,offx:number=0,offy:number=0):void
         {
+            var btimg: egret.Bitmap = createBitmapByName(img);
+            btimg.x = this.btnImg.texture.textureWidth/2 + offx;
+            btimg.y = this.btnImg.texture.textureHeight/2 + offy;
+            this.addChild(btimg);
+        }
+
+        public addButtonText(text:string,offx:number=0,offy:number=0):void
+        {
+            this.mTextField = createTextField(this.btnImg.texture.textureWidth/2+offx,this.btnImg.texture.textureHeight/2+offy,20);
             this.mTextField.text = text;
-            this.mTextField.size = size;
-            this.mTextField.textColor = color;
-            this.mTextField.stroke = stroke;
-            this.mTextField.strokeColor = strokeColor;
+            this.addChild(this.mTextField);
+        }
+        public getBtnText():egret.TextField
+        {
+            return this.mTextField;
         }
 
         private TouchBegin(event:egret.TouchEvent):void

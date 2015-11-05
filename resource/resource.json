@@ -1,7 +1,7 @@
 {
 	"groups":[
 	{
-		"keys":"bgImage,egretIcon,beginBtn_png,endBG_png,loadingbar_png,acceptBtn_png,alertBg_png,cancelBtn_png,buttonImg_png,gameDescribe_json,returnbtn_png,describeURL_json,diamod1_png,diamod2_png,diamod3_png,diamod4_png,diamod5_png,diamod0_png",
+		"keys":"bgImage,egretIcon,beginBtn_png,endBG_png,loadingbar_png,acceptBtn_png,alertBg_png,cancelBtn_png,buttonImg_png,gameDescribe_json,returnbtn_png,describeURL_json,diamod1_png,diamod2_png,diamod3_png,diamod4_png,diamod5_png,diamod0_png,bottomFrame_png,floatFrame_png,ginsengbtn_png,rewardbtn_png,showseedbtn_png,playerImg_png,buttonFrame_png,bestseedbtn_png,seedbtn_png,seedreturnbtn_png,closebtn_png,ItemFrame_png,ginseng_png,rewardItem1_png,rewardItem2_png,rewardItem3_png",
 		"name":"preload"
 	}],
 	"resources":[
@@ -99,5 +99,85 @@
 		"name":"diamod0_png",
 		"type":"image",
 		"url":"assets/diamod0.png"
+	},
+	{
+		"name":"bottomFrame_png",
+		"type":"image",
+		"url":"assets/bottomFrame.png"
+	},
+	{
+		"name":"floatFrame_png",
+		"type":"image",
+		"url":"assets/floatFrame.png"
+	},
+	{
+		"name":"ginsengbtn_png",
+		"type":"image",
+		"url":"assets/ginsengbtn.png"
+	},
+	{
+		"name":"rewardbtn_png",
+		"type":"image",
+		"url":"assets/rewardbtn.png"
+	},
+	{
+		"name":"showseedbtn_png",
+		"type":"image",
+		"url":"assets/showseedbtn.png"
+	},
+	{
+		"name":"playerImg_png",
+		"type":"image",
+		"url":"assets/playerImg.png"
+	},
+	{
+		"name":"buttonFrame_png",
+		"type":"image",
+		"url":"assets/buttonFrame.png"
+	},
+	{
+		"name":"bestseedbtn_png",
+		"type":"image",
+		"url":"assets/bestseedbtn.png"
+	},
+	{
+		"name":"seedbtn_png",
+		"type":"image",
+		"url":"assets/seedbtn.png"
+	},
+	{
+		"name":"seedreturnbtn_png",
+		"type":"image",
+		"url":"assets/seedreturnbtn.png"
+	},
+	{
+		"name":"closebtn_png",
+		"type":"image",
+		"url":"assets/closebtn.png"
+	},
+	{
+		"name":"ItemFrame_png",
+		"type":"image",
+		"url":"assets/ItemFrame.png"
+	},
+	{
+		"name":"ginseng_png",
+		"type":"image",
+		"url":"assets/ginseng.png"
+	},
+	{
+		"name":"rewardItem1_png",
+		"type":"image",
+		"url":"assets/rewardItem1.png"
+	},
+	{
+		"name":"rewardItem2_png",
+		"type":"image",
+		"url":"assets/rewardItem2.png"
+	},
+	{
+		"name":"rewardItem3_png",
+		"type":"image",
+		"url":"assets/rewardItem3.png"
 	}]
 }

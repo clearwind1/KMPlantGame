@@ -2,6 +2,7 @@
 	"GameUtils/BassPanel.ts",
 	"GameUtils/utils.ts",
 	"GameUtils/Menu.ts",
+	"PlantGame/GameData.ts",
 	"GameUtils/TipsPanel.ts",
 	"PlantGame/GinsengBasketPanel.ts",
 	"PlantGame/RewardPanel.ts",

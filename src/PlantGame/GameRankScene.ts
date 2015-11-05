@@ -24,7 +24,7 @@ module PlantGame
 
             var btn:GameUtil.Menu = new GameUtil.Menu(this,"buttonImg_png","buttonImg_png",this.goback);
             btn.setScaleMode();
-            btn.setTextField("返回首页");
+            btn.addButtonText("返回首页");
             btn.x = this.mStageW/2;
             btn.y = 650;
             this.addChild(btn);

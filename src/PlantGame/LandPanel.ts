@@ -18,6 +18,13 @@ module PlantGame
         }
         public init():void
         {
+            for(var i:number= 0;i < 6;i++)
+            {
+                this.landSeedKind[i] = GameData.getInstance().landSeedKind[i];
+                this.landstate[i] = GameData.getInstance().landstate[i];
+                this.haveSeendland[i] = GameData.getInstance().haveSeendland[i];
+            }
+
             var data:Object[] = [{"lanID":0},{"lanID":1},{"lanID":2},{"lanID":3},{"lanID":4},{"lanID":5}];
             for(var i:number=0;i < 6;i++)
             {
@@ -51,11 +58,13 @@ module PlantGame
                     console.log("sengk========",sengk);
                     var tip: GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png","收获了"+sengk+"品种的人参",true);
                     this.addChild(tip);
+                    GameData.getInstance().ginsendNum[sengk]++;
                 }
                 else
                 {
                     var tip: GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png","收获了新开河参",true);
                     this.addChild(tip);
+                    GameData.getInstance().ginsendNum[5]++;
                 }
                 this.haveSeendland[landID] = 0;
             }

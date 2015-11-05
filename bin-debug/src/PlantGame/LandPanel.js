@@ -42,10 +42,12 @@ var PlantGame;
                     console.log("sengk========", sengk);
                     var tip = new GameUtil.TipsPanel("alertBg_png", "收获了" + sengk + "品种的人参", true);
                     this.addChild(tip);
+                    PlantGame.GameData.getInstance().ginsendNum[sengk]++;
                 }
                 else {
                     var tip = new GameUtil.TipsPanel("alertBg_png", "收获了新开河参", true);
                     this.addChild(tip);
+                    PlantGame.GameData.getInstance().ginsendNum[5]++;
                 }
                 this.haveSeendland[landID] = 0;
             }
