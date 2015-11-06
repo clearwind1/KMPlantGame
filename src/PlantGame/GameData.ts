@@ -15,8 +15,15 @@ module PlantGame
         public landSeedKind:number[];          //各个土地种子种类
         public haveSeendland:number[];         //各个土地是否有种子
 
+        public playerName:string;
+        public isRegister:boolean;
+
         public constructor()
         {
+            this.ginsendNum = [];
+            this.landSeedKind = [];
+            this.landstate = [];
+            this.haveSeendland = [];
             this.init();
         }
 
@@ -30,7 +37,8 @@ module PlantGame
                 this.haveSeendland[i] = 0;
             }
             this.seednumber = 3;
-            this.bestSeednumber = 0;
+            this.bestSeednumber = 1;
+            this.isRegister = false;
         }
 
         private static _instance:GameData;

@@ -25,14 +25,21 @@ module PlantGame
                 this.haveSeendland[i] = GameData.getInstance().haveSeendland[i];
             }
 
+            var lanpox: number[] = [95,230,170,310,250,390];
+            var lanpoy: number[] = [340,320,420,390,505,465];
             var data:Object[] = [{"lanID":0},{"lanID":1},{"lanID":2},{"lanID":3},{"lanID":4},{"lanID":5}];
             for(var i:number=0;i < 6;i++)
             {
                 var lanimg:string = "diamod" + this.landstate[i] +"_png";
                 this.lanpic[i] = new GameUtil.Menu(this,lanimg,lanimg,this.ChangeLandState,[data[i]]);
-                this.lanpic[i].x = 160 + 160*(i%2);
-                this.lanpic[i].y = 320 + 80*Math.floor(i/2);
+                this.lanpic[i].x = lanpox[i];
+                this.lanpic[i].y = lanpoy[i];
                 this.addChild(this.lanpic[i]);
+
+                if(this.landstate[i] == 0)
+                {
+                    this.lanpic[i].visible = false;
+                }
             }
         }
 
@@ -49,23 +56,22 @@ module PlantGame
             else if(this.landstate[landID] == 4)
             {
                 //收获
+                var sengk:number;
                 this.landstate[landID] = 0;
+                this.lanpic[landID].visible = false;
                 //console.log("收获=======",this.landSeedKind[landID]);
                 this.updatastate(landID);
                 if(this.landSeedKind[landID] == 0)
                 {
-                    var sengk:number = Math.floor(Math.random()*1000)%6;
-                    console.log("sengk========",sengk);
-                    var tip: GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png","收获了"+sengk+"品种的人参",true);
-                    this.addChild(tip);
-                    GameData.getInstance().ginsendNum[sengk]++;
+                    sengk = Math.floor(Math.random()*1000)%6;
                 }
                 else
                 {
-                    var tip: GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png","收获了新开河参",true);
-                    this.addChild(tip);
-                    GameData.getInstance().ginsendNum[5]++;
+                    sengk = 5;
                 }
+
+                GameData.getInstance().ginsendNum[sengk]++;
+                this.getsengAnimata(sengk,landID);
                 this.haveSeendland[landID] = 0;
             }
             else
@@ -88,6 +94,7 @@ module PlantGame
             this.landstate[landid]++;
             this.updatastate(landid);
             this.haveSeendland[landid] = 1;
+            this.lanpic[landid].visible = true;
         }
 
         private updatastate(lanid:number):void
@@ -109,6 +116,43 @@ module PlantGame
             }
 
             return landid;
+        }
+
+        private getsengAnimata(sengkind,landID:number):void
+        {
+            var lanpox: number[] = [95,230,170,310,250,390];
+            var lanpoy: number[] = [340,320,420,390,505,465];
+
+            var sengName:string;
+            if(sengkind==5)
+            {
+                sengName = "bestginseng_png";
+            }
+            else
+            {
+                sengName = "ginseng_png";
+            }
+            var seng: egret.Bitmap = GameUtil.createBitmapByName(sengName);
+            seng.x = lanpox[landID];
+            seng.y = lanpoy[landID];
+            this.addChild(seng);
+
+            var self:any = this;
+            var tw = egret.Tween.get(seng);
+            tw.to({y:seng.y-50},500).to({x:60,y:747,scaleX:0.2,scaleY:0.2},500).call(function(){
+                self.removeChild(seng);
+                if(sengkind == 5)
+                {
+                    var besttip: PlantGame.BestginsengTip = new PlantGame.BestginsengTip();
+                    self.addChild(besttip);
+                }
+                else
+                {
+                    var tip: GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png","收获了"+sengkind+"品种的人参");
+                    self.addChild(tip);
+                }
+            });
+
         }
 
         private static _instance:LandPanel;

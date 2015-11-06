@@ -44,6 +44,7 @@ var Main = (function (_super) {
     __egretProto__.createGameScene = function () {
         //登录授权
         //开始游戏
+        PlantGame.GameData.getInstance();
         GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
         return;
         var sky = this.createBitmapByName("bgImage");

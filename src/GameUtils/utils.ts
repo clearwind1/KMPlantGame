@@ -40,7 +40,7 @@ module GameUtil
      * @param align {string} 对齐方式
      * @returns {egret.TextField} 文字
      */
-    export function createTextField(x:number,y:number,size:number,anchorX:number=0.5,anchorY:number=0.5,align:string="center"):egret.TextField
+    export function createTextField(x:number,y:number,size:number,anchorX:number=0.5,anchorY:number=0.5,align:string=egret.HorizontalAlign.CENTER):egret.TextField
     {
         var textfiled:egret.TextField = new egret.TextField();
         textfiled.x = x;
@@ -49,6 +49,31 @@ module GameUtil
         textfiled.anchorY = anchorY;
         textfiled.size = size;
         textfiled.textAlign = align;
+        return textfiled;
+    }
+
+    /**
+     * 创建一个输入文本
+     * @param x
+     * @param y
+     * @param size
+     * @param width
+     * @param height
+     * @param maxChars 最大输入数量
+     * @returns {egret.TextField}
+     */
+    export function createInputText(x:number,y:number,size:number,width:number,height:number,maxChars:number = 0):egret.TextField
+    {
+        var textfiled:egret.TextField = new egret.TextField();
+        textfiled.type = egret.TextFieldType.INPUT;
+        textfiled.text = "";
+        textfiled.x = x;
+        textfiled.y = y;
+        textfiled.width = width;
+        textfiled.height = height;
+        textfiled.size = size;
+        textfiled.maxChars = maxChars;
+        textfiled.textAlign = egret.HorizontalAlign.LEFT;
         return textfiled;
     }
 
@@ -88,6 +113,27 @@ module GameUtil
         }
         s = s.substr( 0, s.length - 1 );
         return s;
+    }
+
+    /**
+     * 正则表达式判断是否为中文
+     * @param name
+     * @returns {boolean}
+     */
+    export function isChineseName( name:string ):boolean
+    {
+        return /^[\u4e00-\u9fa5]+$/.test( name );
+    }
+
+    /**
+     * 正则表达式判断是否为手机号码
+     * @param num
+     * @returns {boolean}
+     */
+    export function  isPhoneNum( num:string ):boolean
+    {
+        num = num.toUpperCase();
+        return /^0\d{2,3}-?\d{7,11}$|^1\d{10}$/.test( num );
     }
 
     /**

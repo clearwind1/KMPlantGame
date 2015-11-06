@@ -23,8 +23,9 @@ var PlantGame;
             frameName.text = "参筐";
             this.addChild(frameName);
             var data = RES.getRes("describeURL_json");
+            var sengName = ["ginseng_png", "ginseng_png", "ginseng_png", "ginseng_png", "ginseng_png", "bestginseng_png"];
             for (var i = 0; i < 6; i++) {
-                var ginseng = new GameUtil.Menu(this, "ginseng_png", "ginseng_png", this.showginseng, [data[i]]);
+                var ginseng = new GameUtil.Menu(this, sengName[i], sengName[i], this.showginseng, [data[i]]);
                 ginseng.setScaleMode();
                 ginseng.x = 100 + 140 * (i % 3);
                 ginseng.y = 370 + 100 * Math.floor(i / 3);

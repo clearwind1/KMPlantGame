@@ -6,7 +6,6 @@ var PlantGame;
     var MainGameScene = (function (_super) {
         __extends(MainGameScene, _super);
         function MainGameScene() {
-            PlantGame.GameData.getInstance();
             _super.call(this);
         }
         var __egretProto__ = MainGameScene.prototype;
@@ -14,7 +13,7 @@ var PlantGame;
             this.mSeednumber = PlantGame.GameData.getInstance().seednumber;
             this.mBestSeednumber = PlantGame.GameData.getInstance().bestSeednumber;
             this.toolbtn = [];
-            var bg = GameUtil.createBitmapByName("endBG_png");
+            var bg = GameUtil.createBitmapByName("gamebg_jpg");
             bg.x = this.mStageW / 2;
             bg.y = this.mStageH / 2;
             this.addChild(bg);
@@ -31,7 +30,7 @@ var PlantGame;
             //头像
             //用户名
             var playerName = GameUtil.createTextField(211, 39, 25, 0, 0.5, egret.HorizontalAlign.LEFT);
-            playerName.text = "xxx的农场";
+            playerName.text = PlantGame.GameData.getInstance().playerName + "的农场";
             this.addChild(playerName);
             //退出游戏
             var btn = new GameUtil.Menu(this, "buttonFrame_png", "buttonFrame_png", this.goback);

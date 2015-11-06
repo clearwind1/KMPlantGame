@@ -25,6 +25,7 @@ var GameUtil;
             this.menuSelectTexture = null;
             this.bScaleMode = false;
             this.mScale = 0.9;
+            this.isActive = false;
             this.thisObj = context;
             this.param = param;
             this.init(normal, select, backFun);
@@ -88,6 +89,7 @@ var GameUtil;
             if (this.bScaleMode) {
                 this.scaleX = this.scaleY = this.mScale;
             }
+            this.isActive = true;
         };
         __egretProto__.TouchMove = function (event) {
             //console.log("touchmove");
@@ -98,7 +100,10 @@ var GameUtil;
             if (this.bScaleMode) {
                 this.scaleX = this.scaleY = 1;
             }
-            this.backFun.apply(this.thisObj, this.param);
+            if (this.isActive) {
+                this.backFun.apply(this.thisObj, this.param);
+            }
+            this.isActive = false;
         };
         __egretProto__.TouchCancel = function (event) {
             //console.log("touchcancel");
@@ -106,6 +111,7 @@ var GameUtil;
             if (this.bScaleMode) {
                 this.scaleX = this.scaleY = 1;
             }
+            this.isActive = false;
         };
         return Menu;
     })(egret.DisplayObjectContainer);

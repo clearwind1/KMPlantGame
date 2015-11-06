@@ -29,9 +29,10 @@ module PlantGame
             this.addChild(frameName);
 
             var data:Object[] = RES.getRes("describeURL_json");
+            var sengName:string[] = ["ginseng_png","ginseng_png","ginseng_png","ginseng_png","ginseng_png","bestginseng_png"];
             for(var i:number = 0;i < 6;i++)
             {
-                var ginseng: GameUtil.Menu = new GameUtil.Menu(this,"ginseng_png","ginseng_png",this.showginseng,[data[i]]);
+                var ginseng: GameUtil.Menu = new GameUtil.Menu(this,sengName[i],sengName[i],this.showginseng,[data[i]]);
                 ginseng.setScaleMode();
                 ginseng.x = 100 + 140*(i%3);
                 ginseng.y = 370 + 100*Math.floor(i/3);

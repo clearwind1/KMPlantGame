@@ -14,7 +14,6 @@ module PlantGame
 
         public constructor()
         {
-            PlantGame.GameData.getInstance();
             super();
         }
         public init():void
@@ -25,7 +24,7 @@ module PlantGame
 
 
             this.toolbtn = [];
-            var bg:egret.Bitmap = GameUtil.createBitmapByName("endBG_png");
+            var bg:egret.Bitmap = GameUtil.createBitmapByName("gamebg_jpg");
             bg.x = this.mStageW/2;
             bg.y = this.mStageH/2;
             this.addChild(bg);
@@ -45,7 +44,7 @@ module PlantGame
 
             //用户名
             var playerName: egret.TextField = GameUtil.createTextField(211,39,25,0,0.5,egret.HorizontalAlign.LEFT);
-            playerName.text = "xxx的农场";
+            playerName.text = GameData.getInstance().playerName + "的农场";
             this.addChild(playerName);
 
             //退出游戏

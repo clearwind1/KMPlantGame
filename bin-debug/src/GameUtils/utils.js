@@ -44,7 +44,7 @@ var GameUtil;
     function createTextField(x, y, size, anchorX, anchorY, align) {
         if (anchorX === void 0) { anchorX = 0.5; }
         if (anchorY === void 0) { anchorY = 0.5; }
-        if (align === void 0) { align = "center"; }
+        if (align === void 0) { align = egret.HorizontalAlign.CENTER; }
         var textfiled = new egret.TextField();
         textfiled.x = x;
         textfiled.y = y;
@@ -55,6 +55,31 @@ var GameUtil;
         return textfiled;
     }
     GameUtil.createTextField = createTextField;
+    /**
+     * 创建一个输入文本
+     * @param x
+     * @param y
+     * @param size
+     * @param width
+     * @param height
+     * @param maxChars 最大输入数量
+     * @returns {egret.TextField}
+     */
+    function createInputText(x, y, size, width, height, maxChars) {
+        if (maxChars === void 0) { maxChars = 0; }
+        var textfiled = new egret.TextField();
+        textfiled.type = egret.TextFieldType.INPUT;
+        textfiled.text = "";
+        textfiled.x = x;
+        textfiled.y = y;
+        textfiled.width = width;
+        textfiled.height = height;
+        textfiled.size = size;
+        textfiled.maxChars = maxChars;
+        textfiled.textAlign = egret.HorizontalAlign.LEFT;
+        return textfiled;
+    }
+    GameUtil.createInputText = createInputText;
     /**
      * 创建矩形实心框
      * @param x {number} x轴坐标
@@ -92,6 +117,25 @@ var GameUtil;
         return s;
     }
     GameUtil.objectToString = objectToString;
+    /**
+     * 正则表达式判断是否为中文
+     * @param name
+     * @returns {boolean}
+     */
+    function isChineseName(name) {
+        return /^[\u4e00-\u9fa5]+$/.test(name);
+    }
+    GameUtil.isChineseName = isChineseName;
+    /**
+     * 正则表达式判断是否为手机号码
+     * @param num
+     * @returns {boolean}
+     */
+    function isPhoneNum(num) {
+        num = num.toUpperCase();
+        return /^0\d{2,3}-?\d{7,11}$|^1\d{10}$/.test(num);
+    }
+    GameUtil.isPhoneNum = isPhoneNum;
     /**
      * 数字向上飘动动画
      * @param thisObj

@@ -8,9 +8,11 @@ var PlantGame;
         __extends(StartGameScene, _super);
         function StartGameScene() {
             _super.call(this);
+            this.isRegister = false;
         }
         var __egretProto__ = StartGameScene.prototype;
         __egretProto__.init = function () {
+            this.isRegister = PlantGame.GameData.getInstance().isRegister;
             //背景图
             var bg = GameUtil.createBitmapByName("endBG_png");
             bg.x = this.mStageW / 2;
@@ -34,10 +36,22 @@ var PlantGame;
             }
         };
         __egretProto__.startGame = function () {
-            GameUtil.GameScene.runscene(new PlantGame.MainGameScene(), GameUtil.GameConfig.TransAlpha);
+            if (!this.isRegister) {
+                var register = new PlantGame.RegisterPanel();
+                this.addChild(register);
+            }
+            else {
+                GameUtil.GameScene.runscene(new PlantGame.MainGameScene(), GameUtil.GameConfig.TransAlpha);
+            }
         };
         __egretProto__.checkRank = function () {
-            GameUtil.GameScene.runscene(new PlantGame.GameRankScene(), GameUtil.GameConfig.CrossLeft, 400);
+            if (!this.isRegister) {
+                var tip = new GameUtil.TipsPanel("alertBg_png", "请先注册成为玩家");
+                this.addChild(tip);
+            }
+            else {
+                GameUtil.GameScene.runscene(new PlantGame.GameRankScene(), GameUtil.GameConfig.CrossLeft, 400);
+            }
         };
         __egretProto__.gameDescribe = function () {
             GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene(), GameUtil.GameConfig.CrossLeft, 400);

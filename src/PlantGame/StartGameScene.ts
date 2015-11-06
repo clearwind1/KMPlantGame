@@ -7,12 +7,16 @@ module PlantGame
 {
     export class StartGameScene extends GameUtil.BassPanel
     {
+
+        private isRegister: boolean = false;
+
         public constructor()
         {
             super();
         }
         public init():void
         {
+            this.isRegister = GameData.getInstance().isRegister;
             //背景图
             var bg:egret.Bitmap = GameUtil.createBitmapByName("endBG_png");
             bg.x = this.mStageW/2;
@@ -42,11 +46,27 @@ module PlantGame
 
         private startGame():void
         {
-            GameUtil.GameScene.runscene(new PlantGame.MainGameScene(),GameUtil.GameConfig.TransAlpha);
+            if(!this.isRegister)
+            {
+                var register: RegisterPanel = new RegisterPanel();
+                this.addChild(register);
+            }
+            else
+            {
+                GameUtil.GameScene.runscene(new PlantGame.MainGameScene(),GameUtil.GameConfig.TransAlpha);
+            }
         }
         private checkRank():void
         {
-            GameUtil.GameScene.runscene(new PlantGame.GameRankScene(),GameUtil.GameConfig.CrossLeft,400);
+            if(!this.isRegister)
+            {
+                var tip:GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png","请先注册成为玩家");
+                this.addChild(tip);
+            }
+            else
+            {
+                GameUtil.GameScene.runscene(new PlantGame.GameRankScene(),GameUtil.GameConfig.CrossLeft,400);
+            }
         }
         private gameDescribe():void
         {

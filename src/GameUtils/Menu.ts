@@ -21,6 +21,8 @@ module GameUtil
 
         private mTextField: egret.TextField;
 
+        private isActive: boolean = false;
+
         /**
          * 创建菜单按钮类
          * @param context {any} 按钮所在stage
@@ -105,6 +107,8 @@ module GameUtil
             {
                 this.scaleX = this.scaleY = this.mScale;
             }
+
+            this.isActive = true;
         }
         private TouchMove(event:egret.TouchEvent):void
         {
@@ -119,7 +123,11 @@ module GameUtil
                 this.scaleX = this.scaleY = 1;
             }
 
-            this.backFun.apply(this.thisObj,this.param);
+            if(this.isActive){
+                this.backFun.apply(this.thisObj,this.param);
+            }
+
+            this.isActive = false;
 
         }
         private TouchCancel(event:egret.TouchEvent):void
@@ -130,6 +138,7 @@ module GameUtil
             {
                 this.scaleX = this.scaleY = 1;
             }
+            this.isActive = false;
         }
     }
 }
