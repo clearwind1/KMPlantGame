@@ -33,9 +33,9 @@ module PlantGame
             this.mLight.y = stageH/2;
             this.addChild(this.mLight);
 
-            //this.showLight();
+            this.showLight();
 
-            var ginseng: egret.Bitmap = GameUtil.createBitmapByName("bestginseng_png");
+            var ginseng: egret.Bitmap = GameUtil.createBitmapByName("xinkaiheseng_png");
             ginseng.x = stageW/2;
             ginseng.y = 350;
             this.addChild(ginseng);
@@ -68,6 +68,7 @@ module PlantGame
 
         private close():void
         {
+            egret.Tween.removeTweens(this.mLight);
             this.parent.removeChild(this);
         }
 

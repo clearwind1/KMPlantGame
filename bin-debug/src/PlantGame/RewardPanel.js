@@ -7,11 +7,11 @@ var PlantGame;
     var RewardPanel = (function (_super) {
         __extends(RewardPanel, _super);
         function RewardPanel() {
-            this.rewardNum = 3;
             _super.call(this);
         }
         var __egretProto__ = RewardPanel.prototype;
         __egretProto__.init = function () {
+            this.rewardNum = PlantGame.GameData.getInstance().rewardNum;
             this.touchEnabled = true;
             var cover = GameUtil.createRect(0, 0, 480, 800, 0.4);
             this.addChild(cover);
@@ -27,7 +27,7 @@ var PlantGame;
             for (var i = 0; i < this.rewardNum; i++) {
                 //优惠券图
                 var rewardItemId = "rewardItem" + 1 + "_png";
-                var reward = new GameUtil.Menu(this, rewardItemId, rewardItemId, this.showginseng, [data[i]]);
+                var reward = new GameUtil.Menu(this, rewardItemId, rewardItemId, this.showginseng, [i, data[i]]);
                 //reward.setScaleMode();
                 reward.x = 142 + 200 * (i % 2);
                 reward.y = 363 + 120 * Math.floor(i / 2);
@@ -47,9 +47,8 @@ var PlantGame;
             closebtn.y = 275;
             this.addChild(closebtn);
         };
-        __egretProto__.showginseng = function (data) {
-            console.log("data========", data['url']);
-            //window.open(data['url']);
+        __egretProto__.showginseng = function (data1, data2) {
+            console.log("data2========", data2['url'], "data1============", data1);
         };
         __egretProto__.close = function () {
             this.parent.removeChild(this);

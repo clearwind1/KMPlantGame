@@ -30,7 +30,7 @@ var PlantGame;
             //头像
             //用户名
             var playerName = GameUtil.createTextField(211, 39, 25, 0, 0.5, egret.HorizontalAlign.LEFT);
-            playerName.text = PlantGame.GameData.getInstance().playerName + "的农场";
+            playerName.text = PlantGame.GameData.getInstance().playerName + "的参场";
             this.addChild(playerName);
             //退出游戏
             var btn = new GameUtil.Menu(this, "buttonFrame_png", "buttonFrame_png", this.goback);
@@ -138,7 +138,7 @@ var PlantGame;
                 }
                 else {
                     this.mSeednumber--;
-                    PlantGame.LandPanel.getinstance().plantSeed(0);
+                    PlantGame.LandPanel.getinstance().plantSeed(0 /* normalseed */);
                 }
             }
             else {
@@ -160,7 +160,7 @@ var PlantGame;
                 }
                 else {
                     this.mBestSeednumber--;
-                    PlantGame.LandPanel.getinstance().plantSeed(1);
+                    PlantGame.LandPanel.getinstance().plantSeed(1 /* bestseed */);
                 }
             }
             else {

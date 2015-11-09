@@ -25,8 +25,8 @@ var PlantGame;
             this.mLight.x = stageW / 2;
             this.mLight.y = stageH / 2;
             this.addChild(this.mLight);
-            //this.showLight();
-            var ginseng = GameUtil.createBitmapByName("bestginseng_png");
+            this.showLight();
+            var ginseng = GameUtil.createBitmapByName("xinkaiheseng_png");
             ginseng.x = stageW / 2;
             ginseng.y = 350;
             this.addChild(ginseng);
@@ -51,6 +51,7 @@ var PlantGame;
             window.open("http://www.baidu.com");
         };
         __egretProto__.close = function () {
+            egret.Tween.removeTweens(this.mLight);
             this.parent.removeChild(this);
         };
         __egretProto__.showLight = function () {

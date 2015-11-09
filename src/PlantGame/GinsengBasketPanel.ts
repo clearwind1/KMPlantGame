@@ -29,7 +29,7 @@ module PlantGame
             this.addChild(frameName);
 
             var data:Object[] = RES.getRes("describeURL_json");
-            var sengName:string[] = ["ginseng_png","ginseng_png","ginseng_png","ginseng_png","ginseng_png","bestginseng_png"];
+            var sengName:string[] = ["dangseng_png","danseng_png","dongyangseng_png","gaoliseng_png","shizhuseng_png","xinkaiheseng_png"];
             for(var i:number = 0;i < 6;i++)
             {
                 var ginseng: GameUtil.Menu = new GameUtil.Menu(this,sengName[i],sengName[i],this.showginseng,[data[i]]);

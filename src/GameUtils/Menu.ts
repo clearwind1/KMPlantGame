@@ -15,6 +15,7 @@ module GameUtil
         private param:any[];//回调参数
         private thisObj;
         private btnImg: egret.Bitmap;
+        private addImg: egret.Bitmap;
 
         private bScaleMode: boolean = false;
         private mScale: number = 0.9;
@@ -82,10 +83,14 @@ module GameUtil
 
         public addButtonImg(img:string,offx:number=0,offy:number=0):void
         {
-            var btimg: egret.Bitmap = createBitmapByName(img);
-            btimg.x = this.btnImg.texture.textureWidth/2 + offx;
-            btimg.y = this.btnImg.texture.textureHeight/2 + offy;
-            this.addChild(btimg);
+            this.addImg = createBitmapByName(img);
+            this.addImg.x = this.btnImg.texture.textureWidth/2 + offx;
+            this.addImg.y = this.btnImg.texture.textureHeight/2 + offy;
+            this.addChild(this.addImg);
+        }
+        public setAddImgTexture(img:string)
+        {
+            this.addImg.texture = RES.getRes(img);
         }
 
         public addButtonText(text:string,offx:number=0,offy:number=0):void

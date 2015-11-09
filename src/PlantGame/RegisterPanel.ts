@@ -21,7 +21,7 @@ module PlantGame
             this.textinput = [];
 
             this.touchEnabled = true;
-            var cover: egret.Shape = GameUtil.createRect(0,0,480,800,0.4);
+            var cover: egret.Shape = GameUtil.createRect(0,0,480,800,0.6);
             this.addChild(cover);
 
             var Frame: egret.Bitmap = GameUtil.createBitmapByName("ItemFrame_png");
@@ -90,9 +90,16 @@ module PlantGame
 
             var sureBtn: GameUtil.Menu = new GameUtil.Menu(this,"morebtn_png","morebtn_png",this.sureRegister);
             sureBtn.addButtonText("确定");
+            sureBtn.setScaleMode();
             sureBtn.x = 240;
             sureBtn.y = 610;
             this.addChild(sureBtn);
+
+            var textip: egret.TextField = GameUtil.createTextField(20,670,20,0,0.5,egret.HorizontalAlign.LEFT);
+            textip.text = "请认真填写你的资料,该资料与你获奖所得相关,如果因资料问题拿不到应有奖励,本公司概不负责";
+            textip.width = 440;
+            textip.textColor = 0xff0000;
+            this.addChild(textip);
         }
 
         private sureRegister():void

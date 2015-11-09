@@ -12,11 +12,12 @@ module PlantGame
 
         public constructor()
         {
-            this.rewardNum = 3;
             super();
         }
         public init():void
         {
+            this.rewardNum = GameData.getInstance().rewardNum;
+
             this.touchEnabled = true;
             var cover: egret.Shape = GameUtil.createRect(0,0,480,800,0.4);
             this.addChild(cover);
@@ -36,7 +37,7 @@ module PlantGame
             {
                 //优惠券图
                 var rewardItemId:string = "rewardItem"+1+"_png";
-                var reward: GameUtil.Menu = new GameUtil.Menu(this,rewardItemId,rewardItemId,this.showginseng,[data[i]]);
+                var reward: GameUtil.Menu = new GameUtil.Menu(this,rewardItemId,rewardItemId,this.showginseng,[i,data[i]]);
                 //reward.setScaleMode();
                 reward.x = 142 + 200*(i%2);
                 reward.y = 363 + 120*Math.floor(i/2);
@@ -60,10 +61,10 @@ module PlantGame
             this.addChild(closebtn);
         }
 
-        private showginseng(data:any):void
+        private showginseng(data1:any,data2:any):void
         {
-            console.log("data========",data['url']);
-            //window.open(data['url']);
+            console.log("data2========",data2['url'],"data1============",data1);
+
         }
 
         private close():void

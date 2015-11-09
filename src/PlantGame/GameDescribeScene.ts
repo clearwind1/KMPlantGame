@@ -36,12 +36,12 @@ module PlantGame
         private showText():void
         {
             var text:any = RES.getRes("gameDescribe_json");
-            var titletext:egret.TextField = GameUtil.createTextField(240,100,35);
-            titletext.text = text['title'];
-            this.addChild(titletext);
-            titletext.textColor = 0x000000;
+            //var titletext:egret.TextField = GameUtil.createTextField(240,100,35);
+            //titletext.text = text['title'];
+            //this.addChild(titletext);
+            //titletext.textColor = 0x000000;
 
-            var textfiled:egret.TextField = GameUtil.createTextField(20,170,20,0);
+            var textfiled:egret.TextField = GameUtil.createTextField(20,230,20,0);
             textfiled.text = text['text'];
             this.addChild(textfiled);
             textfiled.textAlign = egret.HorizontalAlign.LEFT;

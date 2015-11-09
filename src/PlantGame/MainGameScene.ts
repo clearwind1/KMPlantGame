@@ -44,7 +44,7 @@ module PlantGame
 
             //用户名
             var playerName: egret.TextField = GameUtil.createTextField(211,39,25,0,0.5,egret.HorizontalAlign.LEFT);
-            playerName.text = GameData.getInstance().playerName + "的农场";
+            playerName.text = GameData.getInstance().playerName + "的参场";
             this.addChild(playerName);
 
             //退出游戏
@@ -181,7 +181,7 @@ module PlantGame
                 else
                 {
                     this.mSeednumber--;
-                    PlantGame.LandPanel.getinstance().plantSeed(0);
+                    PlantGame.LandPanel.getinstance().plantSeed(PlantGame.SeedKind.normalseed);
                 }
             }
             else
@@ -209,7 +209,7 @@ module PlantGame
                 else
                 {
                     this.mBestSeednumber--;
-                    PlantGame.LandPanel.getinstance().plantSeed(1);
+                    PlantGame.LandPanel.getinstance().plantSeed(PlantGame.SeedKind.bestseed);
                 }
             }
             else

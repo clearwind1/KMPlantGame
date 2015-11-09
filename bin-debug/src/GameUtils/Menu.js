@@ -68,10 +68,13 @@ var GameUtil;
         __egretProto__.addButtonImg = function (img, offx, offy) {
             if (offx === void 0) { offx = 0; }
             if (offy === void 0) { offy = 0; }
-            var btimg = GameUtil.createBitmapByName(img);
-            btimg.x = this.btnImg.texture.textureWidth / 2 + offx;
-            btimg.y = this.btnImg.texture.textureHeight / 2 + offy;
-            this.addChild(btimg);
+            this.addImg = GameUtil.createBitmapByName(img);
+            this.addImg.x = this.btnImg.texture.textureWidth / 2 + offx;
+            this.addImg.y = this.btnImg.texture.textureHeight / 2 + offy;
+            this.addChild(this.addImg);
+        };
+        __egretProto__.setAddImgTexture = function (img) {
+            this.addImg.texture = RES.getRes(img);
         };
         __egretProto__.addButtonText = function (text, offx, offy) {
             if (offx === void 0) { offx = 0; }

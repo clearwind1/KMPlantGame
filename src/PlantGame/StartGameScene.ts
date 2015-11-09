@@ -23,12 +23,6 @@ module PlantGame
             bg.y = this.mStageH/2;
             this.addChild(bg);
 
-            //游戏标题
-            var gametitle:egret.Bitmap = GameUtil.createBitmapByName("buttonImg_png");
-            gametitle.x = this.mStageW/2;
-            gametitle.y = 100;
-            this.addChild(gametitle);
-
             //三个按钮
             var fun:Function[] = [this.startGame,this.checkRank,this.gameDescribe];
             var text:string[] = ["开始游戏","查看排名","游戏说明"];
@@ -37,8 +31,9 @@ module PlantGame
                 var btn:GameUtil.Menu = new GameUtil.Menu(this,"buttonImg_png","buttonImg_png",fun[i]);
                 btn.setScaleMode();
                 btn.addButtonText(text[i]);
+                btn.getBtnText().size = 30;
                 btn.x = this.mStageW/2;
-                btn.y = 500+i*100;
+                btn.y = 315+i*100;
                 this.addChild(btn);
             }
 
@@ -65,12 +60,12 @@ module PlantGame
             }
             else
             {
-                GameUtil.GameScene.runscene(new PlantGame.GameRankScene(),GameUtil.GameConfig.CrossLeft,400);
+                GameUtil.GameScene.runscene(new PlantGame.GameRankScene());
             }
         }
         private gameDescribe():void
         {
-            GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene(),GameUtil.GameConfig.CrossLeft,400);
+            GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());
         }
     }
 }
