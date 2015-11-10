@@ -43,7 +43,10 @@ module GameUtil
             this.urlRequest.url = "Http://"+GameUtil.GameConfig.IP+file;
             this.onLoader = loaded;
             this.thisObj = thisObj;
-            var urlVariables:egret.URLVariables = new egret.URLVariables( GameUtil.objectToString( param ) );
+
+            console.log("paramJson==========",GameUtil.objectToString(param));
+
+            var urlVariables:egret.URLVariables = new egret.URLVariables(GameUtil.objectToString(param));
             this.urlRequest.data = urlVariables;
             this.urlLoader.addEventListener( egret.Event.COMPLETE, this.loaded, this );
 

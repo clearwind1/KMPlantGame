@@ -31,13 +31,27 @@ var PlantGame;
                 text.text = textcon[i];
                 text.textColor = 0x000000;
                 this.addChild(text);
-                if (i != 3) {
-                    var inputframe = GameUtil.createBitmapByName("registerFrame_png");
-                    inputframe.x = 270;
-                    inputframe.y = 325 + 50 * i;
-                    this.addChild(inputframe);
-                    this.textinput[i] = GameUtil.createInputText(162, 315 + 50 * i, 20, 240, 20, maxchar[i]);
-                    this.addChild(this.textinput[i]);
+                if (i == 1) {
+                    this.radiobtn = new GameUtil.RadioButton("rabtnu_png", "rabtn_png");
+                    this.addChild(this.radiobtn);
+                    var ratext = GameUtil.createTextField(0, 0, 20);
+                    ratext.text = "男";
+                    ratext.textColor = 0x000000;
+                    this.radiobtn.addItem(ratext, 162, 325 + 50 * i);
+                    var ratext2 = GameUtil.createTextField(0, 0, 20);
+                    ratext2.text = "女";
+                    ratext2.textColor = 0x000000;
+                    this.radiobtn.addItem(ratext2, 162 + 100, 325 + 50 * i);
+                }
+                else {
+                    if (i != 3) {
+                        var inputframe = GameUtil.createBitmapByName("registerFrame_png");
+                        inputframe.x = 270;
+                        inputframe.y = 325 + 50 * i;
+                        this.addChild(inputframe);
+                        this.textinput[i] = GameUtil.createInputText(162, 315 + 50 * i, 20, 240, 20, maxchar[i]);
+                        this.addChild(this.textinput[i]);
+                    }
                 }
             }
             //省
@@ -86,11 +100,13 @@ var PlantGame;
                 this.addChild(tip);
                 return;
             }
-            if (this.textinput[1].text == "") {
-                tip = new GameUtil.TipsPanel("alertBg_png", "性别不能为空", true, 1500);
-                this.addChild(tip);
-                return;
-            }
+            //if(this.textinput[1].text == "")
+            //{
+            //    tip = new GameUtil.TipsPanel("alertBg_png","性别不能为空",true,1500);
+            //    this.addChild(tip);
+            //
+            //    return;
+            //}
             if (this.textinput[2].text == "") {
                 tip = new GameUtil.TipsPanel("alertBg_png", "手机号不能为空", true, 1500);
                 this.addChild(tip);
@@ -114,9 +130,36 @@ var PlantGame;
             this.upLoadData();
         };
         __egretProto__.upLoadData = function () {
-            PlantGame.GameData.getInstance().playerName = this.textinput[0].text;
-            PlantGame.GameData.getInstance().isRegister = true;
-            GameUtil.GameScene.runscene(new PlantGame.MainGameScene(), GameUtil.GameConfig.TransAlpha);
+            var parm = {
+                username: "测试",
+                realname: this.textinput[0].text,
+                sex: this.radiobtn.getCurSelectTag() + 1,
+                phone: this.textinput[2].text,
+                address: this.textinput[4].text,
+                ip: window.location.href
+            };
+            var parmtest = "{" + "\"" + "username" + "\"" + ":" + "\"" + "测试" + "\"" + "," + "\"" + "realname" + "\"" + ":" + "\"" + this.textinput[0].text + "," + "\"" + "sex" + "\"" + ":" + "\"" + this.radiobtn.getCurSelectTag() + 1 + "\"" + "," + "\"" + "phone" + "\"" + ":" + "\"" + this.textinput[2].text + "\"" + "," + "\"" + "address" + "\"" + ":" + "\"" + this.textinput[4].text + "\"" + "," + "\"" + "ip" + "\"" + ":" + "\"" + window.location.href + "\"" + "}";
+            var tedddd = parm.toString();
+            console.log("teddddd==========", tedddd);
+            var test = {
+                req: parmtest
+            };
+            var urllocal = encodeURIComponent(window.location.href);
+            var partem = {
+                url: urllocal
+            };
+            //GameUtil.Http.getinstance().send(partem,"/jssdk/config",this.registerOK,this);
+            GameUtil.Http.getinstance().send(parm, "/api/reg.ashx", this.registerOK, this);
+        };
+        __egretProto__.registerOK = function (data) {
+            console.log("data=========", data);
+            if (data['code'] == 1) {
+            }
+            else {
+            }
+            //GameData.getInstance().playerName = this.textinput[0].text;
+            //GameData.getInstance().isRegister = true;
+            //GameUtil.GameScene.runscene(new PlantGame.MainGameScene(),GameUtil.GameConfig.TransAlpha);
         };
         return RegisterPanel;
     })(GameUtil.BassPanel);

@@ -59,6 +59,7 @@ class Main extends egret.DisplayObjectContainer {
 
         //开始游戏
         PlantGame.GameData.getInstance();
+        GameUtil.Http.getinstance();
         GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
 
         return;

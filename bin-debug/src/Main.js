@@ -45,6 +45,7 @@ var Main = (function (_super) {
         //登录授权
         //开始游戏
         PlantGame.GameData.getInstance();
+        GameUtil.Http.getinstance();
         GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
         return;
         var sky = this.createBitmapByName("bgImage");

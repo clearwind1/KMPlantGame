@@ -90,11 +90,11 @@ var PlantGame;
                 rankitem.addChild(playername);
                 //人参图
                 var seng = GameUtil.createBitmapByName("rankseng_png");
-                seng.x = 300;
+                seng.x = 280;
                 seng.y = 26 + (pic.texture.textureHeight + 10) * i;
                 rankitem.addChild(seng);
                 //排名
-                var rankText = GameUtil.createTextField(335, 26 + (pic.texture.textureHeight + 10) * i, 15, 0, 0.5, egret.HorizontalAlign.LEFT);
+                var rankText = GameUtil.createTextField(315, 26 + (pic.texture.textureHeight + 10) * i, 15, 0, 0.5, egret.HorizontalAlign.LEFT);
                 rankText.text = "" + 1234;
                 rankText.textColor = 0x000000;
                 rankitem.addChild(rankText);
