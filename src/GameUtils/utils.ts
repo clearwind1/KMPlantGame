@@ -14,6 +14,7 @@ module GameUtil
         public static NullAction:number = 0;            //无动画
         public static CrossLeft:number = 1;             //从左往右
         public static TransAlpha:number = 2;            //淡入淡出
+
     }
 
     /**

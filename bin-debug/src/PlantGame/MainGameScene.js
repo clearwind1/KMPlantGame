@@ -10,8 +10,6 @@ var PlantGame;
         }
         var __egretProto__ = MainGameScene.prototype;
         __egretProto__.init = function () {
-            this.mSeednumber = PlantGame.GameData.getInstance().seednumber;
-            this.mBestSeednumber = PlantGame.GameData.getInstance().bestSeednumber;
             this.toolbtn = [];
             var bg = GameUtil.createBitmapByName("gamebg_jpg");
             bg.x = this.mStageW / 2;
@@ -22,12 +20,17 @@ var PlantGame;
             frame.x = this.mStageW / 2;
             frame.y = 45;
             this.addChild(frame);
+            //头像
+            var headimg = new GameUtil.GetImageByUrl(PlantGame.GameData.getInstance().playerImgUrl);
+            headimg.x = 171;
+            headimg.y = 37;
+            headimg.scaleX = headimg.scaleY = 0.05;
+            this.addChild(headimg);
             //头像框
             var playerFrame = GameUtil.createBitmapByName("playerImg_png");
             playerFrame.x = 171;
             playerFrame.y = 37;
             this.addChild(playerFrame);
-            //头像
             //用户名
             var playerName = GameUtil.createTextField(211, 39, 25, 0, 0.5, egret.HorizontalAlign.LEFT);
             playerName.text = PlantGame.GameData.getInstance().playerName + "的参场";
@@ -39,8 +42,8 @@ var PlantGame;
             btn.x = 430;
             btn.y = 46;
             this.addChild(btn);
-            this.addChild(PlantGame.LandPanel.getinstance());
             this.showTools();
+            this.addChild(PlantGame.LandPanel.getinstance());
         };
         __egretProto__.goback = function () {
             GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
@@ -130,15 +133,14 @@ var PlantGame;
          */
         __egretProto__.plantSeed = function () {
             console.log("种植优品种子");
-            if (this.mSeednumber > 0) {
+            if (PlantGame.GameData.getInstance().seednumber > 0) {
                 //处理种植
                 if (PlantGame.LandPanel.getinstance().getlandNum() == -1) {
                     var tip = new GameUtil.TipsPanel("alertBg_png", "没有土地了", true);
                     this.addChild(tip);
                 }
                 else {
-                    this.mSeednumber--;
-                    PlantGame.LandPanel.getinstance().plantSeed(0 /* normalseed */);
+                    PlantGame.LandPanel.getinstance().plantSeed(1 /* normalseed */);
                 }
             }
             else {
@@ -152,15 +154,14 @@ var PlantGame;
          */
         __egretProto__.plantBestSeed = function () {
             console.log("种植臻品种子");
-            if (this.mBestSeednumber > 0) {
+            if (PlantGame.GameData.getInstance().bestSeednumber > 0) {
                 //处理种植
                 if (PlantGame.LandPanel.getinstance().getlandNum() == -1) {
                     var tip = new GameUtil.TipsPanel("alertBg_png", "没有土地了", true);
                     this.addChild(tip);
                 }
                 else {
-                    this.mBestSeednumber--;
-                    PlantGame.LandPanel.getinstance().plantSeed(1 /* bestseed */);
+                    PlantGame.LandPanel.getinstance().plantSeed(2 /* bestseed */);
                 }
             }
             else {

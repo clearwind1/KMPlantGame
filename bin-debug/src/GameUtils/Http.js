@@ -26,11 +26,13 @@ var GameUtil;
             if (this.onLoader != null) {
                 this.onLoader.apply(this.thisObj, [data]);
             }
+            this.thisObj.removeChild(GameUtil.WaitServerPanel.getInstace());
         };
-        __egretProto__.send = function (param, file, loaded, thisObj) {
+        __egretProto__.send = function (param, file, loaded, thisObj, url) {
             if (loaded === void 0) { loaded = null; }
             if (thisObj === void 0) { thisObj = null; }
-            this.urlRequest.url = "Http://" + GameUtil.GameConfig.IP + file;
+            if (url === void 0) { url = GameUtil.GameConfig.IP; }
+            this.urlRequest.url = "Http://" + url + file;
             this.onLoader = loaded;
             this.thisObj = thisObj;
             console.log("paramJson==========", GameUtil.objectToString(param));
@@ -38,6 +40,10 @@ var GameUtil;
             this.urlRequest.data = urlVariables;
             this.urlLoader.addEventListener(egret.Event.COMPLETE, this.loaded, this);
             this.urlLoader.load(this.urlRequest);
+            this.thisObj.addChild(GameUtil.WaitServerPanel.getInstace());
+        };
+        __egretProto__.setReqMethod = function (reqMethod) {
+            this.urlRequest.method = reqMethod;
         };
         Http.getinstance = function (reqMethod, dataFormat) {
             if (reqMethod === void 0) { reqMethod = egret.URLRequestMethod.POST; }

@@ -29,10 +29,13 @@ module PlantGame
             this.addChild(frameName);
 
             var data:Object[] = RES.getRes("describeURL_json");
-            var sengName:string[] = ["dangseng_png","danseng_png","dongyangseng_png","gaoliseng_png","shizhuseng_png","xinkaiheseng_png"];
+            var getsengName:string[] = ["高丽参","党参","丹参","石柱参","东洋参","新开河参"];
+            var sengName:string[] = ["gaoliseng_png","dangseng_png","danseng_png","shizhuseng_png","dongyangseng_png","xinkaiheseng_png"];
             for(var i:number = 0;i < 6;i++)
             {
                 var ginseng: GameUtil.Menu = new GameUtil.Menu(this,sengName[i],sengName[i],this.showginseng,[data[i]]);
+                ginseng.addButtonText(getsengName[i],0,50);
+                ginseng.getBtnText().textColor = 0x000000;
                 ginseng.setScaleMode();
                 ginseng.x = 100 + 140*(i%3);
                 ginseng.y = 370 + 100*Math.floor(i/3);

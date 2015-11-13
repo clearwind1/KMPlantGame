@@ -23,9 +23,12 @@ var PlantGame;
             frameName.text = "参筐";
             this.addChild(frameName);
             var data = RES.getRes("describeURL_json");
-            var sengName = ["dangseng_png", "danseng_png", "dongyangseng_png", "gaoliseng_png", "shizhuseng_png", "xinkaiheseng_png"];
+            var getsengName = ["高丽参", "党参", "丹参", "石柱参", "东洋参", "新开河参"];
+            var sengName = ["gaoliseng_png", "dangseng_png", "danseng_png", "shizhuseng_png", "dongyangseng_png", "xinkaiheseng_png"];
             for (var i = 0; i < 6; i++) {
                 var ginseng = new GameUtil.Menu(this, sengName[i], sengName[i], this.showginseng, [data[i]]);
+                ginseng.addButtonText(getsengName[i], 0, 50);
+                ginseng.getBtnText().textColor = 0x000000;
                 ginseng.setScaleMode();
                 ginseng.x = 100 + 140 * (i % 3);
                 ginseng.y = 370 + 100 * Math.floor(i / 3);

@@ -36,11 +36,13 @@ module GameUtil
             {
                 this.onLoader.apply(this.thisObj,[data]);
             }
+
+            this.thisObj.removeChild(GameUtil.WaitServerPanel.getInstace());
         }
 
-        public send( param:any, file?:string, loaded:Function = null, thisObj:any = null):void
+        public send( param:any, file?:string, loaded:Function = null, thisObj:any = null,url:string=GameUtil.GameConfig.IP):void
         {
-            this.urlRequest.url = "Http://"+GameUtil.GameConfig.IP+file;
+            this.urlRequest.url = "Http://"+url+file;
             this.onLoader = loaded;
             this.thisObj = thisObj;
 
@@ -51,6 +53,13 @@ module GameUtil
             this.urlLoader.addEventListener( egret.Event.COMPLETE, this.loaded, this );
 
             this.urlLoader.load( this.urlRequest );
+
+            this.thisObj.addChild(GameUtil.WaitServerPanel.getInstace());
+        }
+
+        public setReqMethod(reqMethod:string):void
+        {
+            this.urlRequest.method = reqMethod;
         }
 
         private static _instance:Http;
@@ -61,6 +70,7 @@ module GameUtil
             {
                 Http._instance = new Http(reqMethod,dataFormat);
             }
+
             return Http._instance;
         }
 

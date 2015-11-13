@@ -6,9 +6,6 @@ module PlantGame
 {
     export class MainGameScene extends GameUtil.BassPanel
     {
-
-        private mSeednumber: number;
-        private mBestSeednumber: number;
         private movieDatabtn: GameUtil.Menu;
         private toolbtn: GameUtil.Menu[];
 
@@ -18,11 +15,6 @@ module PlantGame
         }
         public init():void
         {
-
-            this.mSeednumber = PlantGame.GameData.getInstance().seednumber;
-            this.mBestSeednumber = PlantGame.GameData.getInstance().bestSeednumber;
-
-
             this.toolbtn = [];
             var bg:egret.Bitmap = GameUtil.createBitmapByName("gamebg_jpg");
             bg.x = this.mStageW/2;
@@ -34,13 +26,18 @@ module PlantGame
             frame.x = this.mStageW/2;
             frame.y = 45;
             this.addChild(frame);
+
+            //头像
+            var headimg: GameUtil.GetImageByUrl = new GameUtil.GetImageByUrl(GameData.getInstance().playerImgUrl);
+            headimg.x = 171;
+            headimg.y = 37;
+            headimg.scaleX = headimg.scaleY = 0.05;
+            this.addChild(headimg);
             //头像框
             var playerFrame: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
             playerFrame.x = 171;
             playerFrame.y = 37;
             this.addChild(playerFrame);
-
-            //头像
 
             //用户名
             var playerName: egret.TextField = GameUtil.createTextField(211,39,25,0,0.5,egret.HorizontalAlign.LEFT);
@@ -55,10 +52,9 @@ module PlantGame
             btn.y = 46;
             this.addChild(btn);
 
+            this.showTools();
 
             this.addChild(PlantGame.LandPanel.getinstance());
-
-            this.showTools();
 
         }
 
@@ -170,7 +166,7 @@ module PlantGame
         private plantSeed():void
         {
             console.log("种植优品种子");
-            if(this.mSeednumber > 0)
+            if(GameData.getInstance().seednumber > 0)
             {
                 //处理种植
                 if(PlantGame.LandPanel.getinstance().getlandNum() == -1)
@@ -180,7 +176,6 @@ module PlantGame
                 }
                 else
                 {
-                    this.mSeednumber--;
                     PlantGame.LandPanel.getinstance().plantSeed(PlantGame.SeedKind.normalseed);
                 }
             }
@@ -198,7 +193,7 @@ module PlantGame
         private plantBestSeed():void
         {
             console.log("种植臻品种子");
-            if(this.mBestSeednumber > 0)
+            if(GameData.getInstance().bestSeednumber > 0)
             {
                 //处理种植
                 if(PlantGame.LandPanel.getinstance().getlandNum()== -1)
@@ -208,7 +203,6 @@ module PlantGame
                 }
                 else
                 {
-                    this.mBestSeednumber--;
                     PlantGame.LandPanel.getinstance().plantSeed(PlantGame.SeedKind.bestseed);
                 }
             }

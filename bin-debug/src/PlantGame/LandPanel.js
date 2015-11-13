@@ -25,7 +25,7 @@ var PlantGame;
             var lanpoy = [340, 320, 420, 390, 505, 465];
             var data = [{ "lanID": 0 }, { "lanID": 1 }, { "lanID": 2 }, { "lanID": 3 }, { "lanID": 4 }, { "lanID": 5 }];
             for (var i = 0; i < 6; i++) {
-                if (this.landSeedKind[i] == 0 /* normalseed */) {
+                if (this.landSeedKind[i] == 1 /* normalseed */) {
                     this.seedImg[i] = GameUtil.createBitmapByName("diamod1_png");
                     this.seedImg[i].x = lanpox[i];
                     this.seedImg[i].y = lanpoy[i];
@@ -37,9 +37,13 @@ var PlantGame;
                     this.seedImg[i].y = lanpoy[i];
                     this.addChild(this.seedImg[i]);
                 }
+                if (this.landstate[i] == 5) {
+                    this.seedImg[i].texture = RES.getRes("diamod4_png");
+                }
                 var lanimg = "seedActionBtn_png";
+                var toollanimg = "Action" + this.landstate[i] + "_png";
                 this.lanpic[i] = new GameUtil.Menu(this, lanimg, lanimg, this.ChangeLandState, [data[i]]);
-                this.lanpic[i].addButtonImg("Action1_png", 0, -5);
+                this.lanpic[i].addButtonImg(toollanimg, 0, -5);
                 this.lanpic[i].setScaleMode();
                 this.lanpic[i].x = lanpox[i];
                 if (this.landstate[i] == 5) {
@@ -65,30 +69,49 @@ var PlantGame;
             }
             else if (this.landstate[landID] == 5) {
                 //收获
-                var sengk;
-                this.landstate[landID] = 0;
-                this.lanpic[landID].visible = false;
-                //console.log("收获=======",this.landSeedKind[landID]);
-                this.updatastate(landID);
-                if (this.landSeedKind[landID] == 0 /* normalseed */) {
-                    sengk = Math.floor(Math.random() * 1000) % 6;
-                }
-                else {
-                    sengk = 5;
-                }
-                PlantGame.GameData.getInstance().ginsendNum[sengk]++;
-                this.getsengAnimata(sengk, landID);
-                this.haveSeendland[landID] = 0;
-                this.seedImg[landID].visible = false;
+                var parm = {
+                    userid: PlantGame.GameData.getInstance().playerID,
+                    soilid: landID + 1,
+                    soilstatus: 1,
+                    seedtype: this.landSeedKind[landID]
+                };
+                this.plantLandID = landID;
+                GameUtil.Http.getinstance().send(parm, "/api/soil.ashx?action=update", this.receiveGetseng, this);
             }
             else {
                 //种上种子状态
-                this.landstate[landID]++;
-                console.log("当前状态=======", this.landstate[landID]);
-                this.updatastate(landID);
-                if (this.landstate[landID] == 5) {
-                    this.seedImg[landID].texture = RES.getRes("diamod4_png");
+                var soidss = this.landstate[landID] + 2;
+                var parm = {
+                    userid: PlantGame.GameData.getInstance().playerID,
+                    soilid: landID + 1,
+                    soilstatus: soidss,
+                    seedtype: this.landSeedKind[landID]
+                };
+                this.plantLandID = landID;
+                GameUtil.Http.getinstance().send(parm, "/api/soil.ashx?action=update", this.receiveChangeLandState, this);
+            }
+        };
+        __egretProto__.receiveChangeLandState = function (data) {
+            if (data['code'] == 1) {
+                this.landstate[this.plantLandID]++;
+                console.log("当前状态=======", this.landstate[this.plantLandID]);
+                this.updatastate(this.plantLandID);
+                if (this.landstate[this.plantLandID] == 5) {
+                    this.seedImg[this.plantLandID].texture = RES.getRes("diamod4_png");
                 }
+            }
+        };
+        __egretProto__.receiveGetseng = function (data) {
+            if (data['code'] == 1) {
+                this.landstate[this.plantLandID] = 0;
+                this.lanpic[this.plantLandID].visible = false;
+                //console.log("收获=======",this.landSeedKind[landID]);
+                var sengtype = data['ginsengtype'] - 1;
+                this.updatastate(this.plantLandID);
+                PlantGame.GameData.getInstance().ginsendNum[sengtype]++;
+                this.getsengAnimata(sengtype, this.plantLandID);
+                this.haveSeendland[this.plantLandID] = 0;
+                this.seedImg[this.plantLandID].visible = false;
             }
         };
         __egretProto__.getlandNum = function () {
@@ -96,18 +119,34 @@ var PlantGame;
         };
         __egretProto__.plantSeed = function (seedkind) {
             var landid = this.checkhaveland();
-            this.landSeedKind[landid] = seedkind;
-            this.landstate[landid]++;
-            this.updatastate(landid);
-            this.haveSeendland[landid] = 1;
-            this.lanpic[landid].visible = true;
-            if (this.landSeedKind[landid] == 0 /* normalseed */) {
-                this.seedImg[landid].texture = RES.getRes("diamod1_png");
+            this.plantLandID = landid;
+            this.plantSeedkind = seedkind;
+            var parm = {
+                userid: PlantGame.GameData.getInstance().playerID,
+                soilid: landid + 1,
+                soilstatus: 2,
+                seedtype: seedkind
+            };
+            GameUtil.Http.getinstance().send(parm, "/api/soil.ashx?action=update", this.receivePlantSeed, this);
+        };
+        __egretProto__.receivePlantSeed = function (data) {
+            console.log("plantseeddata============", data);
+            if (data['code'] == 1) {
+                this.landSeedKind[this.plantLandID] = this.plantSeedkind;
+                this.landstate[this.plantLandID]++;
+                this.updatastate(this.plantLandID);
+                this.haveSeendland[this.plantLandID] = 1;
+                this.lanpic[this.plantLandID].visible = true;
+                if (this.landSeedKind[this.plantLandID] == 1 /* normalseed */) {
+                    this.seedImg[this.plantLandID].texture = RES.getRes("diamod1_png");
+                    PlantGame.GameData.getInstance().seednumber--;
+                }
+                else {
+                    this.seedImg[this.plantLandID].texture = RES.getRes("diamod1_1_png");
+                    PlantGame.GameData.getInstance().bestSeednumber--;
+                }
+                this.seedImg[this.plantLandID].visible = true;
             }
-            else {
-                this.seedImg[landid].texture = RES.getRes("diamod1_1_png");
-            }
-            this.seedImg[landid].visible = true;
         };
         __egretProto__.updatastate = function (lanid) {
             var lanimg = "Action" + this.landstate[lanid] + "_png";
@@ -144,7 +183,7 @@ var PlantGame;
             seng.x = lanpox[landID];
             seng.y = lanpoy[landID];
             this.addChild(seng);
-            var getsengName = ["党参", "丹参", "东洋参", "高丽参", "石柱参", "新开河参"];
+            var getsengName = ["高丽参", "党参", "丹参", "石柱参", "东洋参", "新开河参"];
             var self = this;
             var tw = egret.Tween.get(seng);
             tw.to({ y: seng.y - 50 }, 500).to({ x: 60, y: 747, scaleX: 0.2, scaleY: 0.2 }, 500).call(function () {

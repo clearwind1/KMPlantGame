@@ -8,11 +8,9 @@ var PlantGame;
         __extends(StartGameScene, _super);
         function StartGameScene() {
             _super.call(this);
-            this.isRegister = false;
         }
         var __egretProto__ = StartGameScene.prototype;
         __egretProto__.init = function () {
-            this.isRegister = PlantGame.GameData.getInstance().isRegister;
             //背景图
             var bg = GameUtil.createBitmapByName("endBG_png");
             bg.x = this.mStageW / 2;
@@ -30,18 +28,33 @@ var PlantGame;
                 btn.y = 315 + i * 100;
                 this.addChild(btn);
             }
+            var parm = {
+                openid: "osMTev4Qs_mspjbbGr6QWbMpBk_I" //GameData.getInstance().playerOpenID
+            };
+            GameUtil.Http.getinstance().send(parm, "/api/query.ashx", this.receiveStartGame, this);
+            GameUtil.WaitServerPanel.getInstace().setAlpha(0.5);
+            //var ip = window['getIP'];
+            //console.log("ip====",ip);
         };
         __egretProto__.startGame = function () {
-            if (!this.isRegister) {
+            if (PlantGame.GameData.getInstance().isRegister) {
+                GameUtil.GameScene.runscene(new PlantGame.MainGameScene(), GameUtil.GameConfig.TransAlpha);
+            }
+            else {
                 var register = new PlantGame.RegisterPanel();
                 this.addChild(register);
             }
+        };
+        __egretProto__.receiveStartGame = function (data) {
+            if (data['code'] == 1) {
+                PlantGame.GameData.getInstance().setData(data);
+            }
             else {
-                GameUtil.GameScene.runscene(new PlantGame.MainGameScene(), GameUtil.GameConfig.TransAlpha);
+                alert(data['msg']);
             }
         };
         __egretProto__.checkRank = function () {
-            if (!this.isRegister) {
+            if (!PlantGame.GameData.getInstance().isRegister) {
                 var tip = new GameUtil.TipsPanel("alertBg_png", "请先注册成为玩家");
                 this.addChild(tip);
             }

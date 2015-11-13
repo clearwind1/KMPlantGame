@@ -37,7 +37,7 @@ var PlantGame;
                     var ratext = GameUtil.createTextField(0, 0, 20);
                     ratext.text = "男";
                     ratext.textColor = 0x000000;
-                    this.radiobtn.addItem(ratext, 162, 325 + 50 * i);
+                    this.radiobtn.addItem(ratext, 168, 325 + 50 * i);
                     var ratext2 = GameUtil.createTextField(0, 0, 20);
                     ratext2.text = "女";
                     ratext2.textColor = 0x000000;
@@ -130,36 +130,30 @@ var PlantGame;
             this.upLoadData();
         };
         __egretProto__.upLoadData = function () {
+            var ipstr = window['getIP'];
+            console.log("ip=====", ipstr);
             var parm = {
-                username: "测试",
+                openid: PlantGame.GameData.getInstance().playerOpenID,
+                username: PlantGame.GameData.getInstance().playerNickname,
+                headimgurl: PlantGame.GameData.getInstance().playerImgUrl,
                 realname: this.textinput[0].text,
                 sex: this.radiobtn.getCurSelectTag() + 1,
                 phone: this.textinput[2].text,
                 address: this.textinput[4].text,
-                ip: window.location.href
+                ip: ipstr.substring(1)
             };
-            var parmtest = "{" + "\"" + "username" + "\"" + ":" + "\"" + "测试" + "\"" + "," + "\"" + "realname" + "\"" + ":" + "\"" + this.textinput[0].text + "," + "\"" + "sex" + "\"" + ":" + "\"" + this.radiobtn.getCurSelectTag() + 1 + "\"" + "," + "\"" + "phone" + "\"" + ":" + "\"" + this.textinput[2].text + "\"" + "," + "\"" + "address" + "\"" + ":" + "\"" + this.textinput[4].text + "\"" + "," + "\"" + "ip" + "\"" + ":" + "\"" + window.location.href + "\"" + "}";
-            var tedddd = parm.toString();
-            console.log("teddddd==========", tedddd);
-            var test = {
-                req: parmtest
-            };
-            var urllocal = encodeURIComponent(window.location.href);
-            var partem = {
-                url: urllocal
-            };
-            //GameUtil.Http.getinstance().send(partem,"/jssdk/config",this.registerOK,this);
             GameUtil.Http.getinstance().send(parm, "/api/reg.ashx", this.registerOK, this);
         };
         __egretProto__.registerOK = function (data) {
             console.log("data=========", data);
             if (data['code'] == 1) {
+                PlantGame.GameData.getInstance().setData(data);
+                GameUtil.GameScene.runscene(new PlantGame.MainGameScene(), GameUtil.GameConfig.TransAlpha);
             }
             else {
+                var tip = new GameUtil.TipsPanel("alertBg_png", data['msg']);
+                this.addChild(tip);
             }
-            //GameData.getInstance().playerName = this.textinput[0].text;
-            //GameData.getInstance().isRegister = true;
-            //GameUtil.GameScene.runscene(new PlantGame.MainGameScene(),GameUtil.GameConfig.TransAlpha);
         };
         return RegisterPanel;
     })(GameUtil.BassPanel);
