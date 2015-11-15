@@ -9,7 +9,11 @@
 		},
 		{
 			"name": "res"
-		}
+		},
+	  {
+		"name": "weixinapi",
+		"path": "../libsrc/weixinapi"
+	  }
 	],
 	"native": {
 		"path_ignore": [

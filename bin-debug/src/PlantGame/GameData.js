@@ -40,13 +40,13 @@ var PlantGame;
             this.bestSeednumber = 1;
             this.isRegister = false;
             this.playerName = "";
-            this.rewardNum = 3;
+            this.rewardNum = 7;
             this.weekrank = 0;
             this.lastweekrank = 0;
         };
         __egretProto__.setData = function (data) {
             var result = data['result'];
-            console.log("result========", result);
+            //console.log("result========",result);
             GameData.getInstance().playerID = result['userid'];
             GameData.getInstance().playerName = result['username'];
             GameData.getInstance().playerImgUrl = result['headimgurl'];

@@ -46,7 +46,7 @@ module GameUtil
             this.onLoader = loaded;
             this.thisObj = thisObj;
 
-            console.log("paramJson==========",GameUtil.objectToString(param));
+            //console.log("paramJson==========",GameUtil.objectToString(param));
 
             var urlVariables:egret.URLVariables = new egret.URLVariables(GameUtil.objectToString(param));
             this.urlRequest.data = urlVariables;

@@ -50,7 +50,6 @@ var PlantGame;
                 PlantGame.GameData.getInstance().setData(data);
             }
             else {
-                alert(data['msg']);
             }
         };
         __egretProto__.checkRank = function () {

@@ -15,6 +15,7 @@ module PlantGame
         }
         public init():void
         {
+
             this.toolbtn = [];
             var bg:egret.Bitmap = GameUtil.createBitmapByName("gamebg_jpg");
             bg.x = this.mStageW/2;
@@ -29,19 +30,20 @@ module PlantGame
 
             //头像
             var headimg: GameUtil.GetImageByUrl = new GameUtil.GetImageByUrl(GameData.getInstance().playerImgUrl);
-            headimg.x = 171;
-            headimg.y = 37;
+            headimg.x = 161;
+            headimg.y = 50;
             headimg.scaleX = headimg.scaleY = 0.05;
             this.addChild(headimg);
             //头像框
             var playerFrame: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
-            playerFrame.x = 171;
-            playerFrame.y = 37;
+            playerFrame.x = 161;
+            playerFrame.y = 50;
             this.addChild(playerFrame);
 
             //用户名
-            var playerName: egret.TextField = GameUtil.createTextField(211,39,25,0,0.5,egret.HorizontalAlign.LEFT);
+            var playerName: egret.TextField = GameUtil.createTextField(190,52,25,0,0.5,egret.HorizontalAlign.LEFT);
             playerName.text = GameData.getInstance().playerName + "的参场";
+            playerName.textColor = 0x7d4406;
             this.addChild(playerName);
 
             //退出游戏
@@ -113,9 +115,11 @@ module PlantGame
          */
         private movieData():void
         {
-            console.log("预约电影票");
-            var tip: GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png","预约成功");
-            this.addChild(tip);
+            //console.log("预约电影票");
+            //var tip: GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png","预约成功");
+            //this.addChild(tip);
+
+            this.getSignPackage();
         }
 
         /**
@@ -232,6 +236,101 @@ module PlantGame
             egret.Tween.get(this.toolbtn[1]).to({scaleY:1},400);
             egret.Tween.get(this.toolbtn[2]).to({scaleX:1},400);
             egret.Tween.get(this.toolbtn[2]).to({scaleY:1},400);
+        }
+
+        /**
+         * 获取签名分享
+         */
+        private getSignPackage() {
+
+            var urllocal:string = encodeURIComponent(window.location.href.split('#')[0]);
+
+            //console.log("url=====", urllocal);
+            var parma:Object = {
+                url: urllocal
+            }
+            GameUtil.Http.getinstance().send(parma,"/api/weixinshare.ashx",this.share,this);
+        }
+
+        private share(data:any):void
+        {
+            console.log("data======",data);
+
+            //........................................................
+            //基本配置
+            //配置参数
+            wx.config({
+                debug: true,
+                appId: "wx7ff01d3700c22aad",
+                timestamp: Number(data['timestamp']),
+                nonceStr: data['noncestr'],
+                signature: data['sign'],
+                jsApiList: [
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareWeibo'
+                ]
+            });
+
+
+            //下面可以加更多接口,可自行扩展
+            this.getWeiXinShareTimeline();//分享朋友圈
+            this.getWeiXinShareAppMessage();
+        }
+
+        /**
+         * 获取微信分享到朋友圈
+         */
+        private getWeiXinShareTimeline() {
+
+            var bodyMenuShareTimeline = new BodyMenuShareTimeline();
+            bodyMenuShareTimeline.title = '大家一起来挖参';
+            bodyMenuShareTimeline.link = 'http://3.plantgame.sinaapp.com/?'+GameData.getInstance().playerID;
+            bodyMenuShareTimeline.imgUrl = 'http://sztc.gamexun.com/launcher/1.png';
+            bodyMenuShareTimeline.trigger = ()=> {
+                // alert('用户点击分享到朋友圈');
+            };
+            bodyMenuShareTimeline.success = ()=> {
+                //alert('已分享');
+                //window[ 'weChat' ]();
+                alert('已分享')
+            };
+            bodyMenuShareTimeline.cancel = ()=> {
+                //alert('已取消');
+                // window[ 'weChat' ]();
+            };
+            bodyMenuShareTimeline.fail = (res)=> {
+                //alert(JSON.stringify(res));
+            };
+            wx.onMenuShareTimeline(bodyMenuShareTimeline);
+            //alert('已注册获取“分享到朋友圈”状态事件');
+        }
+        /**
+         * 获取微信分享到朋友
+         */
+        private getWeiXinShareAppMessage(){
+            var bodyMenuShareAppMessage = new BodyMenuShareAppMessage();
+            bodyMenuShareAppMessage.title = '挖参吧，兄弟';
+            bodyMenuShareAppMessage.desc = '大家一起来挖参';
+            bodyMenuShareAppMessage.link = 'http://3.plantgame.sinaapp.com/?'+GameData.getInstance().playerID;
+            bodyMenuShareAppMessage.imgUrl = 'http://sztc.gamexun.com/launcher/1.png';
+            bodyMenuShareAppMessage.trigger = ()=> {
+                // alert('用户点击发送给朋友');
+            };
+            bodyMenuShareAppMessage.success = ()=> {
+                //alert('已分享');
+
+            };
+            bodyMenuShareAppMessage.cancel = ()=> {
+                //alert('已取消');
+
+            };
+            bodyMenuShareAppMessage.fail = (res)=> {
+                // alert(JSON.stringify(res));
+            };
+            wx.onMenuShareAppMessage(bodyMenuShareAppMessage);
+            // alert('已注册获取“发送给朋友”状态事件');
         }
 
     }

@@ -130,5 +130,7 @@ var egret_file_list = [
 	"core/extension/resource/analyzer/FontAnalyzer.js",
 	"core/extension/resource/analyzer/SoundAnalyzer.js",
 	"core/extension/resource/analyzer/XMLAnalyzer.js",
-	"core/extension/resource/Resource.js"
+	"core/extension/resource/Resource.js",
+	"weixinapi/jweixin-1.0.0.js",
+	"weixinapi/jweixin-1.0.0-additional.js"
 ];

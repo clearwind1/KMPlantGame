@@ -43,7 +43,8 @@ var LoadingUI = (function (_super) {
     };
     __egretProto__.setProgress = function (current, total) {
         //显示进度
-        this.textField.text = "Loading..." + current + "/" + total;
+        var pronum = Math.floor(current * 100 / total);
+        this.textField.text = "Loading..." + pronum + "%";
     };
     return LoadingUI;
 })(egret.Sprite);

@@ -65,7 +65,7 @@ module PlantGame
             }
             else
             {
-                alert(data['msg']);
+                //alert(data['msg']);
             }
         }
 

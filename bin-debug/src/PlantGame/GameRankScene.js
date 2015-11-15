@@ -99,7 +99,7 @@ var PlantGame;
                 headimg.x = 67;
                 headimg.y = 26 + (pic.texture.textureHeight + 10) * i;
                 headimg.scaleX = headimg.scaleY = 0.05;
-                this.addChild(headimg);
+                rankitem.addChild(headimg);
                 //头像框
                 var playerimgframe = GameUtil.createBitmapByName("playerImg_png");
                 playerimgframe.x = 67;

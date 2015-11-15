@@ -67,7 +67,7 @@ module PlantGame
 
             this.playerName = "";
 
-            this.rewardNum = 3;
+            this.rewardNum = 7;
             this.weekrank = 0;
             this.lastweekrank = 0;
         }
@@ -75,7 +75,7 @@ module PlantGame
         public setData(data:any):void
         {
             var result: any = data['result'];
-            console.log("result========",result);
+            //console.log("result========",result);
 
             GameData.getInstance().playerID = result['userid'];
             GameData.getInstance().playerName = result['username'];

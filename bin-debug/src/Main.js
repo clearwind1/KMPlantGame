@@ -46,7 +46,7 @@ var Main = (function (_super) {
         GameUtil.Http.getinstance();
         var params = window.location.search; //params:?id,date
         var arr = params.substring(1).split("&");
-        console.log("params====", params);
+        //console.log("params====",params);
         PlantGame.GameData.getInstance().playerOpenID = arr[0];
         PlantGame.GameData.getInstance().playerNickname = arr[1];
         PlantGame.GameData.getInstance().playerImgUrl = arr[2];
