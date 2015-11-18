@@ -56,7 +56,7 @@ module PlantGame
             textfiled.textColor = 0x000000;
             textfiled.width = 390;
 
-            console.log("textfild======",textfiled.text);
+            //console.log("textfild======",textfiled.text);
 
             var textScollview: GameUtil.ScrollView = new GameUtil.ScrollView(390,567);
             textScollview.x = 46;

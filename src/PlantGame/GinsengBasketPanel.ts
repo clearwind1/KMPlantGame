@@ -40,17 +40,20 @@ module PlantGame
                 this.addChild(ginsengitemframe);
 
                 var ginseng: GameUtil.Menu = new GameUtil.Menu(this,sengName[i],sengName[i],this.showginseng,[data[i]]);
-                ginseng.addButtonText(getsengName[i],0,65);
-                ginseng.getBtnText().textColor = 0x000000;
                 ginseng.setScaleMode();
                 ginseng.x = 111+132*(i%3);
-                ginseng.y = 363 + 116*Math.floor(i/3);
+                ginseng.y = 353 + 116*Math.floor(i/3);
                 this.addChild(ginseng);
 
-                var gsnumber: egret.TextField = GameUtil.createTextField(140+140*(i%3),370+120*Math.floor(i/3),20);
+                var gsnumber: egret.TextField = GameUtil.createTextField(143+132*(i%3),370+120*Math.floor(i/3),20);
                 gsnumber.text = "" + PlantGame.GameData.getInstance().ginsendNum[i];
                 gsnumber.textColor = 0x000000;
                 this.addChild(gsnumber);
+
+                var ginsengName: egret.TextField = GameUtil.createTextField(111+132*(i%3),410+116*Math.floor((i/3)),20);
+                ginsengName.text = getsengName[i];
+                ginsengName.textColor = 0x000000;
+                this.addChild(ginsengName);
 
             }
 

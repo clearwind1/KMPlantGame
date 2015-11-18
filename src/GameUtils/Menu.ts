@@ -104,6 +104,12 @@ module GameUtil
             return this.mTextField;
         }
 
+        public setBtnScale(scaleX:number,scaleY:number):void
+        {
+            this.btnImg.scaleX = scaleX;
+            this.btnImg.scaleY = scaleY;
+        }
+
         private TouchBegin(event:egret.TouchEvent):void
         {
             //console.log("touchbegin");

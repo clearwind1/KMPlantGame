@@ -34,6 +34,10 @@ module PlantGame
                 this.addChild(btn);
             }
 
+            /**
+             * 查询是否玩家已注册
+             * @type {{openid: string}}
+             */
             var parm: Object = {
                 openid: "osMTev4Qs_mspjbbGr6QWbMpBk_I"//GameData.getInstance().playerOpenID
             }
@@ -45,18 +49,10 @@ module PlantGame
 
         }
 
-        private startGame():void
-        {
-            if(GameData.getInstance().isRegister)
-            {
-                GameUtil.GameScene.runscene(new PlantGame.MainGameScene(),GameUtil.GameConfig.TransAlpha);
-            }
-            else
-            {
-                var register: RegisterPanel = new RegisterPanel();
-                this.addChild(register);
-            }
-        }
+        /**
+         * 接受查询结果
+         * @param data 服务器返回消息
+         */
         private receiveStartGame(data:any):void
         {
             if(data['code'] == 1)
@@ -69,6 +65,25 @@ module PlantGame
             }
         }
 
+        /**
+         * 开始游戏
+         */
+        private startGame():void
+        {
+            if(GameData.getInstance().isRegister)
+            {
+                GameUtil.GameScene.runscene(PlantGame.MainGameScene.getinstance(),GameUtil.GameConfig.TransAlpha);
+            }
+            else
+            {
+                var register: RegisterPanel = new RegisterPanel();
+                this.addChild(register);
+            }
+        }
+
+        /**
+         * 排行榜
+         */
         private checkRank():void
         {
             if(!GameData.getInstance().isRegister)
@@ -82,6 +97,9 @@ module PlantGame
             }
         }
 
+        /**
+         * 游戏说明
+         */
         private gameDescribe():void
         {
             GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());

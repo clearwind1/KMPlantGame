@@ -8,9 +8,11 @@ module PlantGame
     export class BestginsengTip extends egret.DisplayObjectContainer
     {
         private mLight: egret.Bitmap;
-        public constructor()
+        private sengkind: number;
+        public constructor(sengkind:number)
         {
             super();
+            this.sengkind = sengkind;
             this.init();
         }
 
@@ -28,20 +30,24 @@ module PlantGame
             tipbg.y = stageH/2;
             this.addChild(tipbg);
 
-            this.mLight = GameUtil.createBitmapByName("tiplight_png");
+            this.mLight = GameUtil.createBitmapByName("tiplight2_png");
             this.mLight.x = stageW/2;
             this.mLight.y = stageH/2;
             this.addChild(this.mLight);
 
             this.showLight();
 
-            var ginseng: egret.Bitmap = GameUtil.createBitmapByName("xinkaiheseng_png");
-            ginseng.x = stageW/2;
-            ginseng.y = 350;
+            var ginsengpox:number[] = [233,233,233,233,233,233];
+            var ginsengpoy:number[] = [383,383,383,383,383,383];
+            var ginsengname:string[] = ["gaoliseng_png","dangseng_png","danseng_png","shizhuseng_png","dongyangseng_png","xinkaiheseng_png"];
+            var ginseng: egret.Bitmap = GameUtil.createBitmapByName(ginsengname[this.sengkind]);
+            ginseng.x = ginsengpox[this.sengkind];
+            ginseng.y = ginsengpoy[this.sengkind];
             this.addChild(ginseng);
 
+            var getsengName:string[] = ["高丽参","党参","丹参","石柱参","东洋参","新开河参"];
             var textcon: egret.TextField = GameUtil.createTextField(stageW/2,435,20);
-            textcon.text = "恭喜您，挖到了新开河参！太棒了！";
+            textcon.text = "恭喜您,挖到了"+getsengName[this.sengkind]+"!太棒了!";
             textcon.textColor = 0x000000;
             this.addChild(textcon);
 
@@ -76,8 +82,6 @@ module PlantGame
         private showLight():void
         {
             var rota: number = this.mLight.rotation;
-
-            console.log("fdsa=====",rota);
 
             rota += 10;
             var tw = egret.Tween.get(this.mLight);

@@ -15,6 +15,7 @@ var PlantGame;
             this.touchEnabled = true;
             var cover = GameUtil.createRect(0, 0, 480, 800, 0.6);
             this.addChild(cover);
+            //背景框
             var Frame = GameUtil.createBitmapByName("ItemFrame_png");
             Frame.x = this.mStageW / 2;
             Frame.y = this.mStageH / 2;
@@ -61,8 +62,10 @@ var PlantGame;
             sheninput.x = 149;
             sheninput.y = 325 + 50 * 3;
             this.addChild(sheninput);
-            this.textinput[3] = GameUtil.createInputText(162, 315 + 50 * 3, 20, 120, 20, 5);
-            this.textinput[3].text = "省";
+            var shentext = GameUtil.createTextField(260, 325 + 50 * 3, 20);
+            shentext.text = "省";
+            this.addChild(shentext);
+            this.textinput[3] = GameUtil.createInputText(162, 315 + 50 * 3, 20, 90, 20, 5);
             this.addChild(this.textinput[3]);
             //市
             var shiinput = GameUtil.createBitmapByName("registerFrame_png");
@@ -71,8 +74,10 @@ var PlantGame;
             shiinput.x = 270;
             shiinput.y = 325 + 50 * 3;
             this.addChild(shiinput);
-            this.textinput[4] = GameUtil.createInputText(283, 315 + 50 * 3, 20, 120, 20, 5);
-            this.textinput[4].text = "市";
+            var shitext = GameUtil.createTextField(380, 325 + 50 * 3, 20);
+            shitext.text = "市";
+            this.addChild(shitext);
+            this.textinput[4] = GameUtil.createInputText(283, 315 + 50 * 3, 20, 90, 20, 5);
             this.addChild(this.textinput[4]);
             //详细地址
             var moreinput = GameUtil.createBitmapByName("registerFrame_png");
@@ -91,6 +96,7 @@ var PlantGame;
             textip.text = "请认真填写你的资料,该资料与你获奖所得相关,如果因资料问题拿不到应有奖励,本公司概不负责";
             textip.width = 440;
             textip.textColor = 0xff0000;
+            textip.bold = true;
             this.addChild(textip);
         };
         __egretProto__.sureRegister = function () {
@@ -100,24 +106,17 @@ var PlantGame;
                 this.addChild(tip);
                 return;
             }
-            //if(this.textinput[1].text == "")
-            //{
-            //    tip = new GameUtil.TipsPanel("alertBg_png","性别不能为空",true,1500);
-            //    this.addChild(tip);
-            //
-            //    return;
-            //}
             if (this.textinput[2].text == "") {
                 tip = new GameUtil.TipsPanel("alertBg_png", "手机号不能为空", true, 1500);
                 this.addChild(tip);
                 return;
             }
-            if (this.textinput[3].text == "省" || this.textinput[3].text == "") {
+            if (this.textinput[3].text == "") {
                 tip = new GameUtil.TipsPanel("alertBg_png", "省份不能为空", true, 1500);
                 this.addChild(tip);
                 return;
             }
-            if (this.textinput[4].text == "市" || this.textinput[3].text == "") {
+            if (this.textinput[4].text == "") {
                 tip = new GameUtil.TipsPanel("alertBg_png", "城市不能为空", true, 1500);
                 this.addChild(tip);
                 return;
@@ -127,8 +126,15 @@ var PlantGame;
                 this.addChild(tip);
                 return;
             }
+            var len = this.textinput[4].text.length - 1;
+            if (this.textinput[4].text[len] != "市") {
+                this.textinput[4].text += "市";
+            }
             this.upLoadData();
         };
+        /**
+         * 提交注册内容
+         */
         __egretProto__.upLoadData = function () {
             var ipstr = window['getIP'];
             console.log("ip=====", ipstr);

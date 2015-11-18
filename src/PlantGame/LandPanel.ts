@@ -6,15 +6,14 @@ module PlantGame
 {
     export class LandPanel extends GameUtil.BassPanel
     {
+        private landstate:number[] = [0,0,0,0,0,0];         //土地状态
+        private landSeedKind:number[] = [0,0,0,0,0,0];      //土地种子类型
+        private haveSeendland:number[] = [0,0,0,0,0,0];     //当前土地是否有种子
+        private lanpic:GameUtil.Menu[] = [];                //种子状态按钮（浇水施肥等）
+        private seedImg: egret.Bitmap[] = [];               //种子图片
 
-        private landstate:number[] = [0,0,0,0,0,0];
-        private landSeedKind:number[] = [0,0,0,0,0,0];
-        private haveSeendland:number[] = [0,0,0,0,0,0];
-        private lanpic:GameUtil.Menu[] = [];
-        private seedImg: egret.Bitmap[] = [];
-
-        private plantLandID: number;
-        private plantSeedkind: number;
+        private plantLandID: number;            //当前种植土地的ID
+        private plantSeedkind: number;          //种植种子的类型
 
         public constructor()
         {
@@ -22,6 +21,7 @@ module PlantGame
         }
         public init():void
         {
+            //初始化
             for(var i:number= 0;i < 6;i++)
             {
                 this.landSeedKind[i] = GameData.getInstance().landSeedKind[i];
@@ -29,12 +29,14 @@ module PlantGame
                 this.haveSeendland[i] = GameData.getInstance().haveSeendland[i];
             }
 
+            //土地位置
             var lanpox: number[] = [95,230,170,310,250,390];
             var lanpoy: number[] = [340,320,420,390,505,465];
             var data:Object[] = [{"lanID":0},{"lanID":1},{"lanID":2},{"lanID":3},{"lanID":4},{"lanID":5}];
 
             for(var i:number=0;i < 6;i++)
             {
+                //判断种子类型
                 if(this.landSeedKind[i] == PlantGame.SeedKind.normalseed)
                 {
                     this.seedImg[i] = GameUtil.createBitmapByName("diamod1_png");
@@ -50,6 +52,7 @@ module PlantGame
                     this.addChild(this.seedImg[i]);
                 }
 
+                //判断土地状态
                 if(this.landstate[i]==5)
                 {
                     this.seedImg[i].texture = RES.getRes("diamod4_png");
@@ -77,6 +80,11 @@ module PlantGame
             }
         }
 
+        /**
+         * 改变土地状态
+         * @param data 所要改变土地ID
+         * @constructor
+         */
         private ChangeLandState(data:any):void
         {
             var landID:number = <number>data['lanID'];
@@ -94,7 +102,8 @@ module PlantGame
                     userid: GameData.getInstance().playerID,
                     soilid: landID+1,
                     soilstatus: 1,
-                    seedtype: this.landSeedKind[landID]
+                    seedtype: this.landSeedKind[landID],
+                    address: GameData.getInstance().playerCity
                 }
 
                 this.plantLandID = landID;
@@ -109,7 +118,8 @@ module PlantGame
                     userid: GameData.getInstance().playerID,
                     soilid: landID+1,
                     soilstatus: soidss,
-                    seedtype: this.landSeedKind[landID]
+                    seedtype: this.landSeedKind[landID],
+                    address: GameData.getInstance().playerCity
                 }
 
                 this.plantLandID = landID;
@@ -117,6 +127,11 @@ module PlantGame
                 GameUtil.Http.getinstance().send(parm,"/api/soil.ashx?action=update",this.receiveChangeLandState,this);
             }
         }
+
+        /**
+         * 改变土地状态
+         * @param data 服务返回消息
+         */
         private receiveChangeLandState(data:any):void
         {
             if(data['code'] == 1)
@@ -129,8 +144,16 @@ module PlantGame
                     this.seedImg[this.plantLandID].texture = RES.getRes("diamod4_png");
                 }
             }
+            else
+            {
+                console.log("改变状态错误========",data['msg']);
+            }
         }
 
+        /**
+         * 收获消息
+         * @param data 服务器返回消息
+         */
         private receiveGetseng(data:any):void
         {
             if(data['code'] == 1)
@@ -144,13 +167,28 @@ module PlantGame
                 this.getsengAnimata(sengtype,this.plantLandID);
                 this.haveSeendland[this.plantLandID] = 0;
                 this.seedImg[this.plantLandID].visible = false;
+
+                if(data['ispremovie'] == 1){
+                    MainGameScene.getinstance().movieDatabtn.visible = true;
+                }
+
+            }
+            else
+            {
+                console.log("收获错误========",data['msg']);
             }
         }
 
+        //获取当前可用土地ID
         public getlandNum():number
         {
             return this.checkhaveland();
         }
+
+        /**
+         * 种植种子
+         * @param seedkind 种子类型
+         */
         public plantSeed(seedkind:number):void
         {
             var landid:number = this.checkhaveland();
@@ -162,7 +200,8 @@ module PlantGame
                 userid: GameData.getInstance().playerID,
                 soilid: landid+1,
                 soilstatus: 2,
-                seedtype: seedkind
+                seedtype: seedkind,
+                address: GameData.getInstance().playerCity
             }
 
             GameUtil.Http.getinstance().send(parm,"/api/soil.ashx?action=update",this.receivePlantSeed,this);
@@ -189,9 +228,22 @@ module PlantGame
                     GameData.getInstance().bestSeednumber--;
                 }
                 this.seedImg[this.plantLandID].visible = true;
+
+                GameData.getInstance().ispremovie = data['ispremovie'];
+                if(GameData.getInstance().ispremovie == 1){
+                    PlantGame.MainGameScene.getinstance().movieDatabtn.visible = true;
+                }
+            }
+            else
+            {
+                console.log("种植种子错误========",data['msg']);
             }
         }
 
+        /**
+         * 更新土地状态
+         * @param lanid 土地ID
+         */
         private updatastate(lanid:number):void
         {
             var lanimg:string = "Action" + this.landstate[lanid] +"_png";
@@ -207,6 +259,7 @@ module PlantGame
             }
         }
 
+        //获取当前可用土地ID
         private checkhaveland():number
         {
             var landid:number = -1;
@@ -222,6 +275,7 @@ module PlantGame
             return landid;
         }
 
+        //收获人参时动画
         private getsengAnimata(sengkind,landID:number):void
         {
             var lanpox: number[] = [95,230,170,310,250,390];
@@ -247,16 +301,16 @@ module PlantGame
             var tw = egret.Tween.get(seng);
             tw.to({y:seng.y-50},500).to({x:60,y:747,scaleX:0.2,scaleY:0.2},500).call(function(){
                 self.removeChild(seng);
-                if(sengkind == 5)
-                {
-                    var besttip: PlantGame.BestginsengTip = new PlantGame.BestginsengTip();
+                //if(sengkind == 5)
+                //{
+                    var besttip: PlantGame.BestginsengTip = new PlantGame.BestginsengTip(sengkind);
                     self.addChild(besttip);
-                }
-                else
-                {
-                    var tip: GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png","收获了"+getsengName[sengkind]);
-                    self.addChild(tip);
-                }
+                //}
+                //else
+                //{
+                //    var tip: GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png","收获了"+getsengName[sengkind]);
+                //    self.addChild(tip);
+                //}
             });
 
         }

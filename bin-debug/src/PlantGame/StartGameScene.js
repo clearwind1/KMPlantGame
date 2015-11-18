@@ -28,6 +28,10 @@ var PlantGame;
                 btn.y = 315 + i * 100;
                 this.addChild(btn);
             }
+            /**
+             * 查询是否玩家已注册
+             * @type {{openid: string}}
+             */
             var parm = {
                 openid: "osMTev4Qs_mspjbbGr6QWbMpBk_I" //GameData.getInstance().playerOpenID
             };
@@ -36,15 +40,10 @@ var PlantGame;
             //var ip = window['getIP'];
             //console.log("ip====",ip);
         };
-        __egretProto__.startGame = function () {
-            if (PlantGame.GameData.getInstance().isRegister) {
-                GameUtil.GameScene.runscene(new PlantGame.MainGameScene(), GameUtil.GameConfig.TransAlpha);
-            }
-            else {
-                var register = new PlantGame.RegisterPanel();
-                this.addChild(register);
-            }
-        };
+        /**
+         * 接受查询结果
+         * @param data 服务器返回消息
+         */
         __egretProto__.receiveStartGame = function (data) {
             if (data['code'] == 1) {
                 PlantGame.GameData.getInstance().setData(data);
@@ -52,6 +51,21 @@ var PlantGame;
             else {
             }
         };
+        /**
+         * 开始游戏
+         */
+        __egretProto__.startGame = function () {
+            if (PlantGame.GameData.getInstance().isRegister) {
+                GameUtil.GameScene.runscene(PlantGame.MainGameScene.getinstance(), GameUtil.GameConfig.TransAlpha);
+            }
+            else {
+                var register = new PlantGame.RegisterPanel();
+                this.addChild(register);
+            }
+        };
+        /**
+         * 排行榜
+         */
         __egretProto__.checkRank = function () {
             if (!PlantGame.GameData.getInstance().isRegister) {
                 var tip = new GameUtil.TipsPanel("alertBg_png", "请先注册成为玩家");
@@ -61,6 +75,9 @@ var PlantGame;
                 GameUtil.GameScene.runscene(new PlantGame.GameRankScene());
             }
         };
+        /**
+         * 游戏说明
+         */
         __egretProto__.gameDescribe = function () {
             GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());
         };

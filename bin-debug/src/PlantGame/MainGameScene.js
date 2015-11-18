@@ -7,10 +7,14 @@ var PlantGame;
         __extends(MainGameScene, _super);
         function MainGameScene() {
             _super.call(this);
+            this.curShopAddTag = 0; //当前选择门店地址标识
+            this.shopaddScroll = null; //门店地址选择下拉滚动框
         }
         var __egretProto__ = MainGameScene.prototype;
         __egretProto__.init = function () {
+            console.log("city======", PlantGame.GameData.getInstance().playerCity);
             this.toolbtn = [];
+            //背景
             var bg = GameUtil.createBitmapByName("gamebg_jpg");
             bg.x = this.mStageW / 2;
             bg.y = this.mStageH / 2;
@@ -36,7 +40,7 @@ var PlantGame;
             playerName.text = PlantGame.GameData.getInstance().playerName + "的参场";
             playerName.textColor = 0x7d4406;
             this.addChild(playerName);
-            //退出游戏
+            //分享游戏
             var btn = new GameUtil.Menu(this, "buttonFrame_png", "buttonFrame_png", this.goback);
             btn.setScaleMode();
             btn.addButtonImg("returnbtn_png", 0, -5);
@@ -46,14 +50,19 @@ var PlantGame;
             this.showTools();
             this.addChild(PlantGame.LandPanel.getinstance());
         };
+        /**
+         * 微信分享
+         */
         __egretProto__.goback = function () {
-            GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
+            //GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
+            this.getSignPackage();
         };
         /**
          * 显示道具，预约，参框，奖励，优品种子，臻品种子
          */
         __egretProto__.showTools = function () {
-            this.movieDatabtn = new GameUtil.Menu(this, "buttonFrame_png", "buttonFrame_png", this.movieData);
+            //预约电影票
+            this.movieDatabtn = new GameUtil.Menu(this, "buttonFrame_png", "buttonFrame_png", this.showPreMovie);
             this.movieDatabtn.setScaleMode();
             this.movieDatabtn.addButtonText("预约", 0, -4);
             this.movieDatabtn.x = 56;
@@ -61,7 +70,10 @@ var PlantGame;
             this.addChild(this.movieDatabtn);
             this.movieDatabtn.getBtnText().bold = true;
             this.movieDatabtn.getBtnText().textColor = 0x000000;
-            //this.movieDatabtn.visible = false;
+            //console.log("ispremovie========",GameData.getInstance().ispremovie);
+            if (PlantGame.GameData.getInstance().ispremovie == 0 && PlantGame.GameData.getInstance().moviePreshopaddr == null) {
+                this.movieDatabtn.visible = false;
+            }
             //显示底部工具框
             var bottomframe = GameUtil.createBitmapByName("bottomFrame_png");
             bottomframe.x = this.mStageW / 2;
@@ -89,11 +101,133 @@ var PlantGame;
         /**
          * 预约电影票
          */
+        __egretProto__.showPreMovie = function () {
+            var add;
+            if (PlantGame.GameData.getInstance().playerCity == "深圳市") {
+                add = 'SZ';
+            }
+            else if (PlantGame.GameData.getInstance().playerCity == "普宁市") {
+                add = 'PN';
+            }
+            else if (PlantGame.GameData.getInstance().playerCity == "北京市") {
+                add = 'BJ';
+            }
+            else if (PlantGame.GameData.getInstance().playerCity == '广州市') {
+                add = 'GZ';
+            }
+            var playeradd = "shopaddress" + add + "_json";
+            this.shopaddObj = RES.getRes(playeradd);
+            console.log("dshop=====", this.shopaddObj);
+            this.showmovieCont = new egret.DisplayObjectContainer;
+            this.addChild(this.showmovieCont);
+            this.showmovieCont.addChild(GameUtil.WaitServerPanel.getInstace());
+            GameUtil.WaitServerPanel.getInstace().setAlpha(0.5);
+            var yhjbg = GameUtil.createBitmapByName("bestsengTipFrame_png");
+            yhjbg.x = this.mStageW / 2;
+            yhjbg.y = this.mStageH / 2;
+            this.showmovieCont.addChild(yhjbg);
+            var yhjkind = GameUtil.createTextField(this.mStageW / 2, 306, 25);
+            yhjkind.text = "预约电影票";
+            yhjkind.textColor = 0x7d4406;
+            this.showmovieCont.addChild(yhjkind);
+            var shopaddress = GameUtil.createTextField(40, 400, 20, 0, 0.5, egret.HorizontalAlign.LEFT);
+            shopaddress.text = "门店地址:";
+            shopaddress.textColor = 0x7d4406;
+            this.showmovieCont.addChild(shopaddress);
+            var shopframe = GameUtil.createBitmapByName("registerFrame_png");
+            shopframe.anchorX = 0;
+            shopframe.scaleX = 1.25;
+            shopframe.scaleY = 2;
+            shopframe.x = 130;
+            shopframe.y = 400;
+            this.showmovieCont.addChild(shopframe);
+            this.shopaddText = GameUtil.createTextField(140, 400, 15, 0, 0.5, egret.HorizontalAlign.LEFT);
+            if (PlantGame.GameData.getInstance().moviePreshopaddr == null) {
+                this.shopaddText.text = this.shopaddObj[this.curShopAddTag]['add'];
+            }
+            else {
+                this.shopaddText.text = PlantGame.GameData.getInstance().moviePreshopaddr;
+            }
+            this.shopaddText.width = 270;
+            this.showmovieCont.addChild(this.shopaddText);
+            if (PlantGame.GameData.getInstance().moviePreshopaddr == null) {
+                var shopaddbtn = new GameUtil.Menu(this, "shopbtn_png", "shopbtn_png", this.showShopAdd);
+                shopaddbtn.x = 418;
+                shopaddbtn.y = 400;
+                this.showmovieCont.addChild(shopaddbtn);
+            }
+            var morebtn = new GameUtil.Menu(this, "morebtn_png", "morebtn_png", this.morehhj);
+            morebtn.addButtonText("了解详情");
+            morebtn.setScaleMode();
+            morebtn.x = 135;
+            morebtn.y = 490;
+            this.showmovieCont.addChild(morebtn);
+            var closebtn = new GameUtil.Menu(this, "morebtn_png", "morebtn_png", this.movieData);
+            closebtn.addButtonText("确定");
+            closebtn.setScaleMode();
+            closebtn.x = 346;
+            closebtn.y = 490;
+            this.showmovieCont.addChild(closebtn);
+        };
+        __egretProto__.showShopAdd = function () {
+            if (this.shopaddScroll == null) {
+                this.shopaddScroll = new GameUtil.ScrollView(350, 175);
+                this.shopaddScroll.x = 130;
+                this.shopaddScroll.y = 438;
+                this.showmovieCont.addChild(this.shopaddScroll);
+                for (var i = 0; i < this.shopaddObj.length; i++) {
+                    var shopadditem = new GameUtil.Menu(this, "registerFrame_png", "registerFrame_png", this.getChooseTag, [i]);
+                    shopadditem.addButtonText(this.shopaddObj[i]['add'], -115, 15);
+                    shopadditem.setBtnScale(1.25, 2);
+                    shopadditem.y = 35 + 70 * i;
+                    shopadditem.getBtnText().size = 15;
+                    shopadditem.getBtnText().width = 270;
+                    shopadditem.getBtnText().anchorX = 0;
+                    shopadditem.getBtnText().textAlign = egret.HorizontalAlign.LEFT;
+                    shopadditem.x = 154;
+                    this.shopaddScroll.putItem(shopadditem);
+                }
+            }
+            else {
+                this.showmovieCont.removeChild(this.shopaddScroll);
+                this.shopaddScroll = null;
+            }
+        };
+        __egretProto__.getChooseTag = function (tag) {
+            console.log("tag====", tag);
+            this.curShopAddTag = tag;
+            this.shopaddText.text = this.shopaddObj[this.curShopAddTag]['add'];
+            this.showmovieCont.removeChild(this.shopaddScroll);
+            this.shopaddScroll = null;
+        };
         __egretProto__.movieData = function () {
-            //console.log("预约电影票");
-            //var tip: GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png","预约成功");
-            //this.addChild(tip);
-            this.getSignPackage();
+            if (PlantGame.GameData.getInstance().moviePreshopaddr != null) {
+                this.removeChild(this.showmovieCont);
+            }
+            else {
+                PlantGame.GameData.getInstance().moviePreshopaddr = this.shopaddText.text;
+                //console.log("预约电影票");
+                var param = {
+                    userid: PlantGame.GameData.getInstance().playerID,
+                    address: PlantGame.GameData.getInstance().playerCity,
+                    prizetype: PlantGame.GameConfig.MOVIE,
+                    preshopaddr: PlantGame.GameData.getInstance().moviePreshopaddr
+                };
+                GameUtil.Http.getinstance().send(param, "/api/prize.ashx?action=preshopaddr", this.showpremovie, this);
+            }
+        };
+        __egretProto__.showpremovie = function (data) {
+            if (data['code'] == 1) {
+                var tip = new GameUtil.TipsPanel("alertBg_png", "预约成功");
+                this.addChild(tip);
+                this.removeChild(this.showmovieCont);
+            }
+            else {
+                console.log("预约电影票失败=======", data['msg']);
+            }
+        };
+        __egretProto__.morehhj = function () {
+            GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());
         };
         /**
          * 参框
@@ -198,6 +332,7 @@ var PlantGame;
                 url: urllocal
             };
             GameUtil.Http.getinstance().send(parma, "/api/weixinshare.ashx", this.share, this);
+            //GameUtil.Http.getinstance().send(parma,"/jssdk/config",this.share,this,'api.sztc.gamexun.com')
         };
         __egretProto__.share = function (data) {
             console.log("data======", data);
@@ -217,6 +352,19 @@ var PlantGame;
                     'onMenuShareWeibo'
                 ]
             });
+            //wx.config({
+            //    debug: true,
+            //    appId: data.appId,
+            //    timestamp: data.timestamp,
+            //    nonceStr: 'fdsafdsa',
+            //    signature: data.signature,
+            //    jsApiList: [
+            //        'onMenuShareTimeline',
+            //        'onMenuShareAppMessage',
+            //        'onMenuShareQQ',
+            //        'onMenuShareWeibo'
+            //    ]
+            //});
             //下面可以加更多接口,可自行扩展
             this.getWeiXinShareTimeline(); //分享朋友圈
             this.getWeiXinShareAppMessage();
@@ -227,7 +375,7 @@ var PlantGame;
         __egretProto__.getWeiXinShareTimeline = function () {
             var bodyMenuShareTimeline = new BodyMenuShareTimeline();
             bodyMenuShareTimeline.title = '大家一起来挖参';
-            bodyMenuShareTimeline.link = 'http://3.plantgame.sinaapp.com/?' + PlantGame.GameData.getInstance().playerID;
+            bodyMenuShareTimeline.link = 'http://ginseng.sxd55.com/web';
             bodyMenuShareTimeline.imgUrl = 'http://sztc.gamexun.com/launcher/1.png';
             bodyMenuShareTimeline.trigger = function () {
                 // alert('用户点击分享到朋友圈');
@@ -254,7 +402,7 @@ var PlantGame;
             var bodyMenuShareAppMessage = new BodyMenuShareAppMessage();
             bodyMenuShareAppMessage.title = '挖参吧，兄弟';
             bodyMenuShareAppMessage.desc = '大家一起来挖参';
-            bodyMenuShareAppMessage.link = 'http://3.plantgame.sinaapp.com/?' + PlantGame.GameData.getInstance().playerID;
+            bodyMenuShareAppMessage.link = 'http://ginseng.sxd55.com/web';
             bodyMenuShareAppMessage.imgUrl = 'http://sztc.gamexun.com/launcher/1.png';
             bodyMenuShareAppMessage.trigger = function () {
                 // alert('用户点击发送给朋友');
@@ -270,6 +418,12 @@ var PlantGame;
             };
             wx.onMenuShareAppMessage(bodyMenuShareAppMessage);
             // alert('已注册获取“发送给朋友”状态事件');
+        };
+        MainGameScene.getinstance = function () {
+            if (null == MainGameScene._instance) {
+                MainGameScene._instance = new MainGameScene();
+            }
+            return MainGameScene._instance;
         };
         return MainGameScene;
     })(GameUtil.BassPanel);

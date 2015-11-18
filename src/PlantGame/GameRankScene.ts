@@ -73,10 +73,6 @@ module PlantGame
             GameUtil.Http.getinstance().send(parm,"/api/ginseng.ashx?action=rank",this.receiveRank,this);
 
         }
-        private touchmove(event:egret.TouchEvent):void
-        {
-            console.log("scrolltop=======",this.mscrollview.getScorllTop());
-        }
 
         private goback():void
         {
@@ -91,8 +87,7 @@ module PlantGame
             }
             else
             {
-                var tip:GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png",data['msg']);
-                this.addChild(tip);
+                console.log("排行榜错误=====",data['msg']);
             }
 
         }

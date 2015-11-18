@@ -6,8 +6,9 @@ var PlantGame;
 (function (PlantGame) {
     var BestginsengTip = (function (_super) {
         __extends(BestginsengTip, _super);
-        function BestginsengTip() {
+        function BestginsengTip(sengkind) {
             _super.call(this);
+            this.sengkind = sengkind;
             this.init();
         }
         var __egretProto__ = BestginsengTip.prototype;
@@ -21,17 +22,21 @@ var PlantGame;
             tipbg.x = stageW / 2;
             tipbg.y = stageH / 2;
             this.addChild(tipbg);
-            this.mLight = GameUtil.createBitmapByName("tiplight_png");
+            this.mLight = GameUtil.createBitmapByName("tiplight2_png");
             this.mLight.x = stageW / 2;
             this.mLight.y = stageH / 2;
             this.addChild(this.mLight);
             this.showLight();
-            var ginseng = GameUtil.createBitmapByName("xinkaiheseng_png");
-            ginseng.x = stageW / 2;
-            ginseng.y = 350;
+            var ginsengpox = [233, 233, 233, 233, 233, 233];
+            var ginsengpoy = [383, 383, 383, 383, 383, 383];
+            var ginsengname = ["gaoliseng_png", "dangseng_png", "danseng_png", "shizhuseng_png", "dongyangseng_png", "xinkaiheseng_png"];
+            var ginseng = GameUtil.createBitmapByName(ginsengname[this.sengkind]);
+            ginseng.x = ginsengpox[this.sengkind];
+            ginseng.y = ginsengpoy[this.sengkind];
             this.addChild(ginseng);
+            var getsengName = ["高丽参", "党参", "丹参", "石柱参", "东洋参", "新开河参"];
             var textcon = GameUtil.createTextField(stageW / 2, 435, 20);
-            textcon.text = "恭喜您，挖到了新开河参！太棒了！";
+            textcon.text = "恭喜您,挖到了" + getsengName[this.sengkind] + "!太棒了!";
             textcon.textColor = 0x000000;
             this.addChild(textcon);
             var morebtn = new GameUtil.Menu(this, "morebtn_png", "morebtn_png", this.openMore);
@@ -56,7 +61,6 @@ var PlantGame;
         };
         __egretProto__.showLight = function () {
             var rota = this.mLight.rotation;
-            console.log("fdsa=====", rota);
             rota += 10;
             var tw = egret.Tween.get(this.mLight);
             tw.to({ rotation: rota }, 300).call(this.showLight, this);

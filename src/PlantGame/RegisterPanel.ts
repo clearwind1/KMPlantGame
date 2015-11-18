@@ -8,8 +8,8 @@ module PlantGame
     export class RegisterPanel extends GameUtil.BassPanel
     {
 
-        private textinput: egret.TextField[];
-        private radiobtn: GameUtil.RadioButton;
+        private textinput: egret.TextField[];          //输入文本框
+        private radiobtn: GameUtil.RadioButton;        //单选按钮
 
         public constructor()
         {
@@ -25,6 +25,7 @@ module PlantGame
             var cover: egret.Shape = GameUtil.createRect(0,0,480,800,0.6);
             this.addChild(cover);
 
+            //背景框
             var Frame: egret.Bitmap = GameUtil.createBitmapByName("ItemFrame_png");
             Frame.x = this.mStageW/2;
             Frame.y = this.mStageH/2;
@@ -45,7 +46,7 @@ module PlantGame
                 text.textColor = 0x000000;
                 this.addChild(text);
 
-                if(i == 1)
+                if(i == 1) //性别选择
                 {
                     this.radiobtn = new GameUtil.RadioButton("rabtnu_png","rabtn_png");
                     this.addChild(this.radiobtn);
@@ -81,9 +82,11 @@ module PlantGame
             sheninput.x = 149;
             sheninput.y = 325+50*3;
             this.addChild(sheninput);
+            var shentext: egret.TextField = GameUtil.createTextField(260,325+50*3,20);
+            shentext.text = "省";
+            this.addChild(shentext);
 
-            this.textinput[3] = GameUtil.createInputText(162,315+50*3,20,120,20,5);
-            this.textinput[3].text = "省";
+            this.textinput[3] = GameUtil.createInputText(162,315+50*3,20,90,20,5);
             this.addChild(this.textinput[3]);
 
             //市
@@ -93,9 +96,11 @@ module PlantGame
             shiinput.x = 270;
             shiinput.y = 325+50*3;
             this.addChild(shiinput);
+            var shitext: egret.TextField = GameUtil.createTextField(380,325+50*3,20);
+            shitext.text = "市";
+            this.addChild(shitext);
 
-            this.textinput[4] = GameUtil.createInputText(283,315+50*3,20,120,20,5);
-            this.textinput[4].text = "市";
+            this.textinput[4] = GameUtil.createInputText(283,315+50*3,20,90,20,5);
             this.addChild(this.textinput[4]);
 
             //详细地址
@@ -117,6 +122,7 @@ module PlantGame
             textip.text = "请认真填写你的资料,该资料与你获奖所得相关,如果因资料问题拿不到应有奖励,本公司概不负责";
             textip.width = 440;
             textip.textColor = 0xff0000;
+            textip.bold = true;
             this.addChild(textip);
         }
 
@@ -131,13 +137,6 @@ module PlantGame
 
                 return;
             }
-            //if(this.textinput[1].text == "")
-            //{
-            //    tip = new GameUtil.TipsPanel("alertBg_png","性别不能为空",true,1500);
-            //    this.addChild(tip);
-            //
-            //    return;
-            //}
             if(this.textinput[2].text == "")
             {
                 tip = new GameUtil.TipsPanel("alertBg_png","手机号不能为空",true,1500);
@@ -145,14 +144,14 @@ module PlantGame
 
                 return;
             }
-            if(this.textinput[3].text == "省" || this.textinput[3].text == "")
+            if(this.textinput[3].text == "")
             {
                 tip = new GameUtil.TipsPanel("alertBg_png","省份不能为空",true,1500);
                 this.addChild(tip);
 
                 return;
             }
-            if(this.textinput[4].text == "市" || this.textinput[3].text == "")
+            if(this.textinput[4].text == "")
             {
                 tip = new GameUtil.TipsPanel("alertBg_png","城市不能为空",true,1500);
                 this.addChild(tip);
@@ -167,9 +166,17 @@ module PlantGame
                 return;
             }
 
+            var len:number = this.textinput[4].text.length-1;
+            if(this.textinput[4].text[len] != "市"){
+                this.textinput[4].text += "市";
+            }
+
             this.upLoadData();
         }
 
+        /**
+         * 提交注册内容
+         */
         private upLoadData():void
         {
             var ipstr: string = window['getIP'];

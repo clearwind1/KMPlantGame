@@ -61,9 +61,6 @@ var PlantGame;
             };
             GameUtil.Http.getinstance().send(parm, "/api/ginseng.ashx?action=rank", this.receiveRank, this);
         };
-        __egretProto__.touchmove = function (event) {
-            console.log("scrolltop=======", this.mscrollview.getScorllTop());
-        };
         __egretProto__.goback = function () {
             GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
         };
@@ -72,8 +69,7 @@ var PlantGame;
                 this.showRank(data);
             }
             else {
-                var tip = new GameUtil.TipsPanel("alertBg_png", data['msg']);
-                this.addChild(tip);
+                console.log("排行榜错误=====", data['msg']);
             }
         };
         __egretProto__.showRank = function (data) {

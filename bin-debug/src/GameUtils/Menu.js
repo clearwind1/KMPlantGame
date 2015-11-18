@@ -86,6 +86,10 @@ var GameUtil;
         __egretProto__.getBtnText = function () {
             return this.mTextField;
         };
+        __egretProto__.setBtnScale = function (scaleX, scaleY) {
+            this.btnImg.scaleX = scaleX;
+            this.btnImg.scaleY = scaleY;
+        };
         __egretProto__.TouchBegin = function (event) {
             //console.log("touchbegin");
             this.btnImg.texture = this.menuSelectTexture;
