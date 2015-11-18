@@ -475,7 +475,7 @@ module PlantGame
 
             var bodyMenuShareTimeline = new BodyMenuShareTimeline();
             bodyMenuShareTimeline.title = '大家一起来挖参';
-            bodyMenuShareTimeline.link = 'http://ginseng.sxd55.com/web';
+            bodyMenuShareTimeline.link = 'http://res.kangmei.17188.com/sharepage/?'+GameData.getInstance().playerID;
             bodyMenuShareTimeline.imgUrl = 'http://sztc.gamexun.com/launcher/1.png';
             bodyMenuShareTimeline.trigger = ()=> {
                 // alert('用户点击分享到朋友圈');
@@ -502,7 +502,7 @@ module PlantGame
             var bodyMenuShareAppMessage = new BodyMenuShareAppMessage();
             bodyMenuShareAppMessage.title = '挖参吧，兄弟';
             bodyMenuShareAppMessage.desc = '大家一起来挖参';
-            bodyMenuShareAppMessage.link = 'http://ginseng.sxd55.com/web';
+            bodyMenuShareAppMessage.link = 'http://res.kangmei.17188.com/sharepage/?'+GameData.getInstance().playerID;
             bodyMenuShareAppMessage.imgUrl = 'http://sztc.gamexun.com/launcher/1.png';
             bodyMenuShareAppMessage.trigger = ()=> {
                 // alert('用户点击发送给朋友');

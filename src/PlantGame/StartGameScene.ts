@@ -39,7 +39,7 @@ module PlantGame
              * @type {{openid: string}}
              */
             var parm: Object = {
-                openid: "osMTev4Qs_mspjbbGr6QWbMpBk_I"//GameData.getInstance().playerOpenID
+                openid: GameData.getInstance().playerOpenID
             }
             GameUtil.Http.getinstance().send(parm,"/api/query.ashx",this.receiveStartGame,this);
             GameUtil.WaitServerPanel.getInstace().setAlpha(0.5);

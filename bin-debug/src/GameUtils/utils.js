@@ -8,7 +8,7 @@ var GameUtil;
         function GameConfig() {
         }
         var __egretProto__ = GameConfig.prototype;
-        GameConfig.IP = "ginseng.sxd55.com"; //"api.sztc.gamexun.com";        //http连接地址
+        GameConfig.IP = "rs.kangmei.17188.com"; //http连接地址
         GameConfig.bRunFPS = false; //是否显示FPS
         //场景转换
         GameConfig.NullAction = 0; //无动画

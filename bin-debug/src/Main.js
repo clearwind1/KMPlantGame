@@ -34,8 +34,16 @@ var Main = (function (_super) {
     }
     var __egretProto__ = Main.prototype;
     __egretProto__.onAddToStage = function (event) {
-        GameUtil.GameScene.init(this.stage);
-        GameUtil.GameScene.runscene(new GameUtil.LoadingPanel(this.createGameScene, this));
+        var params = window.location.search; //params:?id,date
+        var arr = params.substring(1).split("&");
+        if (arr[1] == null) {
+            //console.log("fdsa");
+            window.open("http://rs.kangmei.17188.com/api/weixin.ashx");
+        }
+        else {
+            GameUtil.GameScene.init(this.stage);
+            GameUtil.GameScene.runscene(new GameUtil.LoadingPanel(this.createGameScene, this));
+        }
     };
     /**
      * 创建游戏场景

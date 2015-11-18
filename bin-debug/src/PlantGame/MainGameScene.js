@@ -341,7 +341,7 @@ var PlantGame;
             //配置参数
             wx.config({
                 debug: true,
-                appId: "wx7ff01d3700c22aad",
+                appId: data['addid'],
                 timestamp: Number(data['timestamp']),
                 nonceStr: data['noncestr'],
                 signature: data['sign'],
@@ -375,7 +375,7 @@ var PlantGame;
         __egretProto__.getWeiXinShareTimeline = function () {
             var bodyMenuShareTimeline = new BodyMenuShareTimeline();
             bodyMenuShareTimeline.title = '大家一起来挖参';
-            bodyMenuShareTimeline.link = 'http://ginseng.sxd55.com/web';
+            bodyMenuShareTimeline.link = 'http://res.kangmei.17188.com/sharepage/?' + PlantGame.GameData.getInstance().playerID;
             bodyMenuShareTimeline.imgUrl = 'http://sztc.gamexun.com/launcher/1.png';
             bodyMenuShareTimeline.trigger = function () {
                 // alert('用户点击分享到朋友圈');
@@ -402,7 +402,7 @@ var PlantGame;
             var bodyMenuShareAppMessage = new BodyMenuShareAppMessage();
             bodyMenuShareAppMessage.title = '挖参吧，兄弟';
             bodyMenuShareAppMessage.desc = '大家一起来挖参';
-            bodyMenuShareAppMessage.link = 'http://ginseng.sxd55.com/web';
+            bodyMenuShareAppMessage.link = 'http://res.kangmei.17188.com/sharepage/?' + PlantGame.GameData.getInstance().playerID;
             bodyMenuShareAppMessage.imgUrl = 'http://sztc.gamexun.com/launcher/1.png';
             bodyMenuShareAppMessage.trigger = function () {
                 // alert('用户点击发送给朋友');

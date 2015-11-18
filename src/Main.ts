@@ -42,8 +42,19 @@ class Main extends egret.DisplayObjectContainer {
 
     private onAddToStage(event:egret.Event) {
 
-        GameUtil.GameScene.init(this.stage);
-        GameUtil.GameScene.runscene(new GameUtil.LoadingPanel(this.createGameScene,this));
+        var params= window.location.search;//params:?id,date
+        var arr:any = params.substring(1).split("&");
+
+        if(arr[1] == null)
+        {
+            //console.log("fdsa");
+            window.open("http://rs.kangmei.17188.com/api/weixin.ashx")
+        }
+        else
+        {
+            GameUtil.GameScene.init(this.stage);
+            GameUtil.GameScene.runscene(new GameUtil.LoadingPanel(this.createGameScene,this));
+        }
 
     }
     /**
