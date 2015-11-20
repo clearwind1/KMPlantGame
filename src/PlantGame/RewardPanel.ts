@@ -19,6 +19,7 @@ module PlantGame
         private rewardKind: number[] = [1,2,1,1,1,1,1,1,1,1];   //优惠券各类
         private yhjID: number[] = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
 
+
         public constructor()
         {
             super();
@@ -53,18 +54,18 @@ module PlantGame
                 //背景框
                 var Frame: egret.Bitmap = GameUtil.createBitmapByName("ItemFrame_png");
                 Frame.x = this.mStageW/2;
-                Frame.y = this.mStageH/2;
+                Frame.y = this.mStageH/2 + GameConfig.gameFrameOffY;
                 this.addChild(Frame);
 
                 //名字
-                var frameName: egret.TextField = GameUtil.createTextField(240,257,25);
+                var frameName: egret.TextField = GameUtil.createTextField(240,257 + GameConfig.gameFrameOffY,25);
                 frameName.text = "奖励";
                 this.addChild(frameName);
 
                 //优惠券滚动框
                 var rewardScrollview: GameUtil.ScrollView = new GameUtil.ScrollView(390,237);
                 rewardScrollview.x = 47;
-                rewardScrollview.y = 304;
+                rewardScrollview.y = 304 + GameConfig.gameFrameOffY;
                 this.addChild(rewardScrollview);
 
                 //优惠券内容
@@ -94,7 +95,7 @@ module PlantGame
                 var closebtn: GameUtil.Menu = new GameUtil.Menu(this,"closebtn_png","closebtn_png",this.close);
                 closebtn.setScaleMode();
                 closebtn.x = 450;
-                closebtn.y = 275;
+                closebtn.y = 275 + GameConfig.gameFrameOffY;
                 this.addChild(closebtn);
             }
             else
@@ -127,10 +128,10 @@ module PlantGame
             //优惠券内容背景
             var yhjbg: egret.Bitmap = GameUtil.createBitmapByName("bestsengTipFrame_png");
             yhjbg.x = this.mStageW/2;
-            yhjbg.y = this.mStageH/2;
+            yhjbg.y = this.mStageH/2 + GameConfig.gameFrameOffY;
             this.youhuijuancon.addChild(yhjbg);
 
-            var yhjkind: egret.TextField = GameUtil.createTextField(this.mStageW/2,306,25);
+            var yhjkind: egret.TextField = GameUtil.createTextField(this.mStageW/2,306 + GameConfig.gameFrameOffY,25);
             yhjkind.text = getitemtype['itemtext'];
             yhjkind.textColor = 0x7d4406;
             this.youhuijuancon.addChild(yhjkind);
@@ -140,13 +141,18 @@ module PlantGame
             if(getitemtype['itemtype'] == 3){
                 yhjcodepoy = 400;
             }
-            var yhjCode: egret.TextField = GameUtil.createTextField(40,yhjcodepoy,20,0,0.5,egret.HorizontalAlign.LEFT);
-            yhjCode.text = "券       码:" +"  "+ data2['code'];
+            var yhjCode: egret.TextField = GameUtil.createTextField(40,yhjcodepoy + GameConfig.gameFrameOffY,20,0,0.5,egret.HorizontalAlign.LEFT);
+            yhjCode.text = "券       码:";
             yhjCode.textColor = 0x7d4406;
             this.youhuijuancon.addChild(yhjCode);
 
+            var yhjCodenumber: egret.TextField = GameUtil.createTextField(240,yhjcodepoy + GameConfig.gameFrameOffY,20);
+            yhjCodenumber.text = data2['code'];
+            yhjCodenumber.textColor = 0x7d4406;
+            this.youhuijuancon.addChild(yhjCodenumber);
+
             if(getitemtype['itemtype'] != 3){
-                var shopaddress: egret.TextField = GameUtil.createTextField(40,420,20,0,0.5,egret.HorizontalAlign.LEFT);
+                var shopaddress: egret.TextField = GameUtil.createTextField(40,420 + GameConfig.gameFrameOffY,20,0,0.5,egret.HorizontalAlign.LEFT);
                 shopaddress.text = "门店地址:";
                 shopaddress.textColor = 0x7d4406;
                 this.youhuijuancon.addChild(shopaddress);
@@ -158,10 +164,10 @@ module PlantGame
                     shopframe.scaleY = 2;
                 }
                 shopframe.x = 130;
-                shopframe.y = 420;
+                shopframe.y = 420 + GameConfig.gameFrameOffY;
                 this.youhuijuancon.addChild(shopframe);
 
-                this.shopaddText = GameUtil.createTextField(140,420,15,0,0.5,egret.HorizontalAlign.LEFT);
+                this.shopaddText = GameUtil.createTextField(140,420 + GameConfig.gameFrameOffY,15,0,0.5,egret.HorizontalAlign.LEFT);
                 if(data2['ispre'] == 0){
                     this.shopaddText.text = this.shopaddObj[0]['add'];
                 }
@@ -173,22 +179,27 @@ module PlantGame
                     this.shopaddText.width = 270;
                 }
                 this.youhuijuancon.addChild(this.shopaddText);
+
+                var tiptext: egret.TextField = GameUtil.createTextField(240,460 + GameConfig.gameFrameOffY,15);
+                tiptext.text = "门店地址选择确定后,不可修改";
+                tiptext.textColor = 0xff0000;
+                this.youhuijuancon.addChild(tiptext);
             }
 
             //是否显示下拉框按钮
             if(data2['ispre'] == 0 && getitemtype['itemtype'] != 3) {
                 var shopaddbtn:GameUtil.Menu = new GameUtil.Menu(this, "shopbtn_png", "shopbtn_png", this.showShopAdd);
                 shopaddbtn.x = 418;
-                shopaddbtn.y = 420;
+                shopaddbtn.y = 420 + GameConfig.gameFrameOffY;
                 this.youhuijuancon.addChild(shopaddbtn);
             }
 
             //跳转游戏说明
             var morebtn: GameUtil.Menu = new GameUtil.Menu(this,"morebtn_png","morebtn_png",this.morehhj);
-            morebtn.addButtonText("了解详情");
+            morebtn.addButtonText("使用说明");
             morebtn.setScaleMode();
             morebtn.x = 135;
-            morebtn.y = 490;
+            morebtn.y = 490 + GameConfig.gameFrameOffY;
             this.youhuijuancon.addChild(morebtn);
 
             //确定选择门店并关闭
@@ -196,7 +207,7 @@ module PlantGame
             closebtn.addButtonText("确定");
             closebtn.setScaleMode();
             closebtn.x = 346;
-            closebtn.y = 490;
+            closebtn.y = 490 + GameConfig.gameFrameOffY;
             this.youhuijuancon.addChild(closebtn);
 
         }
@@ -211,10 +222,10 @@ module PlantGame
                 this.shopaddScroll = new GameUtil.ScrollView(350,175);
                 this.shopaddScroll.x = 130;
                 if(this.Playeradd != "PN"){
-                    this.shopaddScroll.y = 455;
+                    this.shopaddScroll.y = 455 + GameConfig.gameFrameOffY;
                 }
                 else{
-                    this.shopaddScroll.y = 438;
+                    this.shopaddScroll.y = 438 + GameConfig.gameFrameOffY;
                 }
                 this.youhuijuancon.addChild(this.shopaddScroll);
 

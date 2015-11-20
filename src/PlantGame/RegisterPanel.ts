@@ -180,7 +180,7 @@ module PlantGame
         private upLoadData():void
         {
             var ipstr: string = window['getIP'];
-            console.log("ip=====",ipstr);
+            console.log("playerimgurl==========",GameData.getInstance().playerImgUrl);
             var parm: Object = {
                 openid: GameData.getInstance().playerOpenID,
                 username: GameData.getInstance().playerNickname,
@@ -188,7 +188,7 @@ module PlantGame
                 realname: this.textinput[0].text,
                 sex: this.radiobtn.getCurSelectTag()+1,
                 phone: this.textinput[2].text,
-                address: this.textinput[4].text,
+                address: this.textinput[3].text + this.textinput[4].text + this.textinput[5].text,
                 ip: ipstr.substring(1)
             };
 
@@ -196,17 +196,34 @@ module PlantGame
         }
         private registerOK(data:any):void
         {
-            console.log("data=========",data);
+            console.log("registerdata=========",data);
             if(data['code'] == 1)
             {
                 GameData.getInstance().setData(data);
-                GameUtil.GameScene.runscene(new PlantGame.MainGameScene(),GameUtil.GameConfig.TransAlpha);
 
+                var ipstr: string = window['getIP'];
+                var param: Object = {
+                    openId: GameData.getInstance().playerOpenID,
+                    amount: 1,
+                    ip: ipstr
+                }
+                GameUtil.Http.getinstance().send(param,"/api/weixinpay.ashx",this.sendRedpack,this);
+                GameUtil.GameScene.runscene(new PlantGame.MainGameScene(),GameUtil.GameConfig.TransAlpha);
             }
             else
             {
                 var tip:GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png",data['msg']);
                 this.addChild(tip);
+            }
+        }
+        private sendRedpack(data:any):void
+        {
+            if(data['code'] == 1){
+
+            }
+            else
+            {
+                console.log("发送红包失败=====",data['msg']);
             }
         }
     }

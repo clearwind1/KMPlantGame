@@ -70,6 +70,7 @@ var PlantGame;
                 return item;
             }
         };
+        GameConfig.gameFrameOffY = -30;
         //优惠券类型
         GameConfig.KMRS100 = "KMRS100";
         GameConfig.KMRS50 = "KMRS50";
@@ -84,6 +85,9 @@ var PlantGame;
     GameConfig.prototype.__class__ = "PlantGame.GameConfig";
     var GameData = (function () {
         function GameData() {
+            this.isPlantAnimation = false;
+            this.isRewardAnimation = false;
+            this.isToolPage = true;
             this.ginsendNum = [];
             this.landSeedKind = [];
             this.landstate = [];
@@ -111,6 +115,10 @@ var PlantGame;
             console.log("result========", data);
             GameData.getInstance().playerID = result['userid'];
             GameData.getInstance().playerName = result['username'];
+            if (GameData.getInstance().playerName.length > 5) {
+                console.log("len======", GameData.getInstance().playerName.substr(0, 5));
+                GameData.getInstance().playerName = GameData.getInstance().playerName.substr(0, 5);
+            }
             GameData.getInstance().playerImgUrl = result['headimgurl'];
             GameData.getInstance().playerNickname = result['realname'];
             GameData.getInstance().playerCity = result['address'];

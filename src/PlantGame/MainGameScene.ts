@@ -15,13 +15,14 @@ module PlantGame
         private shopaddObj: Object[];                           //门店地址配置表
         private shopaddScroll: GameUtil.ScrollView = null;      //门店地址选择下拉滚动框
 
+        private sharetipcont: egret.DisplayObjectContainer;
+
         public constructor()
         {
             super();
         }
         public init():void
         {
-
             console.log("city======",GameData.getInstance().playerCity);
             this.toolbtn = [];
             //背景
@@ -39,17 +40,17 @@ module PlantGame
             //头像
             var headimg: GameUtil.GetImageByUrl = new GameUtil.GetImageByUrl(GameData.getInstance().playerImgUrl);
             headimg.x = 161;
-            headimg.y = 50;
+            headimg.y = 44;
             headimg.scaleX = headimg.scaleY = 0.05;
             this.addChild(headimg);
             //头像框
             var playerFrame: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
             playerFrame.x = 161;
-            playerFrame.y = 50;
+            playerFrame.y = 44;
             this.addChild(playerFrame);
 
             //用户名
-            var playerName: egret.TextField = GameUtil.createTextField(190,52,25,0,0.5,egret.HorizontalAlign.LEFT);
+            var playerName: egret.TextField = GameUtil.createTextField(190,46,25,0,0.5,egret.HorizontalAlign.LEFT);
             playerName.text = GameData.getInstance().playerName + "的参场";
             playerName.textColor = 0x7d4406;
             this.addChild(playerName);
@@ -65,6 +66,8 @@ module PlantGame
             this.showTools();
 
             this.addChild(PlantGame.LandPanel.getinstance());
+
+            this.getGameSignPackage();
 
         }
 
@@ -124,6 +127,49 @@ module PlantGame
                     this.toolbtn[i].scaleX = this.toolbtn[i].scaleY = 0;
                 }
             }
+
+            if(GameData.getInstance().bestSeednumber + GameData.getInstance().seednumber > 0){
+                GameData.getInstance().isPlantAnimation = true;
+                this.plantimgmove(true);
+            }
+
+        }
+
+        public plantimgmove(state:boolean):void
+        {
+            //egret.Tween.removeTweens(this.toolbtn[1]);
+
+            if(GameData.getInstance().isToolPage)
+            {
+                egret.Tween.get(this.toolbtn[1],{loop:true}).to({scaleX:0.9,scaleY:0.9},800).to({scaleX:1.0,scaleY:1.0},800);
+                if(!GameData.getInstance().isPlantAnimation)
+                {
+                    egret.Tween.removeTweens(this.toolbtn[1]);
+                }
+            }
+        }
+
+        private rewardimgstate(data:any):void
+        {
+            if(data['code'] == 1) {
+                if(data['recordcount'] > 0){
+                    GameData.getInstance().isRewardAnimation = true;
+                    this.rewardimgmove(true);
+                }
+            }
+        }
+        public rewardimgmove(state:boolean):void
+        {
+            //egret.Tween.removeTweens(this.toolbtn[2]);
+
+            if(GameData.getInstance().isToolPage){
+                egret.Tween.get(this.toolbtn[2],{loop:true}).to({scaleX:0.9,scaleY:0.9},800).to({scaleX:1.0,scaleY:1.0},800);
+                if(!GameData.getInstance().isRewardAnimation)
+                {
+                    egret.Tween.removeTweens(this.toolbtn[2]);
+                }
+            }
+
         }
 
         /**
@@ -199,6 +245,11 @@ module PlantGame
                 shopaddbtn.y = 400;
                 this.showmovieCont.addChild(shopaddbtn);
             }
+
+            var tiptext: egret.TextField = GameUtil.createTextField(240,460,15);
+            tiptext.text = "门店地址选择确定后,不可修改";
+            tiptext.textColor = 0xff0000;
+            this.showmovieCont.addChild(tiptext);
 
             var morebtn: GameUtil.Menu = new GameUtil.Menu(this,"morebtn_png","morebtn_png",this.morehhj);
             morebtn.addButtonText("了解详情");
@@ -321,21 +372,20 @@ module PlantGame
          */
         private showSeed():void
         {
-            egret.Tween.get(this.toolbtn[0]).to({scaleX:0},400);
-            egret.Tween.get(this.toolbtn[0]).to({scaleY:0},400);
-            egret.Tween.get(this.toolbtn[1]).to({scaleX:0},400);
-            egret.Tween.get(this.toolbtn[1]).to({scaleY:0},400);
-            egret.Tween.get(this.toolbtn[2]).to({scaleX:0},400);
-            egret.Tween.get(this.toolbtn[2]).to({scaleY:0},400).call(this.callseedshow,this);
+            GameData.getInstance().isToolPage = false;
+
+            egret.Tween.removeTweens(this.toolbtn[2]);
+            egret.Tween.removeTweens(this.toolbtn[1]);
+
+            egret.Tween.get(this.toolbtn[0]).to({scaleX:0,scaleY:0},400);
+            egret.Tween.get(this.toolbtn[1]).to({scaleX:0,scaleY:0},400);
+            egret.Tween.get(this.toolbtn[2]).to({scaleX:0,scaleY:0},400).call(this.callseedshow,this);
         }
         private callseedshow():void
         {
-            egret.Tween.get(this.toolbtn[3]).to({scaleX:1},400);
-            egret.Tween.get(this.toolbtn[3]).to({scaleY:1},400);
-            egret.Tween.get(this.toolbtn[4]).to({scaleX:1},400);
-            egret.Tween.get(this.toolbtn[4]).to({scaleY:1},400);
-            egret.Tween.get(this.toolbtn[5]).to({scaleX:1},400);
-            egret.Tween.get(this.toolbtn[5]).to({scaleY:1},400);
+            egret.Tween.get(this.toolbtn[3]).to({scaleX:1,scaleY:1},400);
+            egret.Tween.get(this.toolbtn[4]).to({scaleX:1,scaleY:1},400);
+            egret.Tween.get(this.toolbtn[5]).to({scaleX:1,scaleY:1},400);
         }
 
         /**
@@ -394,22 +444,24 @@ module PlantGame
 
         private returnTools():void
         {
-            egret.Tween.get(this.toolbtn[3]).to({scaleX:0},400);
-            egret.Tween.get(this.toolbtn[3]).to({scaleY:0},400);
-            egret.Tween.get(this.toolbtn[4]).to({scaleX:0},400);
-            egret.Tween.get(this.toolbtn[4]).to({scaleY:0},400);
-            egret.Tween.get(this.toolbtn[5]).to({scaleX:0},400);
-            egret.Tween.get(this.toolbtn[5]).to({scaleY:0},400).call(this.calltoolshow,this);
+            GameData.getInstance().isToolPage = true;
+
+            egret.Tween.get(this.toolbtn[3]).to({scaleX:0,scaleY:0},400);
+            egret.Tween.get(this.toolbtn[4]).to({scaleX:0,scaleY:0},400);
+            egret.Tween.get(this.toolbtn[5]).to({scaleX:0,scaleY:0},400).call(this.calltoolshow,this);
 
         }
         private calltoolshow():void
         {
-            egret.Tween.get(this.toolbtn[0]).to({scaleX:1},400);
-            egret.Tween.get(this.toolbtn[0]).to({scaleY:1},400);
-            egret.Tween.get(this.toolbtn[1]).to({scaleX:1},400);
-            egret.Tween.get(this.toolbtn[1]).to({scaleY:1},400);
-            egret.Tween.get(this.toolbtn[2]).to({scaleX:1},400);
-            egret.Tween.get(this.toolbtn[2]).to({scaleY:1},400);
+            egret.Tween.get(this.toolbtn[0]).to({scaleX:1,scaleY:1},400);
+            egret.Tween.get(this.toolbtn[1]).to({scaleX:1,scaleY:1},400);
+            egret.Tween.get(this.toolbtn[2]).to({scaleX:1,scaleY:1},400).call(this.resumemove,this);
+
+        }
+        private resumemove():void
+        {
+            this.plantimgmove(true);
+            this.rewardimgmove(true);
         }
 
         /**
@@ -427,16 +479,25 @@ module PlantGame
             //GameUtil.Http.getinstance().send(parma,"/jssdk/config",this.share,this,'api.sztc.gamexun.com')
         }
 
-        private share(data:any):void
-        {
-            console.log("data======",data);
+        /**
+         * 获取签名分享
+         */
+        private getGameSignPackage() {
 
-            //........................................................
-            //基本配置
-            //配置参数
+            var urllocal:string = encodeURIComponent(window.location.href.split('#')[0]);
+
+            //console.log("url=====", urllocal);
+            var parma:Object = {
+                url: urllocal
+            }
+            GameUtil.Http.getinstance().send(parma,"/api/weixinshare.ashx",this.gameshare,this);
+            //GameUtil.Http.getinstance().send(parma,"/jssdk/config",this.share,this,'api.sztc.gamexun.com')
+        }
+        private gameshare(data:any):void
+        {
             wx.config({
-                debug: true,
-                appId: data['addid'],
+                debug: false,
+                appId: data['appId'],
                 timestamp: Number(data['timestamp']),
                 nonceStr: data['noncestr'],
                 signature: data['sign'],
@@ -448,20 +509,40 @@ module PlantGame
                 ]
             });
 
-            //wx.config({
-            //    debug: true,
-            //    appId: data.appId,
-            //    timestamp: data.timestamp,
-            //    nonceStr: 'fdsafdsa',
-            //    signature: data.signature,
-            //    jsApiList: [
-            //        'onMenuShareTimeline',
-            //        'onMenuShareAppMessage',
-            //        'onMenuShareQQ',
-            //        'onMenuShareWeibo'
-            //    ]
-            //});
+            //下面可以加更多接口,可自行扩展
+            this.getWeiXinShareTimeline();//分享朋友圈
+            this.getWeiXinShareAppMessage();
 
+            var param: Object = {
+                userid: GameData.getInstance().playerID
+            }
+            GameUtil.Http.getinstance().send(param,"/api/prize.ashx?action=query",this.rewardimgstate,this);
+        }
+
+        private share(data:any):void
+        {
+            console.log("data======",data);
+
+            this.shareTip();
+
+            //alert("id==="+data['appId']+"\ntimestamp==="+data['timestamp']+"\nnonceStr==="+data['noncestr']+"\nsign==="+data['sign']);
+
+            //........................................................
+            //基本配置
+            //配置参数
+            wx.config({
+                debug: false,
+                appId: data['appId'],
+                timestamp: Number(data['timestamp']),
+                nonceStr: data['noncestr'],
+                signature: data['sign'],
+                jsApiList: [
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareWeibo'
+                ]
+            });
 
             //下面可以加更多接口,可自行扩展
             this.getWeiXinShareTimeline();//分享朋友圈
@@ -473,21 +554,25 @@ module PlantGame
          */
         private getWeiXinShareTimeline() {
 
+            var self:any = this;
             var bodyMenuShareTimeline = new BodyMenuShareTimeline();
-            bodyMenuShareTimeline.title = '大家一起来挖参';
+            bodyMenuShareTimeline.title = '种鲜参，赢“康美”豪礼！鲜参、电影票、Iphone 6s等你拿！';
             bodyMenuShareTimeline.link = 'http://res.kangmei.17188.com/sharepage/?'+GameData.getInstance().playerID;
-            bodyMenuShareTimeline.imgUrl = 'http://sztc.gamexun.com/launcher/1.png';
+            bodyMenuShareTimeline.imgUrl = 'http://res.kangmei.17188.com/icon.png';
             bodyMenuShareTimeline.trigger = ()=> {
                 // alert('用户点击分享到朋友圈');
             };
             bodyMenuShareTimeline.success = ()=> {
                 //alert('已分享');
                 //window[ 'weChat' ]();
-                alert('已分享')
+                //alert('已分享')
+                self.closesharetip();
+                self.sharesuccess();
             };
             bodyMenuShareTimeline.cancel = ()=> {
                 //alert('已取消');
                 // window[ 'weChat' ]();
+                self.closesharetip();
             };
             bodyMenuShareTimeline.fail = (res)=> {
                 //alert(JSON.stringify(res));
@@ -499,20 +584,25 @@ module PlantGame
          * 获取微信分享到朋友
          */
         private getWeiXinShareAppMessage(){
+
+            var self: any = this;
+
             var bodyMenuShareAppMessage = new BodyMenuShareAppMessage();
             bodyMenuShareAppMessage.title = '挖参吧，兄弟';
-            bodyMenuShareAppMessage.desc = '大家一起来挖参';
+            bodyMenuShareAppMessage.desc = '种鲜参，赢“康美”豪礼！鲜参、电影票、Iphone 6s等你拿！';
             bodyMenuShareAppMessage.link = 'http://res.kangmei.17188.com/sharepage/?'+GameData.getInstance().playerID;
-            bodyMenuShareAppMessage.imgUrl = 'http://sztc.gamexun.com/launcher/1.png';
+            bodyMenuShareAppMessage.imgUrl = 'http://res.kangmei.17188.com/icon.png';
             bodyMenuShareAppMessage.trigger = ()=> {
                 // alert('用户点击发送给朋友');
             };
             bodyMenuShareAppMessage.success = ()=> {
                 //alert('已分享');
-
+                self.closesharetip();
+                self.sharesuccess();
             };
             bodyMenuShareAppMessage.cancel = ()=> {
                 //alert('已取消');
+                self.closesharetip();
 
             };
             bodyMenuShareAppMessage.fail = (res)=> {
@@ -520,6 +610,45 @@ module PlantGame
             };
             wx.onMenuShareAppMessage(bodyMenuShareAppMessage);
             // alert('已注册获取“发送给朋友”状态事件');
+        }
+
+        private shareTip():void
+        {
+            this.sharetipcont = new egret.DisplayObjectContainer();
+            this.addChild(this.sharetipcont);
+            var shape: egret.Shape = GameUtil.createRect(0,0,480,800,0.6);
+            this.sharetipcont.addChild(shape);
+
+
+            this.touchEnabled = true;
+            var tip: egret.Bitmap = GameUtil.createBitmapByName("sharebg_png");
+            tip.anchorX = 1;
+            tip.anchorY = 0;
+            tip.x = 480;
+            tip.y = 0;
+            this.sharetipcont.addChild(tip);
+        }
+        private closesharetip():void
+        {
+            this.removeChild(this.sharetipcont);
+        }
+
+        private sharesuccess():void
+        {
+            var param: Object = {
+                userid:GameData.getInstance().playerID
+            }
+            GameUtil.Http.getinstance().send(param,"/api/forward.ashx?action=zhuanfa",this.callshare,this);
+        }
+        private callshare(data:any):void
+        {
+            if(data['code'] == 1){
+
+            }
+            else
+            {
+                console.log("转发上传失败:",data['msg']);
+            }
         }
 
         private static _instance:MainGameScene;

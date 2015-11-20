@@ -137,7 +137,7 @@ var PlantGame;
          */
         __egretProto__.upLoadData = function () {
             var ipstr = window['getIP'];
-            console.log("ip=====", ipstr);
+            console.log("playerimgurl==========", PlantGame.GameData.getInstance().playerImgUrl);
             var parm = {
                 openid: PlantGame.GameData.getInstance().playerOpenID,
                 username: PlantGame.GameData.getInstance().playerNickname,
@@ -145,20 +145,34 @@ var PlantGame;
                 realname: this.textinput[0].text,
                 sex: this.radiobtn.getCurSelectTag() + 1,
                 phone: this.textinput[2].text,
-                address: this.textinput[4].text,
+                address: this.textinput[3].text + this.textinput[4].text + this.textinput[5].text,
                 ip: ipstr.substring(1)
             };
             GameUtil.Http.getinstance().send(parm, "/api/reg.ashx", this.registerOK, this);
         };
         __egretProto__.registerOK = function (data) {
-            console.log("data=========", data);
+            console.log("registerdata=========", data);
             if (data['code'] == 1) {
                 PlantGame.GameData.getInstance().setData(data);
+                var ipstr = window['getIP'];
+                var param = {
+                    openId: PlantGame.GameData.getInstance().playerOpenID,
+                    amount: 1,
+                    ip: ipstr
+                };
+                GameUtil.Http.getinstance().send(param, "/api/weixinpay.ashx", this.sendRedpack, this);
                 GameUtil.GameScene.runscene(new PlantGame.MainGameScene(), GameUtil.GameConfig.TransAlpha);
             }
             else {
                 var tip = new GameUtil.TipsPanel("alertBg_png", data['msg']);
                 this.addChild(tip);
+            }
+        };
+        __egretProto__.sendRedpack = function (data) {
+            if (data['code'] == 1) {
+            }
+            else {
+                console.log("发送红包失败=====", data['msg']);
             }
         };
         return RegisterPanel;

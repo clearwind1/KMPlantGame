@@ -135,6 +135,11 @@ var PlantGame;
                 this.seedImg[this.plantLandID].visible = false;
                 if (data['ispremovie'] == 1) {
                     PlantGame.MainGameScene.getinstance().movieDatabtn.visible = true;
+                    PlantGame.GameData.getInstance().ispremovie = 1;
+                }
+                if (data['prizetype'] != "") {
+                    PlantGame.GameData.getInstance().isRewardAnimation = true;
+                    PlantGame.MainGameScene.getinstance().rewardimgmove(true);
                 }
             }
             else {
@@ -182,6 +187,10 @@ var PlantGame;
                 PlantGame.GameData.getInstance().ispremovie = data['ispremovie'];
                 if (PlantGame.GameData.getInstance().ispremovie == 1) {
                     PlantGame.MainGameScene.getinstance().movieDatabtn.visible = true;
+                }
+                if (PlantGame.GameData.getInstance().seednumber + PlantGame.GameData.getInstance().bestSeednumber == 0) {
+                    PlantGame.GameData.getInstance().isPlantAnimation = false;
+                    PlantGame.MainGameScene.getinstance().plantimgmove(false);
                 }
             }
             else {

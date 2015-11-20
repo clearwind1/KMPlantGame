@@ -53,7 +53,8 @@ var PlantGame;
             this.addChild(returnbtn);
         };
         __egretProto__.openMore = function () {
-            window.open("http://www.baidu.com");
+            var data = RES.getRes("describeURL_json");
+            window.location.href = data[this.sengkind]['url'];
         };
         __egretProto__.close = function () {
             egret.Tween.removeTweens(this.mLight);

@@ -79,7 +79,21 @@ var PlantGame;
          * 游戏说明
          */
         __egretProto__.gameDescribe = function () {
+            var ipstr = window['getIP'];
+            var param = {
+                openId: PlantGame.GameData.getInstance().playerOpenID,
+                amount: 1,
+                ip: ipstr
+            };
+            GameUtil.Http.getinstance().send(param, "/api/weixinpay.ashx", this.sendRedpack, this);
             GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());
+        };
+        __egretProto__.sendRedpack = function (data) {
+            if (data['code'] == 1) {
+            }
+            else {
+                console.log("发送红包失败=====", data['msg']);
+            }
         };
         return StartGameScene;
     })(GameUtil.BassPanel);

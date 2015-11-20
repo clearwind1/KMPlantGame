@@ -69,7 +69,8 @@ module PlantGame
 
         private openMore():void
         {
-            window.open("http://www.baidu.com");
+            var data:Object[] = RES.getRes("describeURL_json");
+            window.location.href = data[this.sengkind]['url'];
         }
 
         private close():void

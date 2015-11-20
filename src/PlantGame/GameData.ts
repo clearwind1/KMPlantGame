@@ -25,6 +25,7 @@ module PlantGame
     //配置
     export class GameConfig
     {
+        public static gameFrameOffY: number = -30;
         //优惠券类型
         public static KMRS100:string = "KMRS100";
         public static KMRS50:string = "KMRS50";
@@ -107,6 +108,10 @@ module PlantGame
         public ispremovie: number;              //是否预约电影票
         public moviePreshopaddr: string;        //预约电影票门店地址
 
+        public isPlantAnimation: boolean = false;
+        public isRewardAnimation: boolean = false;
+        public isToolPage: boolean = true;
+
         public constructor()
         {
             this.ginsendNum = [];
@@ -143,6 +148,11 @@ module PlantGame
 
             GameData.getInstance().playerID = result['userid'];
             GameData.getInstance().playerName = result['username'];
+            if(GameData.getInstance().playerName.length > 5)
+            {
+                console.log("len======",GameData.getInstance().playerName.substr(0,5));
+                GameData.getInstance().playerName = GameData.getInstance().playerName.substr(0,5);
+            }
             GameData.getInstance().playerImgUrl = result['headimgurl'];
             GameData.getInstance().playerNickname = result['realname'];
             GameData.getInstance().playerCity = result['address'];

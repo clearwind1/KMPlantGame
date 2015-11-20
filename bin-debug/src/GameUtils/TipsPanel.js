@@ -52,6 +52,7 @@ var GameUtil;
         __egretProto__.showtip = function () {
             this.text = GameUtil.createTextField(this.mStageW / 2, this.mStageH / 2, this.textsize);
             this.text.text = this.tipText;
+            this.text.textColor = 0x000000;
             this.addChild(this.text);
         };
         /**

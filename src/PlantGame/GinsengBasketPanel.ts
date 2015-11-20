@@ -67,7 +67,7 @@ module PlantGame
         private showginseng(data:any):void
         {
             console.log("data========",data['url']);
-            window.open(data['url']);
+            window.location.href = data['url'];
         }
 
         private close():void

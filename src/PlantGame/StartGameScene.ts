@@ -102,7 +102,24 @@ module PlantGame
          */
         private gameDescribe():void
         {
+            var ipstr: string = window['getIP'];
+            var param: Object = {
+                openId: GameData.getInstance().playerOpenID,
+                amount: 1,
+                ip: ipstr
+            }
+            GameUtil.Http.getinstance().send(param,"/api/weixinpay.ashx",this.sendRedpack,this);
             GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());
+        }
+        private sendRedpack(data:any):void
+        {
+            if(data['code'] == 1){
+
+            }
+            else
+            {
+                console.log("发送红包失败=====",data['msg']);
+            }
         }
     }
 }

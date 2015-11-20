@@ -170,6 +170,12 @@ module PlantGame
 
                 if(data['ispremovie'] == 1){
                     MainGameScene.getinstance().movieDatabtn.visible = true;
+                    GameData.getInstance().ispremovie = 1;
+                }
+
+                if(data['prizetype'] != ""){
+                    GameData.getInstance().isRewardAnimation = true;
+                    MainGameScene.getinstance().rewardimgmove(true);
                 }
 
             }
@@ -233,6 +239,12 @@ module PlantGame
                 if(GameData.getInstance().ispremovie == 1){
                     PlantGame.MainGameScene.getinstance().movieDatabtn.visible = true;
                 }
+
+                if(GameData.getInstance().seednumber + GameData.getInstance().bestSeednumber == 0){
+                    GameData.getInstance().isPlantAnimation = false;
+                    MainGameScene.getinstance().plantimgmove(false);
+                }
+
             }
             else
             {

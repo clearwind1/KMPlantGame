@@ -119,30 +119,30 @@ module PlantGame
 
                 //头像
                 var headimg: GameUtil.GetImageByUrl = new GameUtil.GetImageByUrl(result['headimgurl']);
-                headimg.x = 67;
+                headimg.x = 37;
                 headimg.y = 26 + (pic.texture.textureHeight+10)*i;
                 headimg.scaleX = headimg.scaleY = 0.05;
                 rankitem.addChild(headimg);
                 //头像框
                 var playerimgframe: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
-                playerimgframe.x = 67;
+                playerimgframe.x = 37;
                 playerimgframe.y = 26 + (pic.texture.textureHeight+10)*i;
                 rankitem.addChild(playerimgframe);
 
                 //名字
-                var playername: egret.TextField = GameUtil.createTextField(105,26+ (pic.texture.textureHeight+10)*i,20,0,0.5,egret.HorizontalAlign.LEFT);
+                var playername: egret.TextField = GameUtil.createTextField(70,26+ (pic.texture.textureHeight+10)*i,20,0,0.5,egret.HorizontalAlign.LEFT);
                 playername.text = result['username'] + "";
                 playername.textColor = 0x000000;
                 rankitem.addChild(playername);
 
                 //人参图
                 var seng: egret.Bitmap = GameUtil.createBitmapByName("rankseng_png");
-                seng.x = 270;
+                seng.x = 275;
                 seng.y = 26+ (pic.texture.textureHeight+10)*i;
                 rankitem.addChild(seng);
 
                 //排名
-                var rankText: egret.TextField = GameUtil.createTextField(305,26+(pic.texture.textureHeight+10)*i,15,0,0.5,egret.HorizontalAlign.LEFT);
+                var rankText: egret.TextField = GameUtil.createTextField(310,26+(pic.texture.textureHeight+10)*i,15,0,0.5,egret.HorizontalAlign.LEFT);
                 rankText.text = "" + result['ginsengcount'];
                 rankText.textColor = 0x000000;
                 rankitem.addChild(rankText);

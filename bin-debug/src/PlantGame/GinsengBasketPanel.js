@@ -52,7 +52,7 @@ var PlantGame;
         };
         __egretProto__.showginseng = function (data) {
             console.log("data========", data['url']);
-            window.open(data['url']);
+            window.location.href = data['url'];
         };
         __egretProto__.close = function () {
             this.parent.removeChild(this);
