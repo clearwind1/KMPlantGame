@@ -47,6 +47,9 @@ var PlantGame;
         __egretProto__.receiveStartGame = function (data) {
             if (data['code'] == 1) {
                 PlantGame.GameData.getInstance().setData(data);
+                if (!PlantGame.GameData.getInstance().isRegister) {
+                    this.addChild(new PlantGame.GameDescribeScene());
+                }
             }
             else {
             }
@@ -86,7 +89,7 @@ var PlantGame;
                 ip: ipstr
             };
             GameUtil.Http.getinstance().send(param, "/api/weixinpay.ashx", this.sendRedpack, this);
-            GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());
+            this.addChild(new PlantGame.GameDescribeScene());
         };
         __egretProto__.sendRedpack = function (data) {
             if (data['code'] == 1) {

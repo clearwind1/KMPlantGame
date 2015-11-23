@@ -25,16 +25,15 @@ var PlantGame;
             frame.y = 45;
             this.addChild(frame);
             //头像
-            var headimg = new GameUtil.GetImageByUrl(PlantGame.GameData.getInstance().playerImgUrl);
+            var headimg = new GameUtil.GetImageByUrl(PlantGame.GameData.getInstance().playerImgUrl, 44, 44);
             headimg.x = 161;
             headimg.y = 44;
-            headimg.scaleX = headimg.scaleY = 0.05;
             this.addChild(headimg);
             //头像框
-            var playerFrame = GameUtil.createBitmapByName("playerImg_png");
-            playerFrame.x = 161;
-            playerFrame.y = 44;
-            this.addChild(playerFrame);
+            //var playerFrame: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
+            //playerFrame.x = 161;
+            //playerFrame.y = 44;
+            //this.addChild(playerFrame);
             //用户名
             var playerName = GameUtil.createTextField(190, 46, 25, 0, 0.5, egret.HorizontalAlign.LEFT);
             playerName.text = PlantGame.GameData.getInstance().playerName + "的参场";
@@ -65,7 +64,7 @@ var PlantGame;
             //预约电影票
             this.movieDatabtn = new GameUtil.Menu(this, "buttonFrame_png", "buttonFrame_png", this.showPreMovie);
             this.movieDatabtn.setScaleMode();
-            this.movieDatabtn.addButtonText("预约", 0, -4);
+            this.movieDatabtn.addButtonText("预约", 0, -1);
             this.movieDatabtn.x = 56;
             this.movieDatabtn.y = 46;
             this.addChild(this.movieDatabtn);
@@ -98,6 +97,15 @@ var PlantGame;
                     this.toolbtn[i].scaleX = this.toolbtn[i].scaleY = 0;
                 }
             }
+            this.seednum = GameUtil.createTextField(90, 771, 15, 0, 0.5, egret.HorizontalAlign.LEFT);
+            this.seednum.text = "" + PlantGame.GameData.getInstance().seednumber;
+            this.seednum.textColor = 0x000000;
+            this.addChild(this.seednum);
+            this.bestseednum = GameUtil.createTextField(273, 771, 15, 0, 0.5, egret.HorizontalAlign.LEFT);
+            this.bestseednum.text = "" + PlantGame.GameData.getInstance().bestSeednumber;
+            this.bestseednum.textColor = 0x000000;
+            this.addChild(this.bestseednum);
+            this.seednum.visible = this.bestseednum.visible = false;
             if (PlantGame.GameData.getInstance().bestSeednumber + PlantGame.GameData.getInstance().seednumber > 0) {
                 PlantGame.GameData.getInstance().isPlantAnimation = true;
                 this.plantimgmove(true);
@@ -128,22 +136,26 @@ var PlantGame;
                     egret.Tween.removeTweens(this.toolbtn[2]);
                 }
             }
+            var param = {
+                userid: PlantGame.GameData.getInstance().playerID
+            };
+            GameUtil.Http.getinstance().send(param, "/api/forward.ashx?action=entergame");
         };
         /**
          * 预约电影票
          */
         __egretProto__.showPreMovie = function () {
             var add;
-            if (PlantGame.GameData.getInstance().playerCity == "深圳市") {
+            if (PlantGame.GameData.getInstance().playerCity.indexOf("深圳") != -1) {
                 add = 'SZ';
             }
-            else if (PlantGame.GameData.getInstance().playerCity == "普宁市") {
+            else if (PlantGame.GameData.getInstance().playerCity.indexOf("普宁") != -1) {
                 add = 'PN';
             }
-            else if (PlantGame.GameData.getInstance().playerCity == "北京市") {
+            else if (PlantGame.GameData.getInstance().playerCity.indexOf("北京") != -1) {
                 add = 'BJ';
             }
-            else if (PlantGame.GameData.getInstance().playerCity == '广州市') {
+            else if (PlantGame.GameData.getInstance().playerCity.indexOf("广州") != -1) {
                 add = 'GZ';
             }
             var playeradd = "shopaddress" + add + "_json";
@@ -262,7 +274,7 @@ var PlantGame;
             }
         };
         __egretProto__.morehhj = function () {
-            GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());
+            this.addChild(new PlantGame.GameDescribeScene());
         };
         /**
          * 参框
@@ -295,6 +307,8 @@ var PlantGame;
             egret.Tween.get(this.toolbtn[3]).to({ scaleX: 1, scaleY: 1 }, 400);
             egret.Tween.get(this.toolbtn[4]).to({ scaleX: 1, scaleY: 1 }, 400);
             egret.Tween.get(this.toolbtn[5]).to({ scaleX: 1, scaleY: 1 }, 400);
+            this.seednum.visible = true;
+            this.bestseednum.visible = true;
         };
         /**
          * 优品种子
@@ -340,6 +354,7 @@ var PlantGame;
         };
         __egretProto__.returnTools = function () {
             PlantGame.GameData.getInstance().isToolPage = true;
+            this.seednum.visible = this.bestseednum.visible = false;
             egret.Tween.get(this.toolbtn[3]).to({ scaleX: 0, scaleY: 0 }, 400);
             egret.Tween.get(this.toolbtn[4]).to({ scaleX: 0, scaleY: 0 }, 400);
             egret.Tween.get(this.toolbtn[5]).to({ scaleX: 0, scaleY: 0 }, 400).call(this.calltoolshow, this);
@@ -352,6 +367,10 @@ var PlantGame;
         __egretProto__.resumemove = function () {
             this.plantimgmove(true);
             this.rewardimgmove(true);
+        };
+        __egretProto__.setSeedNum = function () {
+            this.seednum.text = PlantGame.GameData.getInstance().seednumber + "";
+            this.bestseednum.text = PlantGame.GameData.getInstance().bestSeednumber + "";
         };
         /**
          * 获取签名分享
@@ -493,6 +512,11 @@ var PlantGame;
             tip.x = 480;
             tip.y = 0;
             this.sharetipcont.addChild(tip);
+            this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchtap, this);
+        };
+        __egretProto__.touchtap = function (event) {
+            this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.touchtap, this);
+            this.closesharetip();
         };
         __egretProto__.closesharetip = function () {
             this.removeChild(this.sharetipcont);

@@ -37,7 +37,8 @@ var PlantGame;
                 item = {
                     itemtype: 1,
                     financet: fina,
-                    itemtext: "康美人生代金券"
+                    itemtext: "康美人生代金券",
+                    haveaddr: true
                 };
                 return item;
             }
@@ -45,7 +46,8 @@ var PlantGame;
                 item = {
                     itemtype: 2,
                     financet: "￥5",
-                    itemtext: "康美之恋代金券"
+                    itemtext: "康美之恋代金券",
+                    haveaddr: true
                 };
                 return item;
             }
@@ -53,7 +55,8 @@ var PlantGame;
                 item = {
                     itemtype: 3,
                     financet: "￥10",
-                    itemtext: "康美电商代金券"
+                    itemtext: "康美电商代金券",
+                    haveaddr: false
                 };
                 return item;
             }
@@ -65,7 +68,8 @@ var PlantGame;
                 item = {
                     itemtype: 4,
                     financet: tex,
-                    itemtext: "人参提货券"
+                    itemtext: "人参提货券",
+                    haveaddr: false
                 };
                 return item;
             }

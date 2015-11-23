@@ -32,16 +32,15 @@ module PlantGame
             this.addChild(text);
 
             //头像
-            var headimg: GameUtil.GetImageByUrl = new GameUtil.GetImageByUrl(GameData.getInstance().playerImgUrl);
+            var headimg: GameUtil.GetImageByUrl = new GameUtil.GetImageByUrl(GameData.getInstance().playerImgUrl,46,46);
             headimg.x = 76;
             headimg.y = 212 + this.mOffY;
-            headimg.scaleX = headimg.scaleY = 0.05;
             this.addChild(headimg);
             //头像框
-            var playerimgframe: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
-            playerimgframe.x = 76;
-            playerimgframe.y = 212 + this.mOffY;
-            this.addChild(playerimgframe);
+            //var playerimgframe: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
+            //playerimgframe.x = 76;
+            //playerimgframe.y = 212 + this.mOffY;
+            //this.addChild(playerimgframe);
 
             //名称
             var Nametext: egret.TextField = GameUtil.createTextField(120,210 + this.mOffY,20,0,0.5,egret.HorizontalAlign.LEFT);
@@ -118,16 +117,15 @@ module PlantGame
                 }
 
                 //头像
-                var headimg: GameUtil.GetImageByUrl = new GameUtil.GetImageByUrl(result['headimgurl']);
+                var headimg: GameUtil.GetImageByUrl = new GameUtil.GetImageByUrl(result['headimgurl'],44,44);
                 headimg.x = 37;
                 headimg.y = 26 + (pic.texture.textureHeight+10)*i;
-                headimg.scaleX = headimg.scaleY = 0.05;
                 rankitem.addChild(headimg);
                 //头像框
-                var playerimgframe: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
-                playerimgframe.x = 37;
-                playerimgframe.y = 26 + (pic.texture.textureHeight+10)*i;
-                rankitem.addChild(playerimgframe);
+                //var playerimgframe: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
+                //playerimgframe.x = 37;
+                //playerimgframe.y = 26 + (pic.texture.textureHeight+10)*i;
+                //rankitem.addChild(playerimgframe);
 
                 //名字
                 var playername: egret.TextField = GameUtil.createTextField(70,26+ (pic.texture.textureHeight+10)*i,20,0,0.5,egret.HorizontalAlign.LEFT);

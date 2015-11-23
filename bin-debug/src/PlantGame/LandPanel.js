@@ -178,10 +178,12 @@ var PlantGame;
                 if (this.landSeedKind[this.plantLandID] == 1 /* normalseed */) {
                     this.seedImg[this.plantLandID].texture = RES.getRes("diamod1_png");
                     PlantGame.GameData.getInstance().seednumber--;
+                    PlantGame.MainGameScene.getinstance().setSeedNum();
                 }
                 else {
                     this.seedImg[this.plantLandID].texture = RES.getRes("diamod1_1_png");
                     PlantGame.GameData.getInstance().bestSeednumber--;
+                    PlantGame.MainGameScene.getinstance().setSeedNum();
                 }
                 this.seedImg[this.plantLandID].visible = true;
                 PlantGame.GameData.getInstance().ispremovie = data['ispremovie'];

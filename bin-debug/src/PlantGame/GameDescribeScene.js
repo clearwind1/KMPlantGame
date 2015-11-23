@@ -24,14 +24,15 @@ var PlantGame;
             this.addChild(text);
             var btn = new GameUtil.Menu(this, "buttonImg_png", "buttonImg_png", this.goback);
             btn.setScaleMode();
-            btn.addButtonText("返回首页");
+            btn.addButtonText("返      回");
             btn.x = this.mStageW / 2;
             btn.y = 705;
             this.addChild(btn);
             this.showText();
         };
         __egretProto__.goback = function () {
-            GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
+            //GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
+            this.parent.removeChild(this);
         };
         __egretProto__.showText = function () {
             var text = RES.getRes("gameDescribe_json");

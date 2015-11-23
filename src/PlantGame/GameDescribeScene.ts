@@ -29,7 +29,7 @@ module PlantGame
 
             var btn:GameUtil.Menu = new GameUtil.Menu(this,"buttonImg_png","buttonImg_png",this.goback);
             btn.setScaleMode();
-            btn.addButtonText("返回首页");
+            btn.addButtonText("返      回");
             btn.x = this.mStageW/2;
             btn.y = 705;
             this.addChild(btn);
@@ -39,7 +39,8 @@ module PlantGame
 
         private goback():void
         {
-            GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
+            //GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
+            this.parent.removeChild(this);
         }
 
         private showText():void

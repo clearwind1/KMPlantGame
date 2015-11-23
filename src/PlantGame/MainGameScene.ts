@@ -8,6 +8,8 @@ module PlantGame
     {
         public movieDatabtn: GameUtil.Menu;             //电影票预约按钮
         private toolbtn: GameUtil.Menu[];               //游戏工具按钮
+        private seednum: egret.TextField;
+        private bestseednum: egret.TextField;
 
         private showmovieCont: egret.DisplayObjectContainer;    //电影票预约容器
         private shopaddText: egret.TextField;                   //门店地址文本显示
@@ -38,16 +40,15 @@ module PlantGame
             this.addChild(frame);
 
             //头像
-            var headimg: GameUtil.GetImageByUrl = new GameUtil.GetImageByUrl(GameData.getInstance().playerImgUrl);
+            var headimg: GameUtil.GetImageByUrl = new GameUtil.GetImageByUrl(GameData.getInstance().playerImgUrl,44,44);
             headimg.x = 161;
             headimg.y = 44;
-            headimg.scaleX = headimg.scaleY = 0.05;
             this.addChild(headimg);
             //头像框
-            var playerFrame: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
-            playerFrame.x = 161;
-            playerFrame.y = 44;
-            this.addChild(playerFrame);
+            //var playerFrame: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
+            //playerFrame.x = 161;
+            //playerFrame.y = 44;
+            //this.addChild(playerFrame);
 
             //用户名
             var playerName: egret.TextField = GameUtil.createTextField(190,46,25,0,0.5,egret.HorizontalAlign.LEFT);
@@ -88,7 +89,7 @@ module PlantGame
             //预约电影票
             this.movieDatabtn = new GameUtil.Menu(this,"buttonFrame_png","buttonFrame_png",this.showPreMovie);
             this.movieDatabtn.setScaleMode();
-            this.movieDatabtn.addButtonText("预约",0,-4);
+            this.movieDatabtn.addButtonText("预约",0,-1);
             this.movieDatabtn.x = 56;
             this.movieDatabtn.y = 46;
             this.addChild(this.movieDatabtn);
@@ -127,6 +128,18 @@ module PlantGame
                     this.toolbtn[i].scaleX = this.toolbtn[i].scaleY = 0;
                 }
             }
+
+            this.seednum = GameUtil.createTextField(90,771,15,0,0.5,egret.HorizontalAlign.LEFT);
+            this.seednum.text = "" + GameData.getInstance().seednumber;
+            this.seednum.textColor = 0x000000;
+            this.addChild(this.seednum);
+
+            this.bestseednum = GameUtil.createTextField(273,771,15,0,0.5,egret.HorizontalAlign.LEFT);
+            this.bestseednum.text = "" + GameData.getInstance().bestSeednumber;
+            this.bestseednum.textColor = 0x000000;
+            this.addChild(this.bestseednum);
+
+            this.seednum.visible = this.bestseednum.visible = false;
 
             if(GameData.getInstance().bestSeednumber + GameData.getInstance().seednumber > 0){
                 GameData.getInstance().isPlantAnimation = true;
@@ -170,6 +183,11 @@ module PlantGame
                 }
             }
 
+            var param: Object = {
+                userid: GameData.getInstance().playerID
+            }
+            GameUtil.Http.getinstance().send(param,"/api/forward.ashx?action=entergame");
+
         }
 
         /**
@@ -178,16 +196,16 @@ module PlantGame
         private showPreMovie():void {
 
             var add:string;
-            if(GameData.getInstance().playerCity == "深圳市"){
+            if(GameData.getInstance().playerCity.indexOf("深圳") != -1){
                 add = 'SZ';
             }
-            else if(GameData.getInstance().playerCity == "普宁市"){
+            else if(GameData.getInstance().playerCity.indexOf("普宁") != -1){
                 add = 'PN';
             }
-            else if(GameData.getInstance().playerCity == "北京市"){
+            else if(GameData.getInstance().playerCity.indexOf("北京") != -1){
                 add = 'BJ';
             }
-            else if(GameData.getInstance().playerCity == '广州市'){
+            else if(GameData.getInstance().playerCity.indexOf("广州") != -1){
                 add = 'GZ';
             }
 
@@ -344,7 +362,7 @@ module PlantGame
 
         private morehhj():void
         {
-            GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());
+            this.addChild(new PlantGame.GameDescribeScene());
         }
 
         /**
@@ -386,6 +404,9 @@ module PlantGame
             egret.Tween.get(this.toolbtn[3]).to({scaleX:1,scaleY:1},400);
             egret.Tween.get(this.toolbtn[4]).to({scaleX:1,scaleY:1},400);
             egret.Tween.get(this.toolbtn[5]).to({scaleX:1,scaleY:1},400);
+
+            this.seednum.visible = true;
+            this.bestseednum.visible = true;
         }
 
         /**
@@ -446,6 +467,8 @@ module PlantGame
         {
             GameData.getInstance().isToolPage = true;
 
+            this.seednum.visible = this.bestseednum.visible = false;
+
             egret.Tween.get(this.toolbtn[3]).to({scaleX:0,scaleY:0},400);
             egret.Tween.get(this.toolbtn[4]).to({scaleX:0,scaleY:0},400);
             egret.Tween.get(this.toolbtn[5]).to({scaleX:0,scaleY:0},400).call(this.calltoolshow,this);
@@ -462,6 +485,13 @@ module PlantGame
         {
             this.plantimgmove(true);
             this.rewardimgmove(true);
+        }
+
+
+        public setSeedNum():void
+        {
+            this.seednum.text = GameData.getInstance().seednumber + "";
+            this.bestseednum.text = GameData.getInstance().bestSeednumber + "";
         }
 
         /**
@@ -627,7 +657,17 @@ module PlantGame
             tip.x = 480;
             tip.y = 0;
             this.sharetipcont.addChild(tip);
+
+            this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.touchtap,this);
+
         }
+
+        private touchtap(event:egret.TouchEvent):void
+        {
+            this.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.touchtap,this);
+            this.closesharetip();
+        }
+
         private closesharetip():void
         {
             this.removeChild(this.sharetipcont);

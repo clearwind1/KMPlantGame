@@ -25,10 +25,10 @@ var PlantGame;
             if (data['code'] == 1) {
                 PlantGame.GameData.getInstance().rewardNum = data['recordcount'];
                 this.rewardNum = PlantGame.GameData.getInstance().rewardNum;
-                if (PlantGame.GameData.getInstance().playerCity == "深圳市") {
+                if (PlantGame.GameData.getInstance().playerCity.indexOf("深圳") != -1) {
                     this.Playeradd = 'SZ';
                 }
-                if (PlantGame.GameData.getInstance().playerCity == "普宁市") {
+                else if (PlantGame.GameData.getInstance().playerCity.indexOf("普宁") != -1) {
                     this.Playeradd = 'PN';
                 }
                 var result = data['result'];
@@ -103,8 +103,8 @@ var PlantGame;
             yhjkind.textColor = 0x7d4406;
             this.youhuijuancon.addChild(yhjkind);
             //优惠券具体内容
-            var yhjcodepoy = 370;
-            if (getitemtype['itemtype'] == 3) {
+            var yhjcodepoy = 340;
+            if (!getitemtype['haveaddr']) {
                 yhjcodepoy = 400;
             }
             var yhjCode = GameUtil.createTextField(40, yhjcodepoy + PlantGame.GameConfig.gameFrameOffY, 20, 0, 0.5, egret.HorizontalAlign.LEFT);
@@ -115,8 +115,8 @@ var PlantGame;
             yhjCodenumber.text = data2['code'];
             yhjCodenumber.textColor = 0x7d4406;
             this.youhuijuancon.addChild(yhjCodenumber);
-            if (getitemtype['itemtype'] != 3) {
-                var shopaddress = GameUtil.createTextField(40, 420 + PlantGame.GameConfig.gameFrameOffY, 20, 0, 0.5, egret.HorizontalAlign.LEFT);
+            if (getitemtype['haveaddr']) {
+                var shopaddress = GameUtil.createTextField(40, 390 + PlantGame.GameConfig.gameFrameOffY, 20, 0, 0.5, egret.HorizontalAlign.LEFT);
                 shopaddress.text = "门店地址:";
                 shopaddress.textColor = 0x7d4406;
                 this.youhuijuancon.addChild(shopaddress);
@@ -127,9 +127,9 @@ var PlantGame;
                     shopframe.scaleY = 2;
                 }
                 shopframe.x = 130;
-                shopframe.y = 420 + PlantGame.GameConfig.gameFrameOffY;
+                shopframe.y = 390 + PlantGame.GameConfig.gameFrameOffY;
                 this.youhuijuancon.addChild(shopframe);
-                this.shopaddText = GameUtil.createTextField(140, 420 + PlantGame.GameConfig.gameFrameOffY, 15, 0, 0.5, egret.HorizontalAlign.LEFT);
+                this.shopaddText = GameUtil.createTextField(140, 390 + PlantGame.GameConfig.gameFrameOffY, 15, 0, 0.5, egret.HorizontalAlign.LEFT);
                 if (data2['ispre'] == 0) {
                     this.shopaddText.text = this.shopaddObj[0]['add'];
                 }
@@ -140,16 +140,16 @@ var PlantGame;
                     this.shopaddText.width = 270;
                 }
                 this.youhuijuancon.addChild(this.shopaddText);
-                var tiptext = GameUtil.createTextField(240, 460 + PlantGame.GameConfig.gameFrameOffY, 15);
-                tiptext.text = "门店地址选择确定后,不可修改";
-                tiptext.textColor = 0xff0000;
+                var tiptext = GameUtil.createTextField(40, 440 + PlantGame.GameConfig.gameFrameOffY, 20, 0, 0.5, egret.HorizontalAlign.LEFT);
+                tiptext.text = "注意事项:    门店地址选择确定后,不可修改";
+                tiptext.textColor = 0x7d4406;
                 this.youhuijuancon.addChild(tiptext);
             }
             //是否显示下拉框按钮
-            if (data2['ispre'] == 0 && getitemtype['itemtype'] != 3) {
+            if (data2['ispre'] == 0 && getitemtype['haveaddr']) {
                 var shopaddbtn = new GameUtil.Menu(this, "shopbtn_png", "shopbtn_png", this.showShopAdd);
                 shopaddbtn.x = 418;
-                shopaddbtn.y = 420 + PlantGame.GameConfig.gameFrameOffY;
+                shopaddbtn.y = 390 + PlantGame.GameConfig.gameFrameOffY;
                 this.youhuijuancon.addChild(shopaddbtn);
             }
             //跳转游戏说明
@@ -175,10 +175,10 @@ var PlantGame;
                 this.shopaddScroll = new GameUtil.ScrollView(350, 175);
                 this.shopaddScroll.x = 130;
                 if (this.Playeradd != "PN") {
-                    this.shopaddScroll.y = 455 + PlantGame.GameConfig.gameFrameOffY;
+                    this.shopaddScroll.y = 425 + PlantGame.GameConfig.gameFrameOffY;
                 }
                 else {
-                    this.shopaddScroll.y = 438 + PlantGame.GameConfig.gameFrameOffY;
+                    this.shopaddScroll.y = 408 + PlantGame.GameConfig.gameFrameOffY;
                 }
                 this.youhuijuancon.addChild(this.shopaddScroll);
                 for (var i = 0; i < this.shopaddObj.length; i++) {
@@ -248,7 +248,7 @@ var PlantGame;
          * 跳转游戏说明
          */
         __egretProto__.morehhj = function () {
-            GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());
+            this.addChild(new PlantGame.GameDescribeScene());
         };
         /**
          * 退出奖励

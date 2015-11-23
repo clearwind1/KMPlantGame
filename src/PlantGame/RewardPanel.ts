@@ -38,10 +38,10 @@ module PlantGame
                 GameData.getInstance().rewardNum = data['recordcount'];
                 this.rewardNum = GameData.getInstance().rewardNum;
 
-                if(GameData.getInstance().playerCity == "深圳市"){
+                if(GameData.getInstance().playerCity.indexOf("深圳") != -1){
                     this.Playeradd = 'SZ';
                 }
-                if(GameData.getInstance().playerCity == "普宁市"){
+                else if(GameData.getInstance().playerCity.indexOf("普宁") != -1){
                     this.Playeradd = 'PN';
                 }
 
@@ -137,8 +137,8 @@ module PlantGame
             this.youhuijuancon.addChild(yhjkind);
 
             //优惠券具体内容
-            var yhjcodepoy: number = 370;
-            if(getitemtype['itemtype'] == 3){
+            var yhjcodepoy: number = 340;
+            if(!getitemtype['haveaddr']){
                 yhjcodepoy = 400;
             }
             var yhjCode: egret.TextField = GameUtil.createTextField(40,yhjcodepoy + GameConfig.gameFrameOffY,20,0,0.5,egret.HorizontalAlign.LEFT);
@@ -151,8 +151,8 @@ module PlantGame
             yhjCodenumber.textColor = 0x7d4406;
             this.youhuijuancon.addChild(yhjCodenumber);
 
-            if(getitemtype['itemtype'] != 3){
-                var shopaddress: egret.TextField = GameUtil.createTextField(40,420 + GameConfig.gameFrameOffY,20,0,0.5,egret.HorizontalAlign.LEFT);
+            if(getitemtype['haveaddr']){
+                var shopaddress: egret.TextField = GameUtil.createTextField(40,390 + GameConfig.gameFrameOffY,20,0,0.5,egret.HorizontalAlign.LEFT);
                 shopaddress.text = "门店地址:";
                 shopaddress.textColor = 0x7d4406;
                 this.youhuijuancon.addChild(shopaddress);
@@ -164,10 +164,10 @@ module PlantGame
                     shopframe.scaleY = 2;
                 }
                 shopframe.x = 130;
-                shopframe.y = 420 + GameConfig.gameFrameOffY;
+                shopframe.y = 390 + GameConfig.gameFrameOffY;
                 this.youhuijuancon.addChild(shopframe);
 
-                this.shopaddText = GameUtil.createTextField(140,420 + GameConfig.gameFrameOffY,15,0,0.5,egret.HorizontalAlign.LEFT);
+                this.shopaddText = GameUtil.createTextField(140,390 + GameConfig.gameFrameOffY,15,0,0.5,egret.HorizontalAlign.LEFT);
                 if(data2['ispre'] == 0){
                     this.shopaddText.text = this.shopaddObj[0]['add'];
                 }
@@ -180,17 +180,17 @@ module PlantGame
                 }
                 this.youhuijuancon.addChild(this.shopaddText);
 
-                var tiptext: egret.TextField = GameUtil.createTextField(240,460 + GameConfig.gameFrameOffY,15);
-                tiptext.text = "门店地址选择确定后,不可修改";
-                tiptext.textColor = 0xff0000;
+                var tiptext: egret.TextField = GameUtil.createTextField(40,440 + GameConfig.gameFrameOffY,20,0,0.5,egret.HorizontalAlign.LEFT);
+                tiptext.text = "注意事项:    门店地址选择确定后,不可修改";
+                tiptext.textColor = 0x7d4406;
                 this.youhuijuancon.addChild(tiptext);
             }
 
             //是否显示下拉框按钮
-            if(data2['ispre'] == 0 && getitemtype['itemtype'] != 3) {
+            if(data2['ispre'] == 0 && getitemtype['haveaddr']) {
                 var shopaddbtn:GameUtil.Menu = new GameUtil.Menu(this, "shopbtn_png", "shopbtn_png", this.showShopAdd);
                 shopaddbtn.x = 418;
-                shopaddbtn.y = 420 + GameConfig.gameFrameOffY;
+                shopaddbtn.y = 390 + GameConfig.gameFrameOffY;
                 this.youhuijuancon.addChild(shopaddbtn);
             }
 
@@ -222,10 +222,10 @@ module PlantGame
                 this.shopaddScroll = new GameUtil.ScrollView(350,175);
                 this.shopaddScroll.x = 130;
                 if(this.Playeradd != "PN"){
-                    this.shopaddScroll.y = 455 + GameConfig.gameFrameOffY;
+                    this.shopaddScroll.y = 425 + GameConfig.gameFrameOffY;
                 }
                 else{
-                    this.shopaddScroll.y = 438 + GameConfig.gameFrameOffY;
+                    this.shopaddScroll.y = 408 + GameConfig.gameFrameOffY;
                 }
                 this.youhuijuancon.addChild(this.shopaddScroll);
 
@@ -312,7 +312,7 @@ module PlantGame
          */
         private morehhj():void
         {
-            GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());
+            this.addChild(new PlantGame.GameDescribeScene());
         }
 
         /**

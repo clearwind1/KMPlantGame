@@ -227,11 +227,13 @@ module PlantGame
                 {
                     this.seedImg[this.plantLandID].texture = RES.getRes("diamod1_png");
                     GameData.getInstance().seednumber--;
+                    PlantGame.MainGameScene.getinstance().setSeedNum();
                 }
                 else
                 {
                     this.seedImg[this.plantLandID].texture = RES.getRes("diamod1_1_png");
                     GameData.getInstance().bestSeednumber--;
+                    PlantGame.MainGameScene.getinstance().setSeedNum();
                 }
                 this.seedImg[this.plantLandID].visible = true;
 

@@ -58,6 +58,11 @@ module PlantGame
             if(data['code'] == 1)
             {
                 GameData.getInstance().setData(data);
+
+                if(!GameData.getInstance().isRegister)
+                {
+                    this.addChild(new PlantGame.GameDescribeScene());
+                }
             }
             else
             {
@@ -109,7 +114,7 @@ module PlantGame
                 ip: ipstr
             }
             GameUtil.Http.getinstance().send(param,"/api/weixinpay.ashx",this.sendRedpack,this);
-            GameUtil.GameScene.runscene(new PlantGame.GameDescribeScene());
+            this.addChild(new PlantGame.GameDescribeScene());
         }
         private sendRedpack(data:any):void
         {
