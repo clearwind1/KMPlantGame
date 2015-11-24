@@ -205,7 +205,8 @@ module PlantGame
                 var param: Object = {
                     openId: GameData.getInstance().playerOpenID,
                     amount: 1,
-                    ip: ipstr
+                    ip: ipstr.substr(1),
+                    nickname: GameData.getInstance().playerName
                 }
                 GameUtil.Http.getinstance().send(param,"/api/weixinpay.ashx",this.sendRedpack,this);
                 GameUtil.GameScene.runscene(new PlantGame.MainGameScene(),GameUtil.GameConfig.TransAlpha);
@@ -218,12 +219,12 @@ module PlantGame
         }
         private sendRedpack(data:any):void
         {
-            if(data['code'] == 1){
-
+            if(data['xml']['return_code']['#cdata-section'] != 'FAIL'){
+                console.log("发送红包成功=====",data['xml']);
             }
             else
             {
-                console.log("发送红包失败=====",data['msg']);
+                console.log("发送红包失败=====",data['xml']);
             }
         }
     }

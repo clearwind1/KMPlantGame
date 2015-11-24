@@ -77,7 +77,7 @@ module PlantGame
                 item = {
                     itemtype: 4,
                     financet: tex,
-                    itemtext: "人参提货券",
+                    itemtext: "人参兑换券",
                     haveaddr: false
                 }
                 return item;

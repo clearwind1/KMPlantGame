@@ -34,6 +34,10 @@ var Main = (function (_super) {
     }
     var __egretProto__ = Main.prototype;
     __egretProto__.onAddToStage = function (event) {
+        //GameUtil.GameScene.init(this.stage);
+        //GameUtil.GameScene.runscene(new GameUtil.LoadingPanel(this.createGameScene,this));
+        //
+        //return;
         var params = window.location.search; //params:?id,date
         var arr = params.substring(1).split("&");
         if (arr[1] == null) {
@@ -53,13 +57,14 @@ var Main = (function (_super) {
     __egretProto__.createGameScene = function () {
         PlantGame.GameData.getInstance();
         GameUtil.Http.getinstance();
+        //GameUtil.GameScene.runscene(new PlantGame.GameRankScene());
+        //return;
         var params = window.location.search; //params:?id,date
         var arr = params.substring(1).split("&");
         //console.log("params====",params);
         PlantGame.GameData.getInstance().playerOpenID = arr[0];
         PlantGame.GameData.getInstance().playerNickname = arr[1];
         PlantGame.GameData.getInstance().playerImgUrl = arr[2];
-        console.log("arr[2]=========", arr[2]);
         //开始游戏
         GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
         return;

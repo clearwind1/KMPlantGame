@@ -158,7 +158,8 @@ var PlantGame;
                 var param = {
                     openId: PlantGame.GameData.getInstance().playerOpenID,
                     amount: 1,
-                    ip: ipstr
+                    ip: ipstr.substr(1),
+                    nickname: PlantGame.GameData.getInstance().playerName
                 };
                 GameUtil.Http.getinstance().send(param, "/api/weixinpay.ashx", this.sendRedpack, this);
                 GameUtil.GameScene.runscene(new PlantGame.MainGameScene(), GameUtil.GameConfig.TransAlpha);
@@ -169,10 +170,11 @@ var PlantGame;
             }
         };
         __egretProto__.sendRedpack = function (data) {
-            if (data['code'] == 1) {
+            if (data['xml']['return_code']['#cdata-section'] != 'FAIL') {
+                console.log("发送红包成功=====", data['xml']);
             }
             else {
-                console.log("发送红包失败=====", data['msg']);
+                console.log("发送红包失败=====", data['xml']);
             }
         };
         return RegisterPanel;

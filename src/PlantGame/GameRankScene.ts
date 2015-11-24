@@ -9,7 +9,7 @@ module PlantGame
     {
 
         private mscrollview: GameUtil.ScrollView;
-        private mOffY: number = 100;
+        private mOffY: number = -100;
 
         public constructor()
         {
@@ -23,9 +23,13 @@ module PlantGame
             this.addChild(bg);
 
             var rankFrame: egret.Bitmap = GameUtil.createBitmapByName("rankFrame_png");
+            rankFrame.anchorY = 0;
             rankFrame.x = this.mStageW/2;
-            rankFrame.y = this.mStageH/2 + this.mOffY;
+            rankFrame.y = this.mStageH/2 + this.mOffY - 282;
             this.addChild(rankFrame);
+            var rect:egret.Rectangle = new egret.Rectangle(30,31,410,530);
+            rankFrame.scale9Grid =rect;
+            rankFrame.height = 760;
 
             var text: egret.TextField = GameUtil.createTextField(this.mStageW/2,146 + this.mOffY,25);
             text.text = "排行榜";
@@ -34,7 +38,7 @@ module PlantGame
             //头像
             var headimg: GameUtil.GetImageByUrl = new GameUtil.GetImageByUrl(GameData.getInstance().playerImgUrl,46,46);
             headimg.x = 76;
-            headimg.y = 212 + this.mOffY;
+            headimg.y = 225 + this.mOffY;
             this.addChild(headimg);
             //头像框
             //var playerimgframe: egret.Bitmap = GameUtil.createBitmapByName("playerImg_png");
@@ -65,6 +69,24 @@ module PlantGame
             btn.y = 160 + this.mOffY;
             this.addChild(btn);
 
+            var splictextfiled:egret.TextField = GameUtil.createTextField(45,570,15,0,0);
+            splictextfiled.text = "--------------------------------------------------------------------------";
+            splictextfiled.textAlign = egret.HorizontalAlign.LEFT;
+            splictextfiled.textColor = 0xff0000;
+            splictextfiled.width = 385;
+            this.addChild(splictextfiled);
+
+            var textjson: Object = {
+                "text":"①1-5名：康美大礼包1份及康美优惠券\n\n②6-100名：2张新鲜人参兑换券及康美优惠券\n\n③101-1000名：1张新鲜人参兑换券及康美优惠券\n\n④1001-3000名：康美优惠券\n\n注:每周会对排名进行清零"
+            }
+
+            var textfiled:egret.TextField = GameUtil.createTextField(48,600,15,0,0);
+            textfiled.text = textjson['text'];
+            textfiled.textAlign = egret.HorizontalAlign.LEFT;
+            textfiled.textColor = 0x000000;
+            textfiled.width = 380;
+            this.addChild(textfiled);
+
             var parm: Object = {
                 pageindex:1,
                 pagesize:100
@@ -94,7 +116,7 @@ module PlantGame
         private showRank(data:any):void
         {
             //创建一个滚动框
-            this.mscrollview = new GameUtil.ScrollView(384,383);
+            this.mscrollview = new GameUtil.ScrollView(384,420);
             this.mscrollview.x = 43;
             this.mscrollview.y = 253 + this.mOffY;
             this.addChild(this.mscrollview);
