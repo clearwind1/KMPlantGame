@@ -40,11 +40,10 @@ var PlantGame;
             playerName.textColor = 0x7d4406;
             this.addChild(playerName);
             //分享游戏
-            var btn = new GameUtil.Menu(this, "buttonFrame_png", "buttonFrame_png", this.goback);
+            var btn = new GameUtil.Menu(this, "returnbtn_png", "returnbtn_png", this.goback);
             btn.setScaleMode();
-            btn.addButtonImg("returnbtn_png", 0, -5);
             btn.x = 430;
-            btn.y = 46;
+            btn.y = 47;
             this.addChild(btn);
             this.showTools();
             this.addChild(PlantGame.LandPanel.getinstance());
@@ -54,8 +53,8 @@ var PlantGame;
          * 微信分享
          */
         __egretProto__.goback = function () {
-            //GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
-            this.getSignPackage();
+            this.addChild(new PlantGame.GameRankScene());
+            //this.getSignPackage();
         };
         /**
          * 显示道具，预约，参框，奖励，优品种子，臻品种子
@@ -127,6 +126,26 @@ var PlantGame;
                     this.rewardimgmove(true);
                 }
             }
+            if (PlantGame.GameData.getInstance().isRegisterNow) {
+                var ipstr = window['getIP'];
+                console.log("ipstr=====", ipstr, "ipstr[0]======", ipstr.split('|'));
+                ipstr = ipstr.split('|')[1];
+                var param = {
+                    openId: PlantGame.GameData.getInstance().playerOpenID,
+                    amount: 100,
+                    ip: ipstr,
+                    nickname: "康美药业"
+                };
+                GameUtil.Http.getinstance().send(param, "/api/weixinpay.ashx", this.sendRedpack, this);
+            }
+        };
+        __egretProto__.sendRedpack = function (data) {
+            if (data['xml']['return_code']['#cdata-section'] != 'FAIL') {
+                console.log("发送红包成功=====", data['xml']);
+            }
+            else {
+                console.log("发送红包失败=====", data['xml']);
+            }
         };
         __egretProto__.rewardimgmove = function (state) {
             //egret.Tween.removeTweens(this.toolbtn[2]);
@@ -173,7 +192,15 @@ var PlantGame;
             yhjkind.text = "预约电影票";
             yhjkind.textColor = 0x7d4406;
             this.showmovieCont.addChild(yhjkind);
-            var shopaddress = GameUtil.createTextField(40, 400, 20, 0, 0.5, egret.HorizontalAlign.LEFT);
+            var yhjCode = GameUtil.createTextField(40, 340, 20, 0, 0.5, egret.HorizontalAlign.LEFT);
+            yhjCode.text = "券       码:";
+            yhjCode.textColor = 0x7d4406;
+            this.showmovieCont.addChild(yhjCode);
+            var yhjCodenumber = GameUtil.createTextField(240, 340, 20);
+            yhjCodenumber.text = PlantGame.GameData.getInstance().playerCardID;
+            yhjCodenumber.textColor = 0x7d4406;
+            this.showmovieCont.addChild(yhjCodenumber);
+            var shopaddress = GameUtil.createTextField(40, 390, 20, 0, 0.5, egret.HorizontalAlign.LEFT);
             shopaddress.text = "门店地址:";
             shopaddress.textColor = 0x7d4406;
             this.showmovieCont.addChild(shopaddress);
@@ -182,9 +209,9 @@ var PlantGame;
             shopframe.scaleX = 1.25;
             shopframe.scaleY = 2;
             shopframe.x = 130;
-            shopframe.y = 400;
+            shopframe.y = 390;
             this.showmovieCont.addChild(shopframe);
-            this.shopaddText = GameUtil.createTextField(140, 400, 15, 0, 0.5, egret.HorizontalAlign.LEFT);
+            this.shopaddText = GameUtil.createTextField(140, 390, 15, 0, 0.5, egret.HorizontalAlign.LEFT);
             if (PlantGame.GameData.getInstance().moviePreshopaddr == null) {
                 this.shopaddText.text = this.shopaddObj[this.curShopAddTag]['add'];
             }
@@ -196,12 +223,12 @@ var PlantGame;
             if (PlantGame.GameData.getInstance().moviePreshopaddr == null) {
                 var shopaddbtn = new GameUtil.Menu(this, "shopbtn_png", "shopbtn_png", this.showShopAdd);
                 shopaddbtn.x = 418;
-                shopaddbtn.y = 400;
+                shopaddbtn.y = 390;
                 this.showmovieCont.addChild(shopaddbtn);
             }
-            var tiptext = GameUtil.createTextField(240, 460, 15);
-            tiptext.text = "门店地址选择确定后,不可修改";
-            tiptext.textColor = 0xff0000;
+            var tiptext = GameUtil.createTextField(40, 440, 20, 0, 0.5, egret.HorizontalAlign.LEFT);
+            tiptext.text = "注意事项:    门店地址选择确定后,不可修改";
+            tiptext.textColor = 0x7d4406;
             this.showmovieCont.addChild(tiptext);
             var morebtn = new GameUtil.Menu(this, "morebtn_png", "morebtn_png", this.morehhj);
             morebtn.addButtonText("了解详情");
@@ -220,7 +247,7 @@ var PlantGame;
             if (this.shopaddScroll == null) {
                 this.shopaddScroll = new GameUtil.ScrollView(350, 175);
                 this.shopaddScroll.x = 130;
-                this.shopaddScroll.y = 438;
+                this.shopaddScroll.y = 428;
                 this.showmovieCont.addChild(this.shopaddScroll);
                 for (var i = 0; i < this.shopaddObj.length; i++) {
                     var shopadditem = new GameUtil.Menu(this, "registerFrame_png", "registerFrame_png", this.getChooseTag, [i]);
@@ -274,7 +301,18 @@ var PlantGame;
             }
         };
         __egretProto__.morehhj = function () {
-            this.addChild(new PlantGame.GameDescribeScene());
+            //this.addChild(new PlantGame.GameDescribeScene());
+            var rewardtype = 6;
+            if (PlantGame.GameData.getInstance().playerCity.indexOf("深圳") != -1) {
+                rewardtype = 5;
+            }
+            var tipstr = RES.getRes('rewardtip_json');
+            var tip = new GameUtil.TipsPanel("alertBg_png", tipstr[rewardtype]['tip']);
+            tip.setTextSize(16);
+            tip.setTextwidth(400);
+            tip.setTextHor(0, 0.5, egret.HorizontalAlign.LEFT, 30);
+            tip.setTextlineSpacing(3);
+            this.addChild(tip);
         };
         /**
          * 参框

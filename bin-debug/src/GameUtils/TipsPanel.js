@@ -69,6 +69,15 @@ var GameUtil;
         __egretProto__.setTextSize = function (size) {
             this.text.size = size;
         };
+        __egretProto__.setTextHor = function (anchorX, anchorY, align, offx) {
+            this.text.anchorX = anchorX;
+            this.text.anchorY = anchorY;
+            this.text.textAlign = align;
+            this.text.x = this.mStageW / 2 - this.tipbg.width / 2 + offx;
+        };
+        __egretProto__.setTextlineSpacing = function (spacing) {
+            this.text.lineSpacing = spacing;
+        };
         /**
          * 显示确认按钮
          */

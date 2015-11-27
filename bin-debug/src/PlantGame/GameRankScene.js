@@ -12,10 +12,11 @@ var PlantGame;
         }
         var __egretProto__ = GameRankScene.prototype;
         __egretProto__.init = function () {
-            var bg = GameUtil.createBitmapByName("endBG_png");
-            bg.x = this.mStageW / 2;
-            bg.y = this.mStageH / 2;
-            this.addChild(bg);
+            this.touchEnabled = true;
+            //var bg:egret.Bitmap = GameUtil.createBitmapByName("endBG_png");
+            //bg.x = this.mStageW/2;
+            //bg.y = this.mStageH/2;
+            //this.addChild(bg);
             var rankFrame = GameUtil.createBitmapByName("rankFrame_png");
             rankFrame.anchorY = 0;
             rankFrame.x = this.mStageW / 2;
@@ -80,7 +81,8 @@ var PlantGame;
             GameUtil.Http.getinstance().send(parm, "/api/ginseng.ashx?action=rank", this.receiveRank, this);
         };
         __egretProto__.goback = function () {
-            GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
+            //GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
+            this.parent.removeChild(this);
         };
         __egretProto__.receiveRank = function (data) {
             if (data['code'] == 1) {

@@ -7,7 +7,7 @@ module GameUtil
     //游戏配置
     export class GameConfig
     {
-        public static IP:string = "rs.kangmei.17188.com";        //http连接地址
+        public static IP:string = "m.km1818.com/wsyx";        //http连接地址
         public static bRunFPS:boolean = false;              //是否显示FPS
 
         //场景转换

@@ -16,7 +16,7 @@ module PlantGame
         private shopaddScroll: GameUtil.ScrollView = null;      //门店下拉框滚动部分
         private Playeradd: string = 'PN';           //玩家所在城市
         private curSelectYhj: number;               //当前选择优惠券代号
-        private rewardKind: number[] = [1,2,1,1,1,1,1,1,1,1];   //优惠券各类
+        private rewardtype: number;   //优惠券各类
         private yhjID: number[] = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
 
 
@@ -113,6 +113,7 @@ module PlantGame
             console.log("data1============",data1,"data2=============",data2);
             this.curSelectYhj = data1;
 
+            this.rewardtype = GameConfig.checkRewardItemType(data2['prizetype'])['typenum'];
             var getitemtype: any = GameConfig.checkRewardItemType(data2['prizetype']);
 
             var playeradd: string = "shopaddress"+this.Playeradd+"_json";
@@ -312,7 +313,14 @@ module PlantGame
          */
         private morehhj():void
         {
-            this.addChild(new PlantGame.GameDescribeScene());
+            //this.addChild(new PlantGame.GameDescribeScene());
+            var tipstr:any  = RES.getRes('rewardtip_json');
+            var tip: GameUtil.TipsPanel = new GameUtil.TipsPanel("alertBg_png",tipstr[this.rewardtype]['tip']);
+            tip.setTextSize(16);
+            tip.setTextwidth(400);
+            tip.setTextHor(0,0.5,egret.HorizontalAlign.LEFT,30);
+            tip.setTextlineSpacing(3);
+            this.addChild(tip);
         }
 
         /**

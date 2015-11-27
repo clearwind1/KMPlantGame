@@ -11,7 +11,6 @@ var PlantGame;
             this.curShopAddTag = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; //当前优惠券选择的门店（-1表示玩家还没有选择）
             this.shopaddScroll = null; //门店下拉框滚动部分
             this.Playeradd = 'PN'; //玩家所在城市
-            this.rewardKind = [1, 2, 1, 1, 1, 1, 1, 1, 1, 1]; //优惠券各类
             this.yhjID = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
         }
         var __egretProto__ = RewardPanel.prototype;
@@ -86,6 +85,7 @@ var PlantGame;
         __egretProto__.showginseng = function (data1, data2) {
             console.log("data1============", data1, "data2=============", data2);
             this.curSelectYhj = data1;
+            this.rewardtype = PlantGame.GameConfig.checkRewardItemType(data2['prizetype'])['typenum'];
             var getitemtype = PlantGame.GameConfig.checkRewardItemType(data2['prizetype']);
             var playeradd = "shopaddress" + this.Playeradd + "_json";
             this.shopaddObj = RES.getRes(playeradd); //取门店地址配置表
@@ -248,7 +248,14 @@ var PlantGame;
          * 跳转游戏说明
          */
         __egretProto__.morehhj = function () {
-            this.addChild(new PlantGame.GameDescribeScene());
+            //this.addChild(new PlantGame.GameDescribeScene());
+            var tipstr = RES.getRes('rewardtip_json');
+            var tip = new GameUtil.TipsPanel("alertBg_png", tipstr[this.rewardtype]['tip']);
+            tip.setTextSize(16);
+            tip.setTextwidth(400);
+            tip.setTextHor(0, 0.5, egret.HorizontalAlign.LEFT, 30);
+            tip.setTextlineSpacing(3);
+            this.addChild(tip);
         };
         /**
          * 退出奖励

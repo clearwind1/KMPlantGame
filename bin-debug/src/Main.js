@@ -42,8 +42,8 @@ var Main = (function (_super) {
         var arr = params.substring(1).split("&");
         if (arr[1] == null) {
             //console.log("fdsa");
-            //window.open("http://rs.kangmei.17188.com/api/weixin.ashx")
-            window.location.href = "http://rs.kangmei.17188.com/api/weixin.ashx";
+            // window.open("http://rs.kangmei.17188.com/api/weixin.ashx");
+            window.location.href = "http://" + GameUtil.GameConfig.IP + "/api/weixin.ashx";
         }
         else {
             GameUtil.GameScene.init(this.stage);
@@ -63,7 +63,7 @@ var Main = (function (_super) {
         var arr = params.substring(1).split("&");
         //console.log("params====",params);
         PlantGame.GameData.getInstance().playerOpenID = arr[0];
-        PlantGame.GameData.getInstance().playerNickname = arr[1];
+        PlantGame.GameData.getInstance().playerName = arr[1];
         PlantGame.GameData.getInstance().playerImgUrl = arr[2];
         //开始游戏
         GameUtil.GameScene.runscene(new PlantGame.StartGameScene());

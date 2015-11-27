@@ -53,8 +53,8 @@ class Main extends egret.DisplayObjectContainer {
         if(arr[1] == null)
         {
             //console.log("fdsa");
-            //window.open("http://rs.kangmei.17188.com/api/weixin.ashx")
-            window.location.href = "http://rs.kangmei.17188.com/api/weixin.ashx";
+           // window.open("http://rs.kangmei.17188.com/api/weixin.ashx");
+            window.location.href = "http://"+GameUtil.GameConfig.IP+"/api/weixin.ashx";
         }
         else
         {
@@ -81,7 +81,7 @@ class Main extends egret.DisplayObjectContainer {
         //console.log("params====",params);
 
         PlantGame.GameData.getInstance().playerOpenID = arr[0];
-        PlantGame.GameData.getInstance().playerNickname = arr[1];
+        PlantGame.GameData.getInstance().playerName = arr[1];
         PlantGame.GameData.getInstance().playerImgUrl = arr[2];
 
         //开始游戏

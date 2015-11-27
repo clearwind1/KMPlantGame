@@ -17,10 +17,11 @@ module PlantGame
         }
         public init():void
         {
-            var bg:egret.Bitmap = GameUtil.createBitmapByName("endBG_png");
-            bg.x = this.mStageW/2;
-            bg.y = this.mStageH/2;
-            this.addChild(bg);
+            this.touchEnabled = true;
+            //var bg:egret.Bitmap = GameUtil.createBitmapByName("endBG_png");
+            //bg.x = this.mStageW/2;
+            //bg.y = this.mStageH/2;
+            //this.addChild(bg);
 
             var rankFrame: egret.Bitmap = GameUtil.createBitmapByName("rankFrame_png");
             rankFrame.anchorY = 0;
@@ -97,7 +98,8 @@ module PlantGame
 
         private goback():void
         {
-            GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
+            //GameUtil.GameScene.runscene(new PlantGame.StartGameScene());
+            this.parent.removeChild(this);
         }
 
         private receiveRank(data:any):void

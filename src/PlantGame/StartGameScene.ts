@@ -14,6 +14,9 @@ module PlantGame
         }
         public init():void
         {
+            var sound:egret.Sound = RES.getRes("bgm_mp3");
+            sound.play(true);
+
             //背景图
             var bg:egret.Bitmap = GameUtil.createBitmapByName("endBG_png");
             bg.x = this.mStageW/2;
@@ -58,16 +61,12 @@ module PlantGame
             if(data['code'] == 1)
             {
                 GameData.getInstance().setData(data);
-
-                if(!GameData.getInstance().isRegister)
-                {
-                    this.addChild(new PlantGame.GameDescribeScene());
-                }
             }
             else
             {
                 //alert(data['msg']);
             }
+            this.getSignPackage();
         }
 
         /**
@@ -77,12 +76,13 @@ module PlantGame
         {
             if(GameData.getInstance().isRegister)
             {
-                GameUtil.GameScene.runscene(PlantGame.MainGameScene.getinstance(),GameUtil.GameConfig.TransAlpha);
+                GameUtil.GameScene.runscene(PlantGame.MainGameScene.getinstance());
             }
             else
             {
                 var register: RegisterPanel = new RegisterPanel();
                 this.addChild(register);
+                this.addChild(new PlantGame.GameDescribeScene());
             }
         }
 
@@ -98,7 +98,7 @@ module PlantGame
             }
             else
             {
-                GameUtil.GameScene.runscene(new PlantGame.GameRankScene());
+                this.addChild(new PlantGame.GameRankScene());
             }
         }
 
@@ -108,15 +108,17 @@ module PlantGame
         private gameDescribe():void
         {
             /*****************测试微信红包****************************/
-            var ipstr: string = window['getIP'];
-            ipstr = ipstr.split('|')[0];
-            var param: Object = {
-                openId: GameData.getInstance().playerOpenID,
-                amount: 1,
-                ip: ipstr,
-                nickname: GameData.getInstance().playerName
-            }
-            GameUtil.Http.getinstance().send(param,"/api/weixinpay.ashx",this.sendRedpack,this);
+            //var ipstr: string = window['getIP'];
+            //console.log("ipstr====",ipstr);
+            //ipstr = ipstr.split('|')[1];
+            //var param: Object = {
+            //    openId: GameData.getInstance().playerOpenID,
+            //    amount: 100,
+            //    ip: ipstr,
+            //    nickname: GameData.getInstance().playerName
+            //}
+            //console.log("param=======",param);
+            //GameUtil.Http.getinstance().send(param,"/api/weixinpay.ashx",this.sendRedpack,this);
             /****************************************/
 
             this.addChild(new PlantGame.GameDescribeScene());
@@ -130,6 +132,110 @@ module PlantGame
             {
                 console.log("发送红包失败=====",data['xml']);
             }
+        }
+
+        /**
+         * 获取签名分享
+         */
+        private getSignPackage() {
+
+            var urllocal:string = encodeURIComponent(window.location.href.split('#')[0]);
+
+            //console.log("url=====", urllocal);
+            var parma:Object = {
+                url: urllocal
+            }
+            GameUtil.Http.getinstance().send(parma,"/api/weixinshare.ashx",this.share,this);
+            //GameUtil.Http.getinstance().send(parma,"/jssdk/config",this.share,this,'api.sztc.gamexun.com')
+        }
+        private share(data:any):void
+        {
+            console.log("data======",data);
+            //alert("id==="+data['appId']+"\ntimestamp==="+data['timestamp']+"\nnonceStr==="+data['noncestr']+"\nsign==="+data['sign']);
+
+            //........................................................
+            //基本配置
+            //配置参数
+            wx.config({
+                debug: false,
+                appId: data['appId'],
+                timestamp: Number(data['timestamp']),
+                nonceStr: data['noncestr'],
+                signature: data['sign'],
+                jsApiList: [
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareWeibo'
+                ]
+            });
+
+            //下面可以加更多接口,可自行扩展
+            this.getWeiXinShareTimeline();//分享朋友圈
+            this.getWeiXinShareAppMessage();
+        }
+
+        /**
+         * 获取微信分享到朋友圈
+         */
+        private getWeiXinShareTimeline() {
+
+            var self:any = this;
+            var bodyMenuShareTimeline = new BodyMenuShareTimeline();
+            bodyMenuShareTimeline.title = '种鲜参，赢“康美”豪礼！鲜参、电影票、Iphone 6s等你拿！';
+            bodyMenuShareTimeline.link = 'http://res.kangmei.17188.com';
+            bodyMenuShareTimeline.imgUrl = 'http://res.kangmei.17188.com/icon.png';
+            bodyMenuShareTimeline.trigger = ()=> {
+                // alert('用户点击分享到朋友圈');
+            };
+            bodyMenuShareTimeline.success = ()=> {
+                //alert('已分享');
+                //window[ 'weChat' ]();
+                //alert('已分享')
+                self.closesharetip();
+                self.sharesuccess();
+            };
+            bodyMenuShareTimeline.cancel = ()=> {
+                //alert('已取消');
+                // window[ 'weChat' ]();
+                self.closesharetip();
+            };
+            bodyMenuShareTimeline.fail = (res)=> {
+                //alert(JSON.stringify(res));
+            };
+            wx.onMenuShareTimeline(bodyMenuShareTimeline);
+            //alert('已注册获取“分享到朋友圈”状态事件');
+        }
+        /**
+         * 获取微信分享到朋友
+         */
+        private getWeiXinShareAppMessage(){
+
+            var self: any = this;
+
+            var bodyMenuShareAppMessage = new BodyMenuShareAppMessage();
+            bodyMenuShareAppMessage.title = '挖参吧，兄弟';
+            bodyMenuShareAppMessage.desc = '种鲜参，赢“康美”豪礼！鲜参、电影票、Iphone 6s等你拿！';
+            bodyMenuShareAppMessage.link = 'http://res.kangmei.17188.com';
+            bodyMenuShareAppMessage.imgUrl = 'http://res.kangmei.17188.com/icon.png';
+            bodyMenuShareAppMessage.trigger = ()=> {
+                // alert('用户点击发送给朋友');
+            };
+            bodyMenuShareAppMessage.success = ()=> {
+                //alert('已分享');
+                self.closesharetip();
+                self.sharesuccess();
+            };
+            bodyMenuShareAppMessage.cancel = ()=> {
+                //alert('已取消');
+                self.closesharetip();
+
+            };
+            bodyMenuShareAppMessage.fail = (res)=> {
+                // alert(JSON.stringify(res));
+            };
+            wx.onMenuShareAppMessage(bodyMenuShareAppMessage);
+            // alert('已注册获取“发送给朋友”状态事件');
         }
     }
 }

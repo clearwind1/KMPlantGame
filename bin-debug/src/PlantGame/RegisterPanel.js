@@ -93,7 +93,7 @@ var PlantGame;
             sureBtn.y = 610;
             this.addChild(sureBtn);
             var textip = GameUtil.createTextField(20, 670, 20, 0, 0.5, egret.HorizontalAlign.LEFT);
-            textip.text = "请认真填写你的资料,该资料与你获奖所得相关,如果因资料问题拿不到应有奖励,本公司概不负责";
+            textip.text = "请认真填写您的个人资料，确保我们能用此联系方式把您的奖品送达，信息填写后，将无法修改";
             textip.width = 440;
             textip.textColor = 0xff0000;
             textip.bold = true;
@@ -140,7 +140,7 @@ var PlantGame;
             console.log("playerimgurl==========", PlantGame.GameData.getInstance().playerImgUrl);
             var parm = {
                 openid: PlantGame.GameData.getInstance().playerOpenID,
-                username: PlantGame.GameData.getInstance().playerNickname,
+                username: PlantGame.GameData.getInstance().playerName,
                 headimgurl: PlantGame.GameData.getInstance().playerImgUrl,
                 realname: this.textinput[0].text,
                 sex: this.radiobtn.getCurSelectTag() + 1,
@@ -154,27 +154,12 @@ var PlantGame;
             console.log("registerdata=========", data);
             if (data['code'] == 1) {
                 PlantGame.GameData.getInstance().setData(data);
-                var ipstr = window['getIP'];
-                var param = {
-                    openId: PlantGame.GameData.getInstance().playerOpenID,
-                    amount: 1,
-                    ip: ipstr.substr(1),
-                    nickname: PlantGame.GameData.getInstance().playerName
-                };
-                GameUtil.Http.getinstance().send(param, "/api/weixinpay.ashx", this.sendRedpack, this);
+                PlantGame.GameData.getInstance().isRegisterNow = true;
                 GameUtil.GameScene.runscene(new PlantGame.MainGameScene(), GameUtil.GameConfig.TransAlpha);
             }
             else {
                 var tip = new GameUtil.TipsPanel("alertBg_png", data['msg']);
                 this.addChild(tip);
-            }
-        };
-        __egretProto__.sendRedpack = function (data) {
-            if (data['xml']['return_code']['#cdata-section'] != 'FAIL') {
-                console.log("发送红包成功=====", data['xml']);
-            }
-            else {
-                console.log("发送红包失败=====", data['xml']);
             }
         };
         return RegisterPanel;

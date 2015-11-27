@@ -89,6 +89,17 @@ module GameUtil
         {
             this.text.size = size;
         }
+        public setTextHor(anchorX:number,anchorY:number,align:string,offx:number):void
+        {
+            this.text.anchorX = anchorX;
+            this.text.anchorY = anchorY;
+            this.text.textAlign = align;
+            this.text.x = this.mStageW/2 - this.tipbg.width/2 + offx;
+        }
+        public setTextlineSpacing(spacing:number):void
+        {
+            this.text.lineSpacing = spacing;
+        }
 
         /**
          * 显示确认按钮

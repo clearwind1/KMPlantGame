@@ -40,14 +40,17 @@ module PlantGame
             var item: Object;
             if(type == this.KMRS100 || type == this.KMRS50){
                 var fina: string = "￥100";
+                var typenum: number = 0;
                 if(type == this.KMRS50){
                     fina = "￥50";
+                    typenum = 1;
                 }
                 item = {
                     itemtype: 1,
                     financet: fina,
                     itemtext: "康美人生代金券",
-                    haveaddr: true
+                    haveaddr: true,
+                    typenum: typenum
                 }
                 return item;
             }
@@ -56,7 +59,8 @@ module PlantGame
                     itemtype: 2,
                     financet: "￥5",
                     itemtext: "康美之恋代金券",
-                    haveaddr: true
+                    haveaddr: true,
+                    typenum: 2
                 }
                 return item;
             }
@@ -65,7 +69,8 @@ module PlantGame
                     itemtype: 3,
                     financet: "￥10",
                     itemtext: "康美电商代金券",
-                    haveaddr: false
+                    haveaddr: false,
+                    typenum: 3
                 }
                 return item;
             }
@@ -78,7 +83,8 @@ module PlantGame
                     itemtype: 4,
                     financet: tex,
                     itemtext: "人参兑换券",
-                    haveaddr: false
+                    haveaddr: false,
+                    typenum: 4
                 }
                 return item;
             }
@@ -96,6 +102,7 @@ module PlantGame
         public landSeedKind:number[];           //各个土地种子种类
         public haveSeendland:number[];          //各个土地是否有种子
 
+        public playerCardID:string;             //玩家会员id
         public playerNickname:string;           //玩家昵称
         public playerID: number;                //玩家ID
         public playerName:string;               //玩家名字
@@ -115,6 +122,8 @@ module PlantGame
         public isPlantAnimation: boolean = false;
         public isRewardAnimation: boolean = false;
         public isToolPage: boolean = true;
+
+        public isRegisterNow: boolean = false;
 
         public constructor()
         {
@@ -150,6 +159,7 @@ module PlantGame
             var result: any = data['result'];
             console.log("result========",data);
 
+            GameData.getInstance().playerCardID = result['cardid']
             GameData.getInstance().playerID = result['userid'];
             GameData.getInstance().playerName = result['username'];
             if(GameData.getInstance().playerName.length > 5)

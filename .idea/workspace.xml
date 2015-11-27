@@ -21,14 +21,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RegisterPanel.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PlantGame/RegisterPanel.ts">
+      <file leaf-file-name="RewardPanel.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PlantGame/RewardPanel.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="208" column="63" selection-start-line="208" selection-start-column="63" selection-end-line="208" selection-end-column="63" />
+              <caret line="186" column="53" selection-start-line="186" selection-start-column="53" selection-end-line="186" selection-end-column="53" />
               <folding>
                 <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainGameScene.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/PlantGame/MainGameScene.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.664557">
+              <caret line="642" column="83" selection-start-line="642" selection-start-column="83" selection-end-line="642" selection-end-column="83" />
+              <folding>
+                <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/GameUtils/utils.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -37,60 +59,7 @@
         <entry file="file://$PROJECT_DIR$/src/Main.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="80" column="43" selection-start-line="80" selection-start-column="43" selection-end-line="80" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameRankScene.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PlantGame/GameRankScene.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/launcher/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.70394737">
-              <caret line="72" column="25" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
-              <folding>
-                <marker date="1448357335000" expanded="true" signature="647:858" placeholder="..." />
-                <marker date="1448357335000" expanded="true" signature="721:841" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameDescribeScene.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PlantGame/GameDescribeScene.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="47" column="59" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="59" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="resource.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resource/resource.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.083334">
-              <caret line="368" column="33" selection-start-line="368" selection-start-column="16" selection-end-line="368" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StartGameScene.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PlantGame/StartGameScene.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="123" column="42" selection-start-line="123" selection-start-column="42" selection-end-line="123" selection-end-column="42" />
+              <caret line="84" column="63" selection-start-line="84" selection-start-column="63" selection-end-line="84" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -100,7 +69,29 @@
         <entry file="file://$PROJECT_DIR$/src/PlantGame/GameData.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+              <caret line="125" column="46" selection-start-line="125" selection-start-column="46" selection-end-line="125" selection-end-column="46" />
+              <folding>
+                <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StartGameScene.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PlantGame/StartGameScene.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="83" column="40" selection-start-line="83" selection-start-column="40" selection-end-line="83" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RegisterPanel.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PlantGame/RegisterPanel.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="196" column="41" selection-start-line="196" selection-start-column="41" selection-end-line="196" selection-end-column="41" />
               <folding>
                 <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
               </folding>
@@ -130,23 +121,23 @@
         <option value="$PROJECT_DIR$/src/PlantGame/youhuijuanPanel.ts" />
         <option value="$PROJECT_DIR$/src/LoadingUI.ts" />
         <option value="$PROJECT_DIR$/src/GameUtils/Menu.ts" />
-        <option value="$PROJECT_DIR$/src/GameUtils/utils.ts" />
-        <option value="$PROJECT_DIR$/resource/resource.json" />
         <option value="$PROJECT_DIR$/launcher/release.html" />
         <option value="$PROJECT_DIR$/launcher/index.html" />
-        <option value="$PROJECT_DIR$/src/GameUtils/TipsPanel.ts" />
         <option value="$PROJECT_DIR$/src/PlantGame/GinsengBasketPanel.ts" />
         <option value="$PROJECT_DIR$/src/PlantGame/BestginsengTip.ts" />
         <option value="$PROJECT_DIR$/src/PlantGame/GameDescribeScene.ts" />
         <option value="$PROJECT_DIR$/src/GameUtils/GetImageByUrl.ts" />
-        <option value="$PROJECT_DIR$/src/PlantGame/RewardPanel.ts" />
-        <option value="$PROJECT_DIR$/src/PlantGame/MainGameScene.ts" />
         <option value="$PROJECT_DIR$/src/PlantGame/LandPanel.ts" />
+        <option value="$PROJECT_DIR$/resource/resource.json" />
+        <option value="$PROJECT_DIR$/src/GameUtils/TipsPanel.ts" />
+        <option value="$PROJECT_DIR$/src/PlantGame/RewardPanel.ts" />
+        <option value="$PROJECT_DIR$/src/PlantGame/GameRankScene.ts" />
+        <option value="$PROJECT_DIR$/src/GameUtils/utils.ts" />
+        <option value="$PROJECT_DIR$/src/Main.ts" />
         <option value="$PROJECT_DIR$/src/PlantGame/GameData.ts" />
         <option value="$PROJECT_DIR$/src/PlantGame/RegisterPanel.ts" />
         <option value="$PROJECT_DIR$/src/PlantGame/StartGameScene.ts" />
-        <option value="$PROJECT_DIR$/src/Main.ts" />
-        <option value="$PROJECT_DIR$/src/PlantGame/GameRankScene.ts" />
+        <option value="$PROJECT_DIR$/src/PlantGame/MainGameScene.ts" />
       </list>
     </option>
   </component>
@@ -158,7 +149,7 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="194" />
+    <option name="x" value="193" />
     <option name="y" value="23" />
     <option name="width" value="1727" />
     <option name="height" value="983" />
@@ -186,6 +177,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -312,12 +304,11 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DownloadApp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../KMSharePage" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="typescript-compiler-editor-notification" value="false" />
@@ -382,8 +373,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="194" y="23" width="1727" height="983" extended-state="1" />
-    <editor active="false" />
+    <frame x="193" y="23" width="1727" height="983" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25925925" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -677,28 +668,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameUtils/TipsPanel.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="37" selection-start-line="71" selection-start-column="37" selection-end-line="71" selection-end-column="37" />
-          <folding>
-            <element signature="n#!!doc;n#GameUtil#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PlantGame/BestginsengTip.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.962963">
           <caret line="71" column="48" selection-start-line="71" selection-start-column="44" selection-end-line="71" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameUtils/utils.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3322785">
-          <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -710,31 +683,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PlantGame/RewardPanel.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="176" column="17" selection-start-line="176" selection-start-column="17" selection-end-line="176" selection-end-column="17" />
-          <folding>
-            <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PlantGame/LandPanel.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="172" column="58" selection-start-line="172" selection-start-column="58" selection-end-line="172" selection-end-column="58" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PlantGame/MainGameScene.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="493" column="79" selection-start-line="493" selection-start-column="79" selection-end-line="493" selection-end-column="79" />
-          <folding>
-            <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -748,44 +701,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/core/core.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3322785">
-          <caret line="1889" column="77" selection-start-line="1889" selection-start-column="77" selection-end-line="1889" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/typescriptCompiler/external/lib.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8781645">
           <caret line="425" column="4" selection-start-line="425" selection-start-column="4" selection-end-line="425" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PlantGame/GameData.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PlantGame/StartGameScene.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="123" column="42" selection-start-line="123" selection-start-column="42" selection-end-line="123" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resource/resource.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.083334">
-          <caret line="368" column="33" selection-start-line="368" selection-start-column="16" selection-end-line="368" selection-end-column="33" />
           <folding />
         </state>
       </provider>
@@ -798,39 +717,108 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PlantGame/RegisterPanel.ts">
+    <entry file="file://$PROJECT_DIR$/launcher/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="208" column="63" selection-start-line="208" selection-start-column="63" selection-end-line="208" selection-end-column="63" />
-          <folding>
-            <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-21.25">
+          <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.ts">
+    <entry file="file://$PROJECT_DIR$/src/GameUtils/TipsPanel.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="80" column="43" selection-start-line="80" selection-start-column="43" selection-end-line="80" selection-end-column="43" />
-          <folding />
+          <caret line="100" column="44" selection-start-line="100" selection-start-column="44" selection-end-line="100" selection-end-column="44" />
+          <folding>
+            <element signature="n#!!doc;n#GameUtil#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PlantGame/GameRankScene.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/launcher/index.html">
+    <entry file="file://$PROJECT_DIR$/libs/core/core.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70394737">
-          <caret line="72" column="25" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4433" column="28" selection-start-line="4433" selection-start-column="28" selection-end-line="4433" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resource/resource.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="373" column="30" selection-start-line="373" selection-start-column="16" selection-end-line="373" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="84" column="63" selection-start-line="84" selection-start-column="63" selection-end-line="84" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PlantGame/GameData.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="125" column="46" selection-start-line="125" selection-start-column="46" selection-end-line="125" selection-end-column="46" />
           <folding>
-            <marker date="1448357335000" expanded="true" signature="647:858" placeholder="..." />
-            <marker date="1448357335000" expanded="true" signature="721:841" placeholder="{...}" />
+            <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PlantGame/RegisterPanel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="196" column="41" selection-start-line="196" selection-start-column="41" selection-end-line="196" selection-end-column="41" />
+          <folding>
+            <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PlantGame/RewardPanel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="186" column="53" selection-start-line="186" selection-start-column="53" selection-end-line="186" selection-end-column="53" />
+          <folding>
+            <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameUtils/utils.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PlantGame/StartGameScene.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="83" column="40" selection-start-line="83" selection-start-column="40" selection-end-line="83" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PlantGame/MainGameScene.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.664557">
+          <caret line="642" column="83" selection-start-line="642" selection-start-column="83" selection-end-line="642" selection-end-column="83" />
+          <folding>
+            <element signature="n#!!doc;n#PlantGame#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -31,14 +31,17 @@ var PlantGame;
             var item;
             if (type == this.KMRS100 || type == this.KMRS50) {
                 var fina = "￥100";
+                var typenum = 0;
                 if (type == this.KMRS50) {
                     fina = "￥50";
+                    typenum = 1;
                 }
                 item = {
                     itemtype: 1,
                     financet: fina,
                     itemtext: "康美人生代金券",
-                    haveaddr: true
+                    haveaddr: true,
+                    typenum: typenum
                 };
                 return item;
             }
@@ -47,7 +50,8 @@ var PlantGame;
                     itemtype: 2,
                     financet: "￥5",
                     itemtext: "康美之恋代金券",
-                    haveaddr: true
+                    haveaddr: true,
+                    typenum: 2
                 };
                 return item;
             }
@@ -56,7 +60,8 @@ var PlantGame;
                     itemtype: 3,
                     financet: "￥10",
                     itemtext: "康美电商代金券",
-                    haveaddr: false
+                    haveaddr: false,
+                    typenum: 3
                 };
                 return item;
             }
@@ -69,7 +74,8 @@ var PlantGame;
                     itemtype: 4,
                     financet: tex,
                     itemtext: "人参兑换券",
-                    haveaddr: false
+                    haveaddr: false,
+                    typenum: 4
                 };
                 return item;
             }
@@ -92,6 +98,7 @@ var PlantGame;
             this.isPlantAnimation = false;
             this.isRewardAnimation = false;
             this.isToolPage = true;
+            this.isRegisterNow = false;
             this.ginsendNum = [];
             this.landSeedKind = [];
             this.landstate = [];
@@ -117,6 +124,7 @@ var PlantGame;
         __egretProto__.setData = function (data) {
             var result = data['result'];
             console.log("result========", data);
+            GameData.getInstance().playerCardID = result['cardid'];
             GameData.getInstance().playerID = result['userid'];
             GameData.getInstance().playerName = result['username'];
             if (GameData.getInstance().playerName.length > 5) {
