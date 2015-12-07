@@ -1,7 +1,7 @@
 {
 	"groups":[
 	{
-		"keys":"bgImage,egretIcon,beginBtn_png,loadingbar_png,acceptBtn_png,alertBg_png,cancelBtn_png,buttonImg_png,gameDescribe_json,returnbtn_png,describeURL_json,diamod1_png,diamod2_png,diamod3_png,diamod4_png,diamod5_png,diamod0_png,bottomFrame_png,floatFrame_png,ginsengbtn_png,rewardbtn_png,showseedbtn_png,playerImg_png,buttonFrame_png,bestseedbtn_png,seedbtn_png,seedreturnbtn_png,closebtn_png,ItemFrame_png,ginseng_png,rewardItem1_png,rewardItem2_png,rewardItem3_png,bestsengTipFrame_png,morebtn_png,tiplight_png,tipreturnbtn_png,gamebg_jpg,bestginseng_png,rankFrame_png,rankitemFrame_png,start0_png,start1_png,start2_png,rankseng_png,registerFrame_png,dangseng_png,danseng_png,dongyangseng_png,gaoliseng_png,shizhuseng_png,xinkaiheseng_png,endBG_png,diamod1_1_png,Action1_png,Action2_png,Action3_png,Action4_png,Action5_png,seedActionBtn_png,rabtn_png,rabtnu_png,rankFrontitemFrame_png,describFrame_png,sharebg_png,gingsenitemFrame_png,shopbtn_png,shopaddressPN_json,shopaddressSZ_json,tiplight2_png,rewardItem4_png,bgm_mp3,rewardtip_json",
+		"keys":"bgImage,egretIcon,beginBtn_png,loadingbar_png,acceptBtn_png,alertBg_png,cancelBtn_png,buttonImg_png,gameDescribe_json,returnbtn_png,describeURL_json,diamod1_png,diamod2_png,diamod3_png,diamod4_png,diamod5_png,diamod0_png,bottomFrame_png,floatFrame_png,ginsengbtn_png,rewardbtn_png,showseedbtn_png,playerImg_png,buttonFrame_png,bestseedbtn_png,seedbtn_png,seedreturnbtn_png,closebtn_png,ItemFrame_png,ginseng_png,rewardItem1_png,rewardItem2_png,rewardItem3_png,bestsengTipFrame_png,morebtn_png,tiplight_png,tipreturnbtn_png,gamebg_jpg,bestginseng_png,rankFrame_png,rankitemFrame_png,start0_png,start1_png,start2_png,rankseng_png,registerFrame_png,dangseng_png,danseng_png,dongyangseng_png,gaoliseng_png,shizhuseng_png,xinkaiheseng_png,endBG_png,diamod1_1_png,Action1_png,Action2_png,Action3_png,Action4_png,Action5_png,seedActionBtn_png,rabtn_png,rabtnu_png,rankFrontitemFrame_png,describFrame_png,sharebg_png,gingsenitemFrame_png,shopbtn_png,shopaddressPN_json,shopaddressSZ_json,tiplight2_png,rewardItem4_png,bgm_mp3,rewardtip_json,shopaddressBJ_json,shopaddressGZ_json",
 		"name":"preload"
 	}],
 	"resources":[
@@ -374,5 +374,15 @@
 		"name":"rewardtip_json",
 		"type":"json",
 		"url":"assets/rewardtip.json"
+	},
+	{
+		"name":"shopaddressBJ_json",
+		"type":"json",
+		"url":"Users/pior/Documents/egretproject/KMPlantGameFB/resource/assets/shopaddressBJ.json"
+	},
+	{
+		"name":"shopaddressGZ_json",
+		"type":"json",
+		"url":"Users/pior/Documents/egretproject/KMPlantGameFB/resource/assets/shopaddressGZ.json"
 	}]
 }
